@@ -2,13 +2,19 @@ import { headerLogo } from "../../assets/images";
 import { hamburger } from "../../assets/icons";
 import { navLinks } from "../../constants";
 import CommonButton from "../commonButton";
+import CommonIMG from "../commonImg";
 
 function Navbar() {
   return (
     <header className="padding-x py-8 absolute z-10 w-full">
       <nav className="flex justify-between items-center max-container ">
         <a href="/">
-          <img src={headerLogo} alt="Logo" width={130} height={29} />
+          <CommonIMG
+            imgSrc={headerLogo}
+            imgAlt={"Logo"}
+            imgWidth={130}
+            imgHeight={29}
+          />
         </a>
 
         <ul className="flex flex-1 items-center justify-center gap-16 max-lg:hidden ">
@@ -27,13 +33,19 @@ function Navbar() {
         </ul>
 
         <div className="flex justify-between items-center max-lg:hidden">
-          <CommonButton btnText={"Sign in"} />
+          <CommonButton btnText={"Sign in"} className={" "} />
           <p className="mx-2 text-lg">/</p>
-          <CommonButton btnText={" Explore now"} />
+          <CommonButton btnText={" Explore now"} className={" "} />
         </div>
 
         <div className="hidden max-lg:block">
-          <img src={hamburger} alt="Hamburger icon" width={25} height={25} />
+          <CommonIMG
+            imgAlt={"Hamburger icon"}
+            imgHeight={25}
+            imgWidth={25}
+            imgSrc={hamburger}
+            imgClassName={"cursor-pointer"}
+          />
 
           {/* add the links here too */}
         </div>
