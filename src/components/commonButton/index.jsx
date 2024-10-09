@@ -17,13 +17,13 @@ function CommonButton({
       }
     >
       {btnText || "Click Me"}
-      {afterTextImg ? (
+      {afterTextImg && (
         <CommonIMG
           imgSrc={afterTextImg}
           imgAlt={imgAlt || null}
           imgClassName={imgClassName || null}
         />
-      ) : null}
+      )}
     </button>
   );
 }
