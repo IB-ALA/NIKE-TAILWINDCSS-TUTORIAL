@@ -29,7 +29,7 @@ function Footer() {
                 // and use anchor tags instead of the divs
                 <div
                   key={index}
-                  className="flex justify-center items-center w-12 h-12 bg-white rounded-full"
+                  className="flex justify-center items-center w-12 h-12 bg-white rounded-full cursor-pointer"
                 >
                   <CommonIMG
                     imgSrc={icon.src}
@@ -54,7 +54,7 @@ function Footer() {
                   {section?.links?.map((link) => (
                     <li
                       key={link?.name}
-                      className="text-white-400 mt-3 font-montserrat text-base leading-normal hover:text-slate-gray"
+                      className="text-white-400 mt-3 font-montserrat text-base leading-normal hover:text-slate-gray duration-200"
                     >
                       <a href={link?.link}>{link?.name}</a>
                     </li>

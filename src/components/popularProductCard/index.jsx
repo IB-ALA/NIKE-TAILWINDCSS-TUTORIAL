@@ -8,7 +8,13 @@ function PopularProductCard({ imgURL, name, price }) {
 
   return (
     <div className="flex flex-1 flex-col w-full max-sm:w-fit mx-auto">
-      <CommonIMG imgSrc={imgURL} imgAlt={name} imgWidth={280} imgHeight={280} />
+      <CommonIMG
+        imgSrc={imgURL}
+        imgAlt={name}
+        imgWidth={280}
+        imgHeight={280}
+        imgClassName={"cursor-pointer"}
+      />
 
       <div className="mt-8 flex justify-start gap-2.5">
         <CommonIMG

@@ -25,13 +25,7 @@ function SuperQuality() {
         </p>
 
         <div className="mt-11">
-          <CommonButton
-            className={
-              "flex justify-center items-center gap-2 font-montserrat leading-none bg-coral-red px-7 py-4 rounded-full text-white"
-            }
-            btnText={"View details"}
-            handleOnClick={""}
-          />
+          <CommonButton btnText={"View details"} handleOnClick={""} />
         </div>
       </div>
 

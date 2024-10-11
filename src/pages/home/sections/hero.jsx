@@ -30,9 +30,6 @@ function Hero() {
           your active life.
         </p>
         <CommonButton
-          className={
-            "flex justify-center items-center gap-2 font-montserrat leading-none bg-coral-red px-7 py-4 rounded-full text-white"
-          }
           btnText={"Shop now"}
           afterTextImg={arrowRight}
           imgClassName={"ml-2 rounded-full w-5 h-5"}

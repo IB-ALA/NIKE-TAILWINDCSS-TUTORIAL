@@ -35,9 +35,6 @@ function SpecialOffers() {
 
         <div className="mt-11 gap-4 flex flex-wrap">
           <CommonButton
-            className={
-              "flex justify-center items-center gap-2 font-montserrat leading-none bg-coral-red px-7 py-4 rounded-full text-white"
-            }
             btnText={"Shop Now"}
             afterTextImg={arrowRight}
             imgClassName={"ml-2 rounded-full w-5 h-5"}
@@ -46,7 +43,7 @@ function SpecialOffers() {
           />
           <CommonButton
             className={
-              "flex justify-center items-center gap-2 font-montserrat leading-none border-2 border-slate-gray px-7 py-4 rounded-full text-slate-gray"
+              "flex justify-center items-center gap-2 font-montserrat leading-none border-2 border-slate-gray px-7 py-4 rounded-full text-slate-gray hover:scale-105 transition-all duration-500 ease-in-out"
             }
             btnText={"Learn more"}
             handleOnClick={""}

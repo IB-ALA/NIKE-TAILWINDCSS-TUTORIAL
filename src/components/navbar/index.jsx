@@ -33,9 +33,19 @@ function Navbar() {
         </ul>
 
         <div className="flex justify-between items-center max-lg:hidden">
-          <CommonButton btnText={"Sign in"} className={" "} />
-          <p className="mx-2 text-lg">/</p>
-          <CommonButton btnText={" Explore now"} className={" "} />
+          <CommonButton
+            btnText={"Sign in"}
+            className={
+              "font-semibold text-lg hover:transition-all hover:duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red"
+            }
+          />
+          <p className="mx-2 text-2xl text-slate-gray">/</p>
+          <CommonButton
+            btnText={"Explore now"}
+            className={
+              "font-semibold text-lg hover:transition-all hover:duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red"
+            }
+          />
         </div>
 
         <div className="hidden max-lg:block">
