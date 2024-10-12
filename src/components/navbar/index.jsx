@@ -1,8 +1,8 @@
 import { headerLogo } from "../../assets/images";
-import { hamburger } from "../../assets/icons";
 import { navLinks } from "../../constants";
 import CommonButton from "../commonButton";
 import CommonIMG from "../commonImg";
+import DropDownNavbar from "../dropDownNavbar";
 
 function Navbar() {
   return (
@@ -32,7 +32,7 @@ function Navbar() {
             : null}
         </ul>
 
-        <div className="flex justify-between items-center max-lg:hidden">
+        <div className="flex justify-between items-center max-sm:hidden">
           <CommonButton
             btnText={"Sign in"}
             className={
@@ -48,17 +48,7 @@ function Navbar() {
           />
         </div>
 
-        <div className="hidden max-lg:block">
-          <CommonIMG
-            imgAlt={"Hamburger icon"}
-            imgHeight={25}
-            imgWidth={25}
-            imgSrc={hamburger}
-            imgClassName={"cursor-pointer"}
-          />
-
-          {/* add the links here too */}
-        </div>
+        <DropDownNavbar />
       </nav>
     </header>
   );

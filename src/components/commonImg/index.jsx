@@ -1,4 +1,11 @@
-function CommonIMG({ imgSrc, imgAlt, imgClassName, imgWidth, imgHeight }) {
+function CommonIMG({
+  imgSrc,
+  imgAlt,
+  imgClassName,
+  imgWidth,
+  imgHeight,
+  handleOnClick,
+}) {
   return (
     <img
       src={imgSrc}
@@ -6,6 +13,7 @@ function CommonIMG({ imgSrc, imgAlt, imgClassName, imgWidth, imgHeight }) {
       height={imgHeight || ""}
       alt={imgAlt || "Image"}
       className={imgClassName || ""}
+      onClick={handleOnClick || null}
     />
   );
 }
