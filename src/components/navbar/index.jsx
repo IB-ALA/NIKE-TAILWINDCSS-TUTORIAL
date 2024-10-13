@@ -18,18 +18,17 @@ function Navbar() {
         </a>
 
         <ul className="flex flex-1 items-center justify-center gap-16 max-lg:hidden ">
-          {navLinks?.length > 0
-            ? navLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-lg leading-normal font-montserrat text-slate-gray "
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))
-            : null}
+          {navLinks?.length > 0 &&
+            navLinks.map((link) => (
+              <li key={link?.label}>
+                <a
+                  href={link?.href}
+                  className="text-lg leading-normal font-montserrat text-slate-gray "
+                >
+                  {link?.label}
+                </a>
+              </li>
+            ))}
         </ul>
 
         <div className="flex justify-between items-center max-sm:hidden">
@@ -39,7 +38,9 @@ function Navbar() {
               "font-semibold text-lg hover:transition-all hover:duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red"
             }
           />
+
           <p className="mx-2 text-2xl text-slate-gray">/</p>
+
           <CommonButton
             btnText={"Explore now"}
             className={

@@ -45,13 +45,13 @@ function DropDownNavbar() {
         >
           {navLinks?.length > 0 &&
             navLinks.map((link) => (
-              <li key={link.label} className="py-1">
+              <li key={link?.label} className="py-1">
                 <a
                   onClick={toggleDropDown}
-                  href={link.href}
+                  href={link?.href}
                   className="text-lg leading-normal font-montserrat text-slate-gray"
                 >
-                  {link.label}
+                  {link?.label}
                 </a>
               </li>
             ))}
@@ -64,6 +64,7 @@ function DropDownNavbar() {
               "font-semibold mb-2 text-lg hover:transition-all hover:duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red"
             }
           />
+
           <CommonButton
             btnText={"Explore now"}
             className={

@@ -7,9 +7,6 @@ function ShoeCard({ imgURL, changeBigShoeImage, bigShoeImg }) {
     }
   }
 
-  // console.log(imgURL);
-  // console.log(imgURL.bigShoe);
-
   return (
     <div
       className={`border-2 rounded-xl ${

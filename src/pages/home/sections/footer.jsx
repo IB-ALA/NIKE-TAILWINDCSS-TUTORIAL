@@ -28,11 +28,11 @@ function Footer() {
                 <a
                   href={icon?.href}
                   key={index}
-                  className="flex justify-center items-center w-12 h-12 bg-white hover:bg-white-400 rounded-full cursor-pointer"
+                  className="flex justify-center items-center w-12 h-12 bg-white hover:bg-white-400 duration-200 rounded-full cursor-pointer"
                 >
                   <CommonIMG
-                    imgSrc={icon.src}
-                    imgAlt={icon.alt}
+                    imgSrc={icon?.src}
+                    imgAlt={icon?.alt}
                     imgWidth={24}
                     imgHeight={24}
                   />
@@ -44,9 +44,9 @@ function Footer() {
         <div className="flex flex-1 justify-between gap-20 lg:gap-10 flex-wrap">
           {footerLinks?.length > 0 &&
             footerLinks.map((section) => (
-              <div key={section.title}>
+              <div key={section?.title}>
                 <h4 className="text-white font-montserrat text-2xl leading-normal font-medium mb-6">
-                  {section.title}
+                  {section?.title}
                 </h4>
 
                 <ul>

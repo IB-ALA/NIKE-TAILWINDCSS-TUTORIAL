@@ -18,6 +18,7 @@ function Hero() {
         <p className="text-xl font-montserrat text-coral-red">
           Our Summer Collections
         </p>
+
         <h1 className="mt-10 font-palanquin text-8xl max-sm:text-[72px] max-sm:leading-[82px] font-bold">
           <span className="xl:bg-white xl:whitespace-nowrap relative z-10 pr-10">
             The New Arrival
@@ -25,10 +26,12 @@ function Hero() {
           <br />
           <span className="text-coral-red mt-3 inline-block">Nike</span> Shoes
         </h1>
+
         <p className="font-montserrat text-slate-gray text-lg leading-8 mt-6 mb-14 sm:max-w-sm">
           Discover stylish Nike arrivals, quality comfort, and innovation for
           your active life.
         </p>
+
         <CommonButton
           btnText={"Shop now"}
           afterTextImg={arrowRight}
@@ -36,20 +39,20 @@ function Hero() {
           imgAlt={"Arrow right icon"}
           handleOnClick={""}
         />
-        <div className="flex justify-start items-start flex-wrap w-full mt-20 gap-16">
-          {statistics.length > 0
-            ? statistics.map((stat) => (
-                <div key={stat.label} className="">
-                  <p className="text-4xl font-palanquin font-bold">
-                    {stat.value}
-                  </p>
 
-                  <p className="font-montserrat text-slate-gray leading-7">
-                    {stat.label}
-                  </p>
-                </div>
-              ))
-            : null}
+        <div className="flex justify-start items-start flex-wrap w-full mt-20 gap-16">
+          {statistics?.length > 0 &&
+            statistics.map((stat) => (
+              <div key={stat?.label}>
+                <p className="text-4xl font-palanquin font-bold">
+                  {stat?.value}
+                </p>
+
+                <p className="font-montserrat text-slate-gray leading-7">
+                  {stat?.label}
+                </p>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -63,20 +66,19 @@ function Hero() {
         />
 
         <div className="flex sm:gap-6 gap-4 absolute -bottom-[5%] sm:left-[10%] max-sm:px-6">
-          {shoes?.length > 0
-            ? shoes.map((shoe, index) => (
-                <div className="" key={index}>
-                  <ShoeCard
-                    key={shoe}
-                    imgURL={shoe}
-                    changeBigShoeImage={(bigShoeURL) => {
-                      setBigShoeImg(bigShoeURL);
-                    }}
-                    bigShoeImg={bigShoeImg}
-                  />
-                </div>
-              ))
-            : null}
+          {shoes?.length > 0 &&
+            shoes.map((shoe, index) => (
+              <div key={index}>
+                <ShoeCard
+                  key={shoe}
+                  imgURL={shoe}
+                  changeBigShoeImage={(bigShoeURL) => {
+                    setBigShoeImg(bigShoeURL);
+                  }}
+                  bigShoeImg={bigShoeImg}
+                />
+              </div>
+            ))}
         </div>
       </div>
     </section>
