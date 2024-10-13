@@ -25,11 +25,10 @@ function Footer() {
           <div className="flex items-center gap-5 mt-8">
             {socialMedia?.length > 0 &&
               socialMedia.map((icon, index) => (
-                // add the real links to the socialMedia file
-                // and use anchor tags instead of the divs
-                <div
+                <a
+                  href={icon?.href}
                   key={index}
-                  className="flex justify-center items-center w-12 h-12 bg-white rounded-full cursor-pointer"
+                  className="flex justify-center items-center w-12 h-12 bg-white hover:bg-white-400 rounded-full cursor-pointer"
                 >
                   <CommonIMG
                     imgSrc={icon.src}
@@ -37,7 +36,7 @@ function Footer() {
                     imgWidth={24}
                     imgHeight={24}
                   />
-                </div>
+                </a>
               ))}
           </div>
         </div>
