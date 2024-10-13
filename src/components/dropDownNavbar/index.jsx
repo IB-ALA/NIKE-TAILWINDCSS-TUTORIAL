@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { hamburger } from "../../assets/icons";
-import { navLinks } from "../../constants";
 import CommonIMG from "../commonImg";
 import CommonButton from "../commonButton";
+import NavbarLinks from "../navbarLinks";
 
 function DropDownNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,18 +43,7 @@ function DropDownNavbar() {
         <ul
           className={`w-36 max-sm:pt-4 sm:py-4 px-3 flex justify-center items-center flex-col rounded-xl`}
         >
-          {navLinks?.length > 0 &&
-            navLinks.map((link) => (
-              <li key={link?.label} className="py-1">
-                <a
-                  onClick={toggleDropDown}
-                  href={link?.href}
-                  className="text-lg leading-normal font-montserrat text-slate-gray"
-                >
-                  {link?.label}
-                </a>
-              </li>
-            ))}
+          <NavbarLinks liClassName={"py-1"} />
         </ul>
 
         <div className="flex mb-6 flex-col pt-1 border-t border-gray-100 justify-between items-center sm:hidden">

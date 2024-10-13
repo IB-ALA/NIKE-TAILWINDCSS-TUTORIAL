@@ -1,8 +1,8 @@
 import { headerLogo } from "../../assets/images";
-import { navLinks } from "../../constants";
 import CommonButton from "../commonButton";
 import CommonIMG from "../commonImg";
 import DropDownNavbar from "../dropDownNavbar";
+import NavbarLinks from "../navbarLinks";
 
 function Navbar() {
   return (
@@ -18,17 +18,7 @@ function Navbar() {
         </a>
 
         <ul className="flex flex-1 items-center justify-center gap-16 max-lg:hidden ">
-          {navLinks?.length > 0 &&
-            navLinks.map((link) => (
-              <li key={link?.label}>
-                <a
-                  href={link?.href}
-                  className="text-lg leading-normal font-montserrat text-slate-gray "
-                >
-                  {link?.label}
-                </a>
-              </li>
-            ))}
+          <NavbarLinks />
         </ul>
 
         <div className="flex justify-between items-center max-sm:hidden">
