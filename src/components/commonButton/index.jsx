@@ -9,15 +9,17 @@ function CommonButton({
   imgAlt,
   extraClasses,
   type,
+  disabled,
 }) {
   return (
     <button
       onClick={handleOnClick || null}
       className={
         className ||
-        `flex justify-center items-center gap-2 font-montserrat leading-none bg-coral-red px-7 py-4 rounded-full text-white hover:bg-opacity-90 transition-all duration-200 ease-in-out ${extraClasses}`
+        `flex justify-center items-center gap-2 font-montserrat leading-none bg-coral-red px-7 py-4 rounded-full text-white hover:bg-opacity-90 transition-all duration-200 ease-in-out ${extraClasses} disabled:opacity-65 disabled:cursor-not-allowed`
       }
       type={type || "button"}
+      disabled={disabled || false}
     >
       {btnText || "Click Me"}
       {afterTextImg && (
