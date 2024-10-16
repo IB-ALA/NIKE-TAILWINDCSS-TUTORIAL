@@ -17,7 +17,7 @@ function Navbar() {
           />
         </a>
 
-        <ul className="flex flex-1 items-center justify-center gap-16 max-lg:hidden ">
+        <ul className="flex flex-1 items-center justify-center gap-16 max-lg:hidden">
           <NavbarLinks />
         </ul>
 
@@ -25,7 +25,7 @@ function Navbar() {
           <CommonButton
             btnText={"Sign in"}
             className={
-              "font-semibold text-lg hover:transition-all hover:duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red"
+              "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
             }
           />
 
@@ -34,7 +34,7 @@ function Navbar() {
           <CommonButton
             btnText={"Explore now"}
             className={
-              "font-semibold text-lg hover:transition-all hover:duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red"
+              "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
             }
           />
         </div>
