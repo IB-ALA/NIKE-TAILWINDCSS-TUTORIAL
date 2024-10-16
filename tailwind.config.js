@@ -38,4 +38,5 @@ export default {
     },
   },
   plugins: [],
+  darkMode: "class", // add media to it when all is done
 };

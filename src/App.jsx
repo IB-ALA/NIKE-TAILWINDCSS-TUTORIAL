@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import DarkModeToggler from "./components/darkModeToggler";
 import Navbar from "./components/navbar";
 import {
   Hero,
@@ -11,8 +13,15 @@ import {
 } from "./pages/home";
 
 export default function App() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark");
+  }, [darkMode]);
+
   return (
-    <main className="relative">
+    <main className="relative dark:bg-[hsl(0,0%,5%)] text-dark-2">
+      <DarkModeToggler setDarkMode={setDarkMode} darkMode={darkMode} />
       <Navbar />
       <section className="xl:padding-l wide:padding-r padding-b ">
         <Hero />
@@ -29,7 +38,7 @@ export default function App() {
       <section className="padding">
         <SpecialOffers />
       </section>
-      <section className="bg-pale-blue padding">
+      <section className="bg-pale-blue dark:text-black padding">
         <CustomerReviews />
       </section>
       <section className="padding-x sm:py-32 p-16 w-full">
