@@ -40,7 +40,6 @@ function Subscribe() {
           placeholder="subscribe@nike.com"
           className="input"
           required={true}
-          autoFocus={true}
           value={formData.newsletterSubcriber}
           setFormData={setFormData}
         />
