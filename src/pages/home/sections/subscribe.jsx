@@ -5,11 +5,34 @@ import CommonInput from "../../../components/commonInput";
 function Subscribe() {
   const [isValid, setIsValid] = useState(false);
   const [formData, setFormData] = useState({ newsletterSubcriber: "" });
+  const [buttonTitle, setButtonTitle] = useState("Subscribe");
 
   useEffect(() => {
-    formData.newsletterSubcriber === "" ? setIsValid(false) : setIsValid(true);
-    // add regex match too
+    checkEmail(
+      formData.newsletterSubcriber,
+      setIsValid,
+      "Subscribe",
+      setButtonTitle
+    );
   }, [formData]);
+
+  function checkEmail(emailToBeChecked, setValidity, initialMsg, setErrorMsg) {
+    let errorMessage;
+    const emailRegex = /^([a-z\d\.-]+)@([a-z\d-]+\.)([a-z]{2,3})?$/;
+
+    if (!emailToBeChecked.match(emailRegex)) {
+      setValidity(false);
+      if (emailToBeChecked !== "") {
+        errorMessage = "Please enter a valid email address";
+      } else {
+        errorMessage = "Please enter an email";
+      }
+      setErrorMsg(errorMessage);
+    } else {
+      setValidity(true);
+      setErrorMsg(initialMsg);
+    }
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -50,6 +73,7 @@ function Subscribe() {
             btnText={"Sign Up"}
             extraClasses={"w-full"}
             disabled={!isValid}
+            btnTitle={buttonTitle}
           />
         </div>
       </form>

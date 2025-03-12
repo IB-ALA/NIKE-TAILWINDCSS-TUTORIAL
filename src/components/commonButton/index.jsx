@@ -10,6 +10,7 @@ function CommonButton({
   extraClasses,
   type,
   disabled,
+  btnTitle,
 }) {
   return (
     <button
@@ -20,6 +21,7 @@ function CommonButton({
       }
       type={type || "button"}
       disabled={disabled || false}
+      title={btnTitle || null}
     >
       {btnText || "Click Me"}
       {afterTextImg && (
