@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { headerLogo } from "../../assets/images";
 import CommonButton from "../commonButton";
 import CommonIMG from "../commonImg";
@@ -5,6 +6,7 @@ import DropDownNavbar from "../dropDownNavbar";
 import NavbarLinks from "../navbarLinks";
 
 function Navbar() {
+  const navigate = useNavigate();
   return (
     <header className="padding-x py-8 absolute z-10 w-full">
       <nav className="flex justify-between items-center max-container ">
@@ -27,6 +29,7 @@ function Navbar() {
             className={
               "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
             }
+            handleOnClick={() => navigate("/signin")}
           />
 
           <p className="mx-2 text-2xl text-slate-gray">/</p>
