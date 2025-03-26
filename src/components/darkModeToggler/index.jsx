@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { star } from "../../assets/icons";
 import CommonIMG from "../commonImg";
+import { GlobalContext } from "../../context";
 
-function DarkModeToggler({ setDarkMode, darkMode }) {
+function DarkModeToggler() {
   // get a better theme toggler
+  const { darkMode, setDarkMode } = useContext(GlobalContext);
 
   return (
     <button
