@@ -4,13 +4,17 @@ import CommonButton from "../commonButton";
 import CommonIMG from "../commonImg";
 import DropDownNavbar from "../dropDownNavbar";
 import NavbarLinks from "../navbarLinks";
+import { useContext } from "react";
+import { GlobalContext } from "../../context";
 
 function Navbar() {
   const navigate = useNavigate();
+  const { currentPage } = useContext(GlobalContext);
+
   return (
-    <header className="padding-x py-8 absolute z-10 w-full">
+    <header className="padding-x py-8 absolute z-10 w-full border-coral-red border">
       <nav className="flex justify-between items-center max-container ">
-        <a href="/">
+        <a href="/home">
           <CommonIMG
             imgSrc={headerLogo}
             imgAlt={"Logo"}
@@ -23,24 +27,28 @@ function Navbar() {
           <NavbarLinks />
         </ul>
 
-        <div className="flex justify-between items-center max-sm:hidden">
-          <CommonButton
-            btnText={"Sign in"}
-            className={
-              "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
-            }
-            handleOnClick={() => navigate("/signin")}
-          />
+        {currentPage === "home" ? (
+          <div className="flex justify-between items-center max-sm:hidden">
+            <CommonButton
+              btnText={"Sign in"}
+              className={
+                "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
+              }
+              handleOnClick={() => navigate("/signin")}
+            />
 
-          <p className="mx-2 text-2xl text-slate-gray">/</p>
+            <p className="mx-2 text-2xl text-slate-gray">/</p>
 
-          <CommonButton
-            btnText={"Explore now"}
-            className={
-              "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
-            }
-          />
-        </div>
+            <CommonButton
+              btnText={"Explore now"}
+              className={
+                "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
+              }
+            />
+          </div>
+        ) : (
+          ""
+        )}
 
         <DropDownNavbar />
       </nav>

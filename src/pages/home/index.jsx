@@ -16,8 +16,8 @@ function HomePage() {
 
   return (
     <main className="relative dark:bg-[hsl(0,0%,5%)] text-dark-2">
-      <DarkModeToggler />
-      <Navbar />
+      {/* <DarkModeToggler /> */}
+      {/* <Navbar /> */}
       <section className="xl:padding-l wide:padding-r padding-b ">
         <Hero />
       </section>

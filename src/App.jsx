@@ -1,11 +1,18 @@
 import { useRoutes } from "react-router-dom";
 import HomePage from "./pages/home";
 import LoginPage from "./pages/login";
+import Layout from "./pages/layout";
 
 function AppRoutes() {
   const element = useRoutes([
-    { path: "/", element: <HomePage /> },
-    { path: "/signin", element: <LoginPage /> },
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { path: "home", element: <HomePage /> },
+        { path: "signin", element: <LoginPage /> },
+      ],
+    },
   ]);
 
   return element;
