@@ -1,14 +1,21 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import CommonButton from "../../../components/commonButton";
 import CommonInput from "../../../components/commonInput";
 import { GlobalContext } from "../../../context";
+import { isFormValid } from "../../../shared";
 
 function LoginForm() {
   const { loginFormData, setLoginFormData, handleLogin } =
     useContext(GlobalContext);
+  const [formValidity, setFormValidity] = useState(true);
+
+  useEffect(() => {
+    setFormValidity(!isFormValid(loginFormData).valid);
+  }, [loginFormData]);
+
   return (
     <section className="flex justify-center">
-      <form className="w-96">
+      <form onSubmit={(e) => e.preventDefault()} className="w-96">
         <CommonInput
           autoFocus={true}
           placeholder={"Enter email"}
@@ -44,6 +51,7 @@ function LoginForm() {
           type={"submit"}
           extraClasses={"w-full mt-3"}
           handleOnClick={() => handleLogin()}
+          disabled={formValidity}
         />
       </form>
     </section>
