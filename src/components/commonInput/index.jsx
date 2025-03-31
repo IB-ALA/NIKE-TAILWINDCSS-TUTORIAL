@@ -7,6 +7,7 @@ function CommonInput({
   required,
   autoFocus,
   value,
+  formData,
   setFormData,
 }) {
   return (
@@ -19,7 +20,9 @@ function CommonInput({
       required={required || false}
       autoFocus={autoFocus || false}
       value={value || ""}
-      onChange={(e) => setFormData({ [e.target.name]: e.target.value })}
+      onChange={(e) =>
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+      }
     />
   );
 }
