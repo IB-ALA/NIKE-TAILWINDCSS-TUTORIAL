@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-// import { isFormValid } from "../shared";
 
 export const GlobalContext = createContext(null);
 
@@ -10,6 +9,13 @@ export default function GlobalState({ children }) {
   const [currentPage, setCurrentPage] = useState(pathname.slice(1));
   const initialLoginFormData = { email: "", password: "" };
   const [loginFormData, setLoginFormData] = useState(initialLoginFormData);
+  const initialSignupFormData = {
+    name: "",
+    email: "",
+    password: "",
+    reEnteredPassword: "",
+  };
+  const [signupFormData, setSignupFormData] = useState(initialSignupFormData);
 
   useEffect(() => {
     setCurrentPage(pathname.slice(1));
@@ -27,8 +33,11 @@ export default function GlobalState({ children }) {
     console.log({ loginFormData });
     setLoginFormData(initialLoginFormData);
   }
-
-  // console.log(isFormValid(loginFormData));
+  function handleSignup() {
+    // api call and auth
+    console.log({ signupFormData });
+    setSignupFormData(initialSignupFormData);
+  }
 
   return (
     <GlobalContext.Provider
@@ -40,6 +49,9 @@ export default function GlobalState({ children }) {
         loginFormData,
         setLoginFormData,
         handleLogin,
+        signupFormData,
+        setSignupFormData,
+        handleSignup,
       }}
     >
       {children}
