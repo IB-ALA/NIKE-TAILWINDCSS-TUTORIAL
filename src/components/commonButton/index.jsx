@@ -5,6 +5,7 @@ function CommonButton({
   btnText,
   handleOnClick,
   afterTextImg,
+  beforeTextImg,
   imgClassName,
   imgAlt,
   extraClasses,
@@ -23,6 +24,13 @@ function CommonButton({
       disabled={disabled || false}
       title={btnTitle || null}
     >
+      {beforeTextImg && (
+        <CommonIMG
+          imgSrc={afterTextImg}
+          imgAlt={imgAlt || null}
+          imgClassName={imgClassName || null}
+        />
+      )}
       {btnText || "Click Me"}
       {afterTextImg && (
         <CommonIMG
