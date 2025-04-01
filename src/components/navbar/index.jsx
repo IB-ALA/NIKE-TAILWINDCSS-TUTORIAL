@@ -28,32 +28,38 @@ function Navbar() {
         </ul>
 
         {currentPage === "home" ? (
-          <div className="flex justify-between items-center max-sm:hidden">
-            <CommonButton
-              btnText={"Sign in"}
-              className={
-                "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
-              }
-              handleOnClick={() => navigate("/signin")}
-            />
+          <>
+            <div className="flex justify-between items-center max-sm:hidden">
+              <CommonButton
+                btnText={"Sign in"}
+                className={
+                  "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
+                }
+                handleOnClick={() => navigate("/signin")}
+              />
 
-            <p className="mx-2 text-2xl text-slate-gray">/</p>
+              <p className="mx-2 text-2xl text-slate-gray">/</p>
 
-            <CommonButton
-              btnText={"Explore now"}
-              className={
-                "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
-              }
-            />
-          </div>
+              <CommonButton
+                btnText={"Explore now"}
+                className={
+                  "font-semibold text-lg transition-all duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red dark:hover:text-coral-red xl:text-black max-xl:text-dark-2"
+                }
+                handleOnClick={() => navigate("/products")}
+              />
+            </div>
+            <DropDownNavbar />
+          </>
+        ) : currentPage === "products" ? (
+          "CART"
         ) : (
           ""
         )}
-
-        <DropDownNavbar />
       </nav>
     </header>
   );
 }
 
 export default Navbar;
+
+// Exchange the "CART" with an appropraite componoent. Check design.
