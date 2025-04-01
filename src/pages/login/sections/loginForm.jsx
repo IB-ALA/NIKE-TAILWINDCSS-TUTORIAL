@@ -3,6 +3,7 @@ import CommonButton from "../../../components/commonButton";
 import CommonInput from "../../../components/commonInput";
 import { GlobalContext } from "../../../context";
 import { isFormValid } from "../../../shared";
+import { Link } from "react-router-dom";
 
 function LoginForm() {
   const { loginFormData, setLoginFormData, handleLogin } =
@@ -14,8 +15,11 @@ function LoginForm() {
   }, [loginFormData]);
 
   return (
-    <section className="flex justify-center">
-      <form onSubmit={(e) => e.preventDefault()} className="w-96">
+    <section>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="w-96 flex items-center flex-col mx-auto"
+      >
         <CommonInput
           autoFocus={true}
           placeholder={"Enter email"}
@@ -25,7 +29,7 @@ function LoginForm() {
           id={"email"}
           required={true}
           className={
-            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md"
+            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={loginFormData.email}
           formData={loginFormData}
@@ -39,12 +43,25 @@ function LoginForm() {
           id={"password"}
           required={true}
           className={
-            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md"
+            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={loginFormData.password}
           formData={loginFormData}
           setFormData={setLoginFormData}
         />
+
+        {!isFormValid(loginFormData).props.includes("email") && (
+          <Link
+            to={{
+              pathname: "/forgotpassword",
+              search: `?email=${loginFormData.email}`,
+              // hash: "#hash",
+            }}
+            className="font-montserrat mb-2 underline underline-offset-2 text-coral-red dark:text-[hsl(6,100%,70%)] hover:text-[hsl(6,100%,50%)] hover:dark:text-[hsl(6,100%,66%)] transition-colors"
+          >
+            Forgot password
+          </Link>
+        )}
 
         <CommonButton
           btnText={"Login"}

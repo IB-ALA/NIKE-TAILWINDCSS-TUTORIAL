@@ -8,11 +8,9 @@ function AppRoutes() {
     {
       path: "/",
       element: <Layout />,
-      children: [
-        { path: "home", element: <HomePage /> },
-        { path: "signin", element: <LoginPage /> },
-      ],
+      children: [{ path: "home", element: <HomePage /> }],
     },
+    { path: "/signin", element: <LoginPage /> },
   ]);
 
   return element;
