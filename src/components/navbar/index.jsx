@@ -6,6 +6,7 @@ import DropDownNavbar from "../dropDownNavbar";
 import NavbarLinks from "../navbarLinks";
 import { useContext } from "react";
 import { GlobalContext } from "../../context";
+import ProductPageNavs from "../productPageNavs";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function Navbar() {
             <DropDownNavbar />
           </>
         ) : currentPage === "products" ? (
-          "CART"
+          <ProductPageNavs />
         ) : (
           ""
         )}

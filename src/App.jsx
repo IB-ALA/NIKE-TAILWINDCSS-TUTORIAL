@@ -2,7 +2,7 @@ import { useRoutes } from "react-router-dom";
 import HomePage from "./pages/home";
 import LoginPage from "./pages/login";
 import Layout from "./pages/layout";
-import ProductsPage from "./pages/products";
+import ProductListPage from "./pages/products/product_list";
 
 function AppRoutes() {
   const element = useRoutes([
@@ -11,7 +11,7 @@ function AppRoutes() {
       element: <Layout />,
       children: [
         { path: "home", element: <HomePage /> },
-        { path: "products", element: <ProductsPage /> },
+        { path: "products", element: <ProductListPage /> },
       ],
     },
     { path: "/signin", element: <LoginPage /> },
