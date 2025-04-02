@@ -1,50 +1,38 @@
-import { useState } from "react";
 import CommonButton from "../commonButton";
 import CommonIMG from "../commonImg";
-import CommonInput from "../commonInput";
 import { useRef } from "react";
-import { useEffect } from "react";
 
 function ProductItem({ img, name, price, id, sizes }) {
-  // const [quantity, setQuantity] = useState(0);
   const itemSize = useRef();
   const itemQuantity = useRef();
 
-  // useEffect(() => {
-  //   console.log(itemSize.current.value);
-  // }, []);
-
   return (
-    <div className="border border-slate-400 flex flex-col items-center p-3">
+    <div className="rounded-[20px] shadow-xl bg-dark-1 dark:shadow-[#31313164] flex flex-col items-center p-3 font-montserrat">
       <div className="">
         <CommonIMG
           imgSrc={img}
           imgHeight={200}
           imgWidth={200}
-          imgClassName={"border mt-5 "}
+          imgClassName={"my-6"}
         />
       </div>
 
-      <p className="info-text border mt-2">{name}</p>
+      <p className="text-lg mt-2 text-coral-red">{name}</p>
 
-      <p className="info-text border mt-2">₵{price}</p>
-
-      <div className="flex flex-row border justify-between w-full mt-3">
-        <div className="flex border min-w-28 justify-between ">
-          <div className="flex flex-col">
-            <label htmlFor="" className="">
-              Sizes
+      <p className="text-lg mt-2 text-coral-red">₵{price}</p>
+      {/* max-w-96 mx-auto */}
+      <div className="flex justify-between w-full mt-3 flex-wrap">
+        <div className="flex min-w-28 max-w-44 justify-between mx-auto my-2">
+          <div className="flex flex-col mr-2">
+            <label htmlFor="size" className="text-[14px] text-slate-500">
+              Size
             </label>
-            {/* <CommonInput className={""} /> */}
+
             <select
               name="size"
               id=""
-              className="max-w-12 min-w-8 w-12 border"
+              className="max-w-12 min-w-8 w-full border rounded-sm outline-blue-500 bg-transparent dark:border-gray-800 text-gray-500"
               ref={itemSize}
-              // onChange={(e) => {
-              //   console.log(quantity);
-              //   setQuantity(e.target.value);
-              // }}
             >
               {sizes.map((size) => (
                 <option value={size} key={size}>
@@ -54,22 +42,14 @@ function ProductItem({ img, name, price, id, sizes }) {
             </select>
           </div>
 
-          <div className="flex flex-col">
-            <label htmlFor="" className="">
+          <div className="flex flex-col items-center">
+            <label htmlFor="" className="text-[14px] text-slate-500">
               Quantity
             </label>
-            {/* <CommonInput
-              type={"number"}
-              id={"quantity"}
-              name={"quantity"}
-              // value={quantity}
-              defaultValue={1}
-              setFormData={setQuantity}
-              className={"max-w-12 min-w-8 w-10 border "}
-            /> */}
+
             <input
               type="number"
-              className="max-w-12 min-w-8 w-10 border"
+              className="max-w-12 min-w-8 w-full border rounded-sm outline-blue-500 bg-transparent dark:border-gray-800 pl-1 text-gray-500"
               step="1"
               min="1"
               max="9"
@@ -79,11 +59,11 @@ function ProductItem({ img, name, price, id, sizes }) {
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center mx-auto px-1">
           <CommonButton
             btnText={"Add To Cart"}
             className={
-              "text-white font-montserrat font-bold bg-coral-red p-3 rounded-lg"
+              "text-white font-bold bg-coral-red w-full px-3 py-2 rounded-lg flex-shrink-0 standard-btn-hover"
             }
             handleOnClick={() => {
               const item = {

@@ -75,4 +75,8 @@
   .bg-dark-3 {
     @apply dark:bg-[hsl(0,0%,10%)];
   }
+
+  .standard-btn-hover {
+    @apply hover:bg-opacity-90 transition-all duration-200 ease-in-out;
+  }
 }
