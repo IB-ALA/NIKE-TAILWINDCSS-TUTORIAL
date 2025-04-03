@@ -26,7 +26,7 @@ function CommonButton({
     >
       {beforeTextImg && (
         <CommonIMG
-          imgSrc={afterTextImg}
+          imgSrc={beforeTextImg}
           imgAlt={imgAlt || null}
           imgClassName={imgClassName || null}
         />

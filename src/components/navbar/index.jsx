@@ -15,8 +15,10 @@ function Navbar() {
   return (
     <header
       className={`padding-x py-8 z-10 w-full bg-white dark:bg-[hsl(0,0%,5%)] ${
-        currentPage === "products" ? "fixed top-0 left-0 right-0" : "absolute"
-      } ${window.screenY > 0 && "shadow-md dark:shadow-[#24232364]"}`}
+        currentPage === "products" && window.screenY > 0
+          ? "fixed top-0 left-0 right-0 shadow-md dark:shadow-[#24232364]"
+          : "absolute"
+      }`}
     >
       <nav className="flex justify-between items-center max-container ">
         <a href="/home">

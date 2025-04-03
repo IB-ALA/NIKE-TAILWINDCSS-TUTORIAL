@@ -7,8 +7,11 @@ function ProductPageNavs() {
   // check the user.. if available, show the account icon
   const navigate = useNavigate();
   return (
-    <div className="flex" onClick={() => navigate("/cart")}>
-      <div className="relative cursor-pointer">
+    <div className="flex">
+      <div
+        className="relative cursor-pointer"
+        onClick={() => navigate("/cart")}
+      >
         <CommonButton
           btnText={
             <svg

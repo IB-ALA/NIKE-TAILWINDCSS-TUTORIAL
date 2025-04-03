@@ -10,6 +10,7 @@ function ProductListPage() {
       </section>
 
       <section className="padding-x py-7">
+        {/* we will need the loading feature here */}
         <ProductList />
       </section>
     </main>
