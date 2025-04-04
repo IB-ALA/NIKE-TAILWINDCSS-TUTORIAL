@@ -1,17 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CommonButton from "../../../components/commonButton";
 import CommonInput from "../../../components/commonInput";
-import { GlobalContext } from "../../../context";
 import { isFormValid } from "../../../shared";
+import { useForm } from "../../../hooks/useForm";
 
 function SignupForm() {
-  const { signupFormData, setSignupFormData, handleSignup } =
-    useContext(GlobalContext);
+  const { signupFormData, setSignupFormData, handleSignup } = useForm();
   const [formValidity, setFormValidity] = useState(true);
 
   useEffect(() => {
-    setFormValidity(!isFormValid(signupFormData).valid);
-    // console.log(formValidity);
+    setFormValidity(!isFormValid(signupFormData)?.valid);
   }, [signupFormData]);
 
   return (
@@ -28,7 +26,7 @@ function SignupForm() {
           className={
             "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
-          value={signupFormData.name}
+          value={signupFormData?.name}
           formData={signupFormData}
           setFormData={setSignupFormData}
         />
@@ -42,7 +40,7 @@ function SignupForm() {
           className={
             "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
-          value={signupFormData.email}
+          value={signupFormData?.email}
           formData={signupFormData}
           setFormData={setSignupFormData}
         />
@@ -56,7 +54,7 @@ function SignupForm() {
           className={
             "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
-          value={signupFormData.password}
+          value={signupFormData?.password}
           formData={signupFormData}
           setFormData={setSignupFormData}
         />
@@ -70,7 +68,7 @@ function SignupForm() {
           className={
             "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
-          value={signupFormData.reEnteredPassword}
+          value={signupFormData?.reEnteredPassword}
           formData={signupFormData}
           setFormData={setSignupFormData}
         />

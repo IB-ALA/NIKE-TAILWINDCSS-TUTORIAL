@@ -1,12 +1,11 @@
-import { useContext, useRef } from "react";
+import { useRef } from "react";
 import CommonButton from "../commonButton";
-import { GlobalContext } from "../../context";
+import { useCart } from "../../hooks/useCart";
 
 function ProductItemControls({ sizes, id }) {
   const itemSize = useRef();
   const itemQuantity = useRef();
-
-  const { handleAddToCart } = useContext(GlobalContext);
+  const { handleAddToCart } = useCart();
 
   return (
     <div

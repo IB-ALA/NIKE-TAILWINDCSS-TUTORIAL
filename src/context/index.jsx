@@ -43,38 +43,9 @@ export default function GlobalState({ children }) {
     console.log(cartItems);
   }, [cartItems]);
 
-  function handleLogin() {
-    // api call and auth
-    console.log({ loginFormData });
-    setLoginFormData(initialLoginFormData);
-  }
-  function handleSignup() {
-    // api call and auth
-    console.log({ signupFormData });
-    setSignupFormData(initialSignupFormData);
-  }
-
-  function handleWishlistActions(id) {
-    let copiedWishlist = [...wishList];
-
-    const inList = copiedWishlist.includes(id);
-
-    if (inList) {
-      copiedWishlist = copiedWishlist.filter(
-        (wishlistItemID) => wishlistItemID !== id
-      );
-    } else {
-      copiedWishlist.push(id);
-    }
-    setWishList(copiedWishlist);
-  }
-
-  function handleAddToCart({ id, quantity, size }) {
-    let copiedCartItems = [...cartItems];
-    copiedCartItems.push({ id, quantity, size });
-    // save it
-    setCartItems(copiedCartItems);
-  }
+  // sent handleAddToCart fnx into useCart hook
+  // sent handleAddRemoveWishItem fnx into useWishList hook
+  // sent handleLogin and handleSignup fnx sinto useForm hook
 
   return (
     <GlobalContext.Provider
@@ -86,15 +57,13 @@ export default function GlobalState({ children }) {
         initialLoginFormData,
         loginFormData,
         setLoginFormData,
-        handleLogin,
+        initialSignupFormData,
         signupFormData,
         setSignupFormData,
-        handleSignup,
         wishList,
         setWishList,
-        handleWishlistActions,
         cartItems,
-        handleAddToCart,
+        setCartItems,
       }}
     >
       {children}

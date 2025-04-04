@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import CommonButton from "../commonButton";
-import { GlobalContext } from "../../context";
+import { useWishList } from "../../hooks/useWishlist";
 
 function WishlistIcon({ id }) {
-  const { wishList, handleWishlistActions } = useContext(GlobalContext);
+  const { wishList, handleAddRemoveWishItem } = useWishList();
 
   const inWishlist = wishList?.includes(id);
 
@@ -29,7 +28,7 @@ function WishlistIcon({ id }) {
         className={"bg-transparent"}
         btnTitle={inWishlist ? "Added to Wishlist" : "Add to Wishlist"}
         handleOnClick={() => {
-          handleWishlistActions(id);
+          handleAddRemoveWishItem(id);
         }}
       />
     </div>
