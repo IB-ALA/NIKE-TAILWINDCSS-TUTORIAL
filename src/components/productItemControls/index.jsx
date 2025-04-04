@@ -1,9 +1,13 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import CommonButton from "../commonButton";
+import { GlobalContext } from "../../context";
 
 function ProductItemControls({ sizes, id }) {
   const itemSize = useRef();
   const itemQuantity = useRef();
+
+  const { handleAddToCart } = useContext(GlobalContext);
+
   return (
     <div
       onClick={(e) => {
@@ -23,7 +27,7 @@ function ProductItemControls({ sizes, id }) {
             className="max-w-12 min-w-8 w-full border rounded-sm outline-blue-500 bg-transparent dark:border-gray-800 text-gray-500"
             ref={itemSize}
           >
-            {sizes.map((size) => (
+            {sizes?.map((size) => (
               <option value={size} key={size}>
                 {size}
               </option>
@@ -57,10 +61,11 @@ function ProductItemControls({ sizes, id }) {
           handleOnClick={() => {
             const item = {
               id,
-              quantity: itemQuantity.current.value,
-              size: itemSize.current.value,
+              quantity: Number(itemQuantity?.current?.value),
+              size: itemSize?.current?.value,
             };
-            console.log(item);
+
+            handleAddToCart(item);
           }}
           btnTitle={"Add to cart"}
         />

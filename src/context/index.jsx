@@ -16,8 +16,12 @@ export default function GlobalState({ children }) {
     reEnteredPassword: "",
   };
   const [signupFormData, setSignupFormData] = useState(initialSignupFormData);
-  const [wishList, setWishList] = useState(["#54376", "#54", "#576"]);
   const [registeredUser, setRegisteredUser] = useState(null);
+
+  const [wishList, setWishList] = useState(["#54376", "#54", "#576"]);
+  const [cartItems, setCartItems] = useState([
+    { id: "#54376", quantity: 2, size: "23" },
+  ]);
 
   // check the user.. if available, show the account icon
   useEffect(() => {
@@ -34,6 +38,10 @@ export default function GlobalState({ children }) {
       : document.documentElement.classList.remove("dark");
     // document.documentElement.classList.toggle("dark");
   }, [darkMode]);
+
+  useEffect(() => {
+    console.log(cartItems);
+  }, [cartItems]);
 
   function handleLogin() {
     // api call and auth
@@ -61,6 +69,13 @@ export default function GlobalState({ children }) {
     setWishList(copiedWishlist);
   }
 
+  function handleAddToCart({ id, quantity, size }) {
+    let copiedCartItems = [...cartItems];
+    copiedCartItems.push({ id, quantity, size });
+    // save it
+    setCartItems(copiedCartItems);
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -78,6 +93,8 @@ export default function GlobalState({ children }) {
         wishList,
         setWishList,
         handleWishlistActions,
+        cartItems,
+        handleAddToCart,
       }}
     >
       {children}

@@ -7,10 +7,10 @@ import { useContext } from "react";
 import { GlobalContext } from "../../context";
 
 function ProductItem({ img, name, price, id, sizes }) {
-  const inCart = id === "#54376";
-  // use a better (complete) check..
+  const { registeredUser, cartItems } = useContext(GlobalContext);
 
-  const { registeredUser } = useContext(GlobalContext);
+  let inCart = cartItems?.findIndex((cartItem) => cartItem.id === id) > -1;
+  // use a better (complete) check..
 
   const navigate = useNavigate();
   return (
