@@ -5,7 +5,12 @@ function ProductItemControls({ sizes, id }) {
   const itemSize = useRef();
   const itemQuantity = useRef();
   return (
-    <div className="flex justify-between w-full mt-3 flex-wrap">
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+      className="flex justify-between w-full mt-3 flex-wrap"
+    >
       <div className="flex min-w-28 max-w-44 justify-between mx-auto my-2">
         <div className="flex flex-col mr-2">
           <label htmlFor="size" className="text-[14px] text-slate-500">

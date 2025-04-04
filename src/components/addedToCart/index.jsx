@@ -4,7 +4,12 @@ import CommonButton from "../commonButton";
 function AddedToCart() {
   const navigate = useNavigate();
   return (
-    <div className="font-montserrat w-full mt-5">
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+      className="font-montserrat w-full mt-5"
+    >
       <CommonButton
         btnText={
           <span className="flex gap-2 items-center text-xl font-mono uppercase mx-auto">

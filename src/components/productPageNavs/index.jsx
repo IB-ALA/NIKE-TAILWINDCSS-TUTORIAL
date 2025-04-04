@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import CommonButton from "../commonButton";
+import { useContext } from "react";
+import { GlobalContext } from "../../context";
 
 function ProductPageNavs() {
-  let currentUser = false;
-  // let currentUser = true;
-  // check the user.. if available, show the account icon
+  const { registeredUser } = useContext(GlobalContext);
+
   const navigate = useNavigate();
   return (
     <div className="flex">
@@ -31,7 +32,7 @@ function ProductPageNavs() {
         </p>
       </div>
 
-      {currentUser && (
+      {registeredUser && (
         <div className="ml-3">
           <CommonButton
             btnText={"B"}
