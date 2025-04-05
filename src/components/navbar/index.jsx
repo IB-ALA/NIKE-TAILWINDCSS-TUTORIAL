@@ -17,7 +17,6 @@ function Navbar() {
   function toggleIsScrolling() {
     window.addEventListener("scroll", () => {
       window.scrollY > 0 ? setIsScrollingY(true) : setIsScrollingY(false);
-      console.log(window.scrollY);
     });
   }
 

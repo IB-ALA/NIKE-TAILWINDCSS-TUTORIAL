@@ -18,9 +18,9 @@ export default function GlobalState({ children }) {
   const [signupFormData, setSignupFormData] = useState(initialSignupFormData);
   const [registeredUser, setRegisteredUser] = useState(null);
 
-  const [wishList, setWishList] = useState(["#54376", "#54", "#576"]);
+  const [wishList, setWishList] = useState(["54376", "54", "576"]);
   const [cartItems, setCartItems] = useState([
-    { id: "#54376", quantity: 2, size: "23" },
+    { id: "54376", quantity: 2, size: "23" },
   ]);
 
   // check the user.. if available, show the account icon

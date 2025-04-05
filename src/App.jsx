@@ -3,6 +3,7 @@ import HomePage from "./pages/home";
 import LoginPage from "./pages/login";
 import Layout from "./pages/layout";
 import ProductListPage from "./pages/products/product_list";
+import ProductDetailsPage from "./pages/products/product_details";
 
 function AppRoutes() {
   const element = useRoutes([
@@ -15,6 +16,7 @@ function AppRoutes() {
       ],
     },
     { path: "/signin", element: <LoginPage /> },
+    { path: "/productdetails", element: <ProductDetailsPage /> },
   ]);
 
   return element;
