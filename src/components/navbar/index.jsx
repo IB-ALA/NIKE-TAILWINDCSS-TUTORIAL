@@ -4,18 +4,27 @@ import CommonButton from "../commonButton";
 import CommonIMG from "../commonImg";
 import DropDownNavbar from "../dropDownNavbar";
 import NavbarLinks from "../navbarLinks";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GlobalContext } from "../../context";
 import ProductPageNavs from "../productPageNavs";
 
 function Navbar() {
+  const [isScrollingY, setIsScrollingY] = useState(false);
   const navigate = useNavigate();
   const { currentPage } = useContext(GlobalContext);
+
+  currentPage === "products" && toggleIsScrolling();
+  function toggleIsScrolling() {
+    window.addEventListener("scroll", () => {
+      window.scrollY > 0 ? setIsScrollingY(true) : setIsScrollingY(false);
+      console.log(window.scrollY);
+    });
+  }
 
   return (
     <header
       className={`padding-x py-8 z-10 w-full bg-white dark:bg-[hsl(0,0%,5%)] ${
-        currentPage === "products" && window.screenY > 0
+        currentPage === "products" && isScrollingY
           ? "fixed top-0 left-0 right-0 shadow-md dark:shadow-[#24232364]"
           : "absolute"
       }`}
