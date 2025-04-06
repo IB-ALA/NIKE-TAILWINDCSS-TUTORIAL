@@ -27,6 +27,15 @@ export const products = [
     image: bigShoe2,
     price: "15.50",
     sizes: [35, 37, 39, 40, 42, 44],
+    productDetails: {
+      colors: [
+        { name: "red", image: bigShoe1 },
+        { name: "white", image: bigShoe2 },
+        { name: "black", image: bigShoe3 },
+      ],
+      description:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea illo et voluptas minima nisi autem labore mollitia laudantium. Temporibus, totam? Aperiam aut, dolor possimus labore ullam reprehenderit repudiandae explicabo ea ratione in delectus aspernatur.",
+    },
   },
   {
     id: "54377",
@@ -36,3 +45,16 @@ export const products = [
     sizes: [39, 40, 41, 42, 44],
   },
 ];
+
+// export const productDetails = [
+//   {
+//     id: 54376,
+//     colors: [
+//       { name: "red", image: thumbnailShoe1 },
+//       { name: "white", image: thumbnailShoe2 },
+//       { name: "black", image: thumbnailShoe3 },
+//     ],
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea illo et voluptas minima nisi autem labore mollitia laudantium. Temporibus, totam? Aperiam aut, dolor possimus labore ullam reprehenderit repudiandae explicabo ea ratione in delectus aspernatur.",
+//   },
+// ];

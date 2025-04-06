@@ -13,10 +13,10 @@ function AppRoutes() {
       children: [
         { path: "home", element: <HomePage /> },
         { path: "products", element: <ProductListPage /> },
+        { path: "/productdetails", element: <ProductDetailsPage /> },
       ],
     },
     { path: "/signin", element: <LoginPage /> },
-    { path: "/productdetails", element: <ProductDetailsPage /> },
   ]);
 
   return element;

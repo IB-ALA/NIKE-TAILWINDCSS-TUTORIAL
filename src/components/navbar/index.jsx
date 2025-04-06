@@ -65,7 +65,7 @@ function Navbar() {
             </div>
             <DropDownNavbar />
           </>
-        ) : currentPage === "products" ? (
+        ) : currentPage === "products" || "productdetails" ? (
           <ProductPageNavs />
         ) : (
           ""

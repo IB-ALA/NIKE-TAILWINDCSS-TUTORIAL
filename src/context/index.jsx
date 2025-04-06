@@ -5,8 +5,8 @@ export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
   const [darkMode, setDarkMode] = useState(false);
-  const { pathname } = useLocation();
-  const [currentPage, setCurrentPage] = useState(pathname.slice(1));
+  const location = useLocation();
+  const [currentPage, setCurrentPage] = useState(location?.pathname?.slice(1));
   const initialLoginFormData = { email: "", password: "" };
   const [loginFormData, setLoginFormData] = useState(initialLoginFormData);
   const initialSignupFormData = {
@@ -20,8 +20,10 @@ export default function GlobalState({ children }) {
 
   const [wishList, setWishList] = useState(["54376", "54", "576"]);
   const [cartItems, setCartItems] = useState([
-    { id: "54376", quantity: 2, size: "23" },
+    { id: "54376", quantity: 2, size: "23", color: "default" },
   ]);
+
+  const [productDetails, setProductDetails] = useState(null);
 
   // check the user.. if available, show the account icon
   useEffect(() => {
@@ -29,8 +31,10 @@ export default function GlobalState({ children }) {
   }, []);
 
   useEffect(() => {
-    setCurrentPage(pathname.slice(1));
-  }, [pathname]);
+    setCurrentPage(location?.pathname?.slice(1));
+  }, [location]);
+
+  // console.log(getSearchProductId());
 
   useEffect(() => {
     darkMode
@@ -40,7 +44,7 @@ export default function GlobalState({ children }) {
   }, [darkMode]);
 
   useEffect(() => {
-    console.log(cartItems);
+    console.log({ cartItems });
   }, [cartItems]);
 
   // sent handleAddToCart fnx into useCart hook
@@ -52,6 +56,7 @@ export default function GlobalState({ children }) {
       value={{
         darkMode,
         setDarkMode,
+        location,
         currentPage,
         registeredUser,
         initialLoginFormData,
@@ -64,6 +69,8 @@ export default function GlobalState({ children }) {
         setWishList,
         cartItems,
         setCartItems,
+        productDetails,
+        setProductDetails,
       }}
     >
       {children}
