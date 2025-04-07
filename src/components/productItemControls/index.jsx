@@ -2,7 +2,7 @@ import { useRef } from "react";
 import CommonButton from "../commonButton";
 import { useCart } from "../../hooks/useCart";
 
-function ProductItemControls({ sizes, id }) {
+function ProductItemControls({ sizes, id, useSpaceBetween }) {
   const itemSize = useRef();
   const itemQuantity = useRef();
   const { handleAddToCart } = useCart();
@@ -14,7 +14,11 @@ function ProductItemControls({ sizes, id }) {
       }}
       className="flex justify-between w-full mt-3 flex-wrap"
     >
-      <div className="flex min-w-28 max-w-44 justify-between mx-auto my-2">
+      <div
+        className={`flex min-w-28 max-w-44 justify-between ${
+          useSpaceBetween ? "mx-0" : "mx-auto"
+        } my-2`}
+      >
         <div className="flex flex-col mr-2">
           <label htmlFor="size" className="text-[14px] text-slate-500">
             Size
@@ -51,7 +55,11 @@ function ProductItemControls({ sizes, id }) {
         </div>
       </div>
 
-      <div className="flex items-center mx-auto px-1">
+      <div
+        className={`flex items-center ${
+          useSpaceBetween ? "mx-0" : "mx-auto"
+        } px-1`}
+      >
         <CommonButton
           btnText={"Add To Cart"}
           className={

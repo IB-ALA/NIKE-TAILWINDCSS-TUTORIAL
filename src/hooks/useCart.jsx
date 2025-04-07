@@ -11,5 +11,9 @@ export function useCart() {
     setCartItems(copiedCartItems);
   }
 
-  return { cartItems, handleAddToCart };
+  function isProductInCart(productId) {
+    return cartItems.findIndex((cartItem) => cartItem.id === productId) > -1;
+  }
+
+  return { cartItems, handleAddToCart, isProductInCart };
 }

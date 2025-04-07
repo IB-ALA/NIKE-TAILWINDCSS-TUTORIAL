@@ -19,8 +19,8 @@ function ProductImages({ defaultImage, varieties }) {
   // console.log({ bigImage });
 
   return (
-    <div className="border">
-      <div className="flex flex-col max-w-lg">
+    <div className="">
+      <div className="flex flex-col">
         <div className="flex justify-center items-center max-xl:py-10 py-10 bg-primary bg-hero bg-cover bg-center mb-6 shadow-3xl rounded-xl">
           <CommonIMG
             imgSrc={bigImage}
@@ -32,7 +32,7 @@ function ProductImages({ defaultImage, varieties }) {
         </div>
 
         {varieties?.length > 0 && (
-          <div className="flex flex-col  rounded-xl items-start justify-around p-3 flex-wrap">
+          <div className="flex flex-col border-t border-stone-200 border-dashed items-start justify-around mt-2 py-3 flex-wrap">
             <p className="font-montserrat text-2xl text-coral-red">Varieties</p>
 
             <div className="flex items-center mt-2 justify-around flex-wrap">
