@@ -38,10 +38,10 @@ function ProductVarietyCard({
       />
       <label
         htmlFor={name}
-        className={`w-20 h-20 p-2 border rounded-xl cursor-pointer ${
+        className={`w-20 h-20 p-2 border rounded-xl cursor-pointer mb-2 ${
           isChosen
             ? "border-coral-red shadow-md shadow-coral-red scale-105 transition-all ease-in-out"
-            : "border-slate-150"
+            : "border-slate-150 dark:border-slate-700"
         }`}
         title={isChosen ? `Chosen type: ${name}` : ` Choose ${name} type`}
       >

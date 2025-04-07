@@ -13,7 +13,7 @@ function ProductDetailsPage() {
   return (
     <main className="pt-32 padding-x dark:bg-[hsl(0,0%,5%)] text-dark-2 min-h-screen relative">
       {productDetails && (
-        <article className="flex justify-between gap-5 p-9 rounded-2xl shadow-3xl">
+        <article className="flex justify-between gap-5 p-9 rounded-2xl shadow-3xl bg-dark-1 lg:flex-row lg:items-start flex-col-reverse items-center">
           <div className="w-full max-w-lg">
             <section>
               <ProductImages
@@ -30,7 +30,7 @@ function ProductDetailsPage() {
             </section>
           </div>
 
-          <div className="w-full max-w-2xl">
+          <div className="w-full max-w-2xl mb-5">
             <ProductInfo
               productName={productDetails?.name}
               productPrice={productDetails?.price}
@@ -40,7 +40,7 @@ function ProductDetailsPage() {
         </article>
       )}
 
-      <article className="mt-10 padding-x">
+      <article className="mt-10 ">
         <CopyrightFooter />
       </article>
     </main>
