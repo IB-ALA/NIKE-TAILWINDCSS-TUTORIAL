@@ -1,10 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CommonButton from "../commonButton";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context";
+import SideBar from "../sideBar";
 
 function ProductPageNavs() {
+  const [showSideBar, setShowSideBar] = useState(false);
   const { registeredUser } = useContext(GlobalContext);
+
+  const location = useLocation();
+  useEffect(() => {
+    setShowSideBar(false);
+  }, [location]);
 
   const navigate = useNavigate();
   return (
@@ -39,7 +46,15 @@ function ProductPageNavs() {
             className={
               "bg-coral-red w-9 h-9 rounded-full flex justify-center items-center font-bold text-white"
             }
+            handleOnClick={() => setShowSideBar(!showSideBar)}
           />
+
+          <div className="">
+            <SideBar
+              showSideBar={showSideBar}
+              setShowSideBar={setShowSideBar}
+            />
+          </div>
         </div>
       )}
     </div>

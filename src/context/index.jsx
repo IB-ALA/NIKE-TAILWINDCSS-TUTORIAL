@@ -18,7 +18,7 @@ export default function GlobalState({ children }) {
   const [signupFormData, setSignupFormData] = useState(initialSignupFormData);
   const [registeredUser, setRegisteredUser] = useState(null);
 
-  const [wishList, setWishList] = useState(["54376", "54", "576"]);
+  const [wishList, setWishList] = useState(["54376"]);
   const [cartItems, setCartItems] = useState([
     { id: "54376", quantity: 2, size: "23", color: "default" },
   ]);
@@ -27,7 +27,11 @@ export default function GlobalState({ children }) {
 
   // check the user.. if available, show the account icon
   useEffect(() => {
-    setRegisteredUser("User234");
+    setRegisteredUser({
+      id: "User234",
+      name: "ib-ala",
+      email: "ishaqibrahimyusif@gmail.com",
+    });
   }, []);
 
   useEffect(() => {

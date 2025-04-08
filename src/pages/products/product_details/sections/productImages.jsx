@@ -3,17 +3,21 @@ import CommonIMG from "../../../../components/commonImg";
 import ProductVarietyCard from "../../../../components/productVarietyCard";
 
 function ProductImages({ defaultImage, varieties }) {
-  const [bigImage, setBigImage] = useState(defaultImage);
+  const [bigImage, setBigImage] = useState(null);
   const [chosenVariety, setChosenVariety] = useState("default");
 
-  useEffect(() => {
-    console.log({ chosenVariety });
-  }, [chosenVariety]);
+  // useEffect(() => {
+  //   console.log({ chosenVariety });
+  // }, [chosenVariety]);
+
+  // useEffect(() => {
+  //   setBigImage(defaultImage);
+  // }, [location]);
 
   useEffect(() => {
     setBigImage(defaultImage);
-    console.log({ defaultImage });
-  }, []);
+    console.log({ bigImage });
+  }, [defaultImage]);
 
   // console.log({ varieties });
   // console.log({ bigImage });
@@ -27,7 +31,7 @@ function ProductImages({ defaultImage, varieties }) {
             imgAlt={"shoe collection"}
             imgWidth={410}
             imgHeight={300}
-            imgClassName={"relative z-10 object-contain"}
+            imgClassName={"relative object-contain"}
           />
         </div>
 

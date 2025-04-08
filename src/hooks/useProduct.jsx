@@ -13,6 +13,7 @@ export function useProduct() {
 
   useEffect(() => {
     setProductDetails({ ...getProduct(productId) });
+    console.log(productId);
   }, [productId]);
 
   function getSearchProductIdFromURL() {
@@ -33,5 +34,5 @@ export function useProduct() {
     return product;
   }
 
-  return { productDetails, setProductDetails };
+  return { productDetails, setProductDetails, productId };
 }

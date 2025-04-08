@@ -79,4 +79,21 @@
   .standard-btn-hover {
     @apply hover:bg-opacity-90 transition-all duration-200 ease-in-out;
   }
+
+  .transition-400 {
+    transition: width 0.4s ease-in-out;
+  }
+
+  .animate-release {
+    animation: release 0.3s ease-out;
+  }
+
+  @keyframes release {
+    0% {
+      @apply h-12;
+    }
+    100% {
+      @apply h-full;
+    }
+  }
 }
