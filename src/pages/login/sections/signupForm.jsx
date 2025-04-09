@@ -24,7 +24,7 @@ function SignupForm() {
           id={"name"}
           required={true}
           className={
-            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={signupFormData?.name}
           formData={signupFormData}
@@ -38,7 +38,7 @@ function SignupForm() {
           id={"email"}
           required={true}
           className={
-            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={signupFormData?.email}
           formData={signupFormData}
@@ -52,7 +52,7 @@ function SignupForm() {
           id={"password"}
           required={true}
           className={
-            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={signupFormData?.password}
           formData={signupFormData}
@@ -66,7 +66,7 @@ function SignupForm() {
           id={"reEnteredPassword"}
           required={true}
           className={
-            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={signupFormData?.reEnteredPassword}
           formData={signupFormData}

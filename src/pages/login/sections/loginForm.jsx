@@ -28,7 +28,7 @@ function LoginForm() {
           id={"email"}
           required={true}
           className={
-            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={loginFormData?.email}
           formData={loginFormData}
@@ -42,7 +42,7 @@ function LoginForm() {
           id={"password"}
           required={true}
           className={
-            "border border-slate-400 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={loginFormData?.password}
           formData={loginFormData}

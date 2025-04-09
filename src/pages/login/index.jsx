@@ -10,7 +10,7 @@ function LoginPage() {
   // we have to add the auth too.. one who is logged in can't access this page.
 
   return (
-    <main className="relative w-full md:h-screen dark:bg-[hsl(0,0%,5%)] text-dark-2 pt-20 border-coral-red border">
+    <main className="relative w-full min-h-screen h-full dark:bg-[hsl(0,0%,5%)] text-dark-2 pt-20 flex flex-col justify-center">
       <article>
         <a
           href="/home"

@@ -61,7 +61,7 @@ function Subscribe() {
           name="newsletterSubcriber"
           id="newsletterSubcriber"
           placeholder="subscribe@nike.com"
-          className="input"
+          className="input dark:border-slate-800"
           required={true}
           value={formData.newsletterSubcriber}
           setFormData={setFormData}
