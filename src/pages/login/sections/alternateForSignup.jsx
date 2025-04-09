@@ -11,7 +11,7 @@ function SignUpOption({ login, setLogin }) {
         {login ? "Do not have an account?" : "Already have an account?"}
 
         <CommonButton
-          className="text-coral-red mx-2 underline underline-offset-2 hover:text-[hsl(6,100%,50%)] transition-colors hover:dark:text-[hsl(6,100%,66%)] dark:text-[hsl(6,100%,70%)]"
+          className="text-coral-full mx-2 underline underline-offset-2"
           btnText={login ? "Sign Up" : "Log In"}
           handleOnClick={() => setLogin(!login)}
         />

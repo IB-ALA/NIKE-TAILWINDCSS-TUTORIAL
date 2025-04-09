@@ -18,7 +18,7 @@ function WishList({ showList, setShowList }) {
     <div
       // if you want the release animation you have to sacrifice the shadow
       // ${ showList === "wish-list" ? "animate-release" : "overflow-hidden"}
-      className={`border-b border-b-slate-100 dark:border-slate-800`}
+      className={`border-b last:mb-0 mb-1 border-b-slate-100 dark:border-slate-800`}
     >
       <p
         className={`cursor-pointer p-2 rounded-md hover:bg-slate-50 dark:hover:bg-slate-950 info-text ${
@@ -44,7 +44,7 @@ function WishList({ showList, setShowList }) {
           </div>
         ) : (
           <p className="ml-3 my-2 p-2 shadow-2xl rounded-md text-center text-coral-red text-[16px] dark:bg-slate-950">
-            No Products Added To Wish List
+            No Products Added To Wish List.
           </p>
         )
       ) : null}

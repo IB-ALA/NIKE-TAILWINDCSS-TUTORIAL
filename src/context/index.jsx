@@ -31,6 +31,22 @@ export default function GlobalState({ children }) {
       id: "User234",
       name: "ib-ala",
       email: "ishaqibrahimyusif@gmail.com",
+      deliveryDetails: {
+        firstname: "IB",
+        lastname: "Ala",
+        email: "ishaqibrahimyusif@gmail.com",
+        phoneNumber: "0577100023",
+        country: "Ghana",
+        region: "greater accra region",
+        address: "lakeside room 5",
+        zip: "1234",
+      },
+      billingDetails: {
+        firstname: "",
+        lastname: "",
+        method: "",
+        momoNumber: "",
+      },
     });
   }, []);
 
@@ -63,6 +79,7 @@ export default function GlobalState({ children }) {
         location,
         currentPage,
         registeredUser,
+        setRegisteredUser,
         initialLoginFormData,
         loginFormData,
         setLoginFormData,

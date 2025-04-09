@@ -2,6 +2,7 @@ import { useState } from "react";
 import useUser from "../../hooks/useUser";
 import CommonButton from "../commonButton";
 import WishList from "../wishList";
+import DeliveryDetails from "../deliveryDetails";
 
 function SideBar({ showSideBar, setShowSideBar }) {
   const [showList, setShowList] = useState(null);
@@ -25,6 +26,11 @@ function SideBar({ showSideBar, setShowSideBar }) {
 
         <div className="absolute top-10 bottom-14 p-2 overflow-y-scroll w-full">
           <WishList showList={showList} setShowList={setShowList} />
+          <DeliveryDetails
+            showList={showList}
+            setShowList={setShowList}
+            deliveryDetails={registeredUser?.deliveryDetails}
+          />
         </div>
 
         <div className="absolute rounded-b-2xl border-t border-slate-100 dark:border-t-slate-900 bottom-0 left-0 right-0 flex justify-between p-2">

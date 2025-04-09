@@ -56,7 +56,7 @@ function LoginForm() {
               search: `?email=${loginFormData?.email}`,
               // hash: "#hash",
             }}
-            className="font-montserrat mb-2 underline underline-offset-2 text-coral-red dark:text-[hsl(6,100%,70%)] hover:text-[hsl(6,100%,50%)] hover:dark:text-[hsl(6,100%,66%)] transition-colors"
+            className="font-montserrat mb-2 underline underline-offset-2 text-coral-full"
           >
             Forgot password
           </Link>
