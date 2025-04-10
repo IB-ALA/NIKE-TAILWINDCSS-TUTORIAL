@@ -24,6 +24,7 @@ export default function GlobalState({ children }) {
   ]);
 
   const [productDetails, setProductDetails] = useState(null);
+  const [orders, setOrders] = useState(null);
 
   // check the user.. if available, show the account icon
   useEffect(() => {
@@ -97,6 +98,8 @@ export default function GlobalState({ children }) {
         setCartItems,
         productDetails,
         setProductDetails,
+        orders,
+        setOrders,
       }}
     >
       {children}

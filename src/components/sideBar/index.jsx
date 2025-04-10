@@ -4,6 +4,7 @@ import CommonButton from "../commonButton";
 import WishList from "../wishList";
 import DeliveryDetails from "../deliveryDetails";
 import BillingDetails from "../billingDetails";
+import Orders from "../orders";
 
 function SideBar({ showSideBar, setShowSideBar }) {
   const [showList, setShowList] = useState(null);
@@ -37,6 +38,7 @@ function SideBar({ showSideBar, setShowSideBar }) {
             setShowList={setShowList}
             billingDetails={registeredUser?.billingDetails}
           />
+          <Orders showList={showList} setShowList={setShowList} />
         </div>
 
         <div className="absolute rounded-b-2xl border-t border-slate-100 dark:border-t-slate-900 bottom-0 left-0 right-0 flex justify-between p-2">
