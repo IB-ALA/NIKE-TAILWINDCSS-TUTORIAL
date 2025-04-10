@@ -3,6 +3,7 @@ import useUser from "../../hooks/useUser";
 import CommonButton from "../commonButton";
 import WishList from "../wishList";
 import DeliveryDetails from "../deliveryDetails";
+import BillingDetails from "../billingDetails";
 
 function SideBar({ showSideBar, setShowSideBar }) {
   const [showList, setShowList] = useState(null);
@@ -30,6 +31,11 @@ function SideBar({ showSideBar, setShowSideBar }) {
             showList={showList}
             setShowList={setShowList}
             deliveryDetails={registeredUser?.deliveryDetails}
+          />
+          <BillingDetails
+            showList={showList}
+            setShowList={setShowList}
+            billingDetails={registeredUser?.billingDetails}
           />
         </div>
 

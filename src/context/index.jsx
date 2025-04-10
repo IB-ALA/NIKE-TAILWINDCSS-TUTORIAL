@@ -42,10 +42,15 @@ export default function GlobalState({ children }) {
         zip: "1234",
       },
       billingDetails: {
-        firstname: "",
-        lastname: "",
-        method: "",
-        momoNumber: "",
+        // momo: {
+        provider: "MTN",
+        momoNumber: "0592302209",
+        // },
+        // card: {
+        cardNumber: "6574465774657467",
+        cvv: "234",
+        expiry: "07/25",
+        // },
       },
     });
   }, []);
