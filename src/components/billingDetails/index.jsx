@@ -23,7 +23,7 @@ function BillingDetails({ showList, setShowList, billingDetails }) {
     >
       <div className="relative">
         <p
-          className={`cursor-pointer p-2 rounded-md hover:bg-slate-50 dark:hover:bg-slate-950 info-text ${
+          className={`cursor-pointer p-2 rounded-md hover:bg-slate-50 dark:hover:bg-slate-950 sm:info-text text-md text-slate-gray ${
             showList === "payment-details"
               ? "bg-slate-100 dark:bg-slate-900"
               : ""

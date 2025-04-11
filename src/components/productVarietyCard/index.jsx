@@ -21,7 +21,7 @@ function ProductVarietyCard({
   }, []);
 
   return (
-    <div className="flex pr-4">
+    <div className="flex sm:pr-4 pr-2">
       <input
         type="radio"
         name="variety"
@@ -29,16 +29,14 @@ function ProductVarietyCard({
         className={"hidden"}
         ref={varietyInputElem}
         checked={isChosen}
-        onChange={(e) => {
+        onChange={() => {
           setBigImg(img);
           setChosenVariety(name);
-
-          // e.target.checked ? setChosenVariety(name) : null;
         }}
       />
       <label
         htmlFor={name}
-        className={`w-20 h-20 p-2 border rounded-xl cursor-pointer mb-2 ${
+        className={`sm:w-20 sm:h-20 w-16 h-16 sm:p-2 p-1 border rounded-xl cursor-pointer sm:mb-2 mb-1 ${
           isChosen
             ? "border-coral-red shadow-md shadow-coral-red scale-105 transition-all ease-in-out"
             : "border-slate-150 dark:border-slate-700"
@@ -50,7 +48,9 @@ function ProductVarietyCard({
           imgHeight={70}
           imgWidth={70}
           imgSrc={img}
-          imgClassName={"object-contain"}
+          imgClassName={
+            "object-contain sm:w-[70px] sm:h-[70px] w-[55px] h-[55px]"
+          }
         />
       </label>
     </div>

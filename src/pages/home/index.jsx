@@ -21,7 +21,7 @@ function HomePage() {
       <section className="xl:padding-l wide:padding-r padding-b ">
         <Hero />
       </section>
-      <section className="padding">
+      <section className="sm:padding padding-x">
         <PopularProducts />
       </section>
       <section className="padding">

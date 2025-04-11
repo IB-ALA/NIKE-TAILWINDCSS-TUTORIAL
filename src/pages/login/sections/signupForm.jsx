@@ -14,7 +14,7 @@ function SignupForm() {
 
   return (
     <section className="flex justify-center">
-      <form onSubmit={(e) => e.preventDefault()} className="w-96 mt-4">
+      <form onSubmit={(e) => e.preventDefault()} className="sm:w-96 w-80 mt-4">
         <CommonInput
           autoFocus={true}
           placeholder={"Enter name"}

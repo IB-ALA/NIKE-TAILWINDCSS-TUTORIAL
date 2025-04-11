@@ -36,21 +36,23 @@ function OrderItemCard({ orderItem }) {
             />
           </div>
 
-          <div className="flex justify-between h-fit w-full text-coral-red">
-            <div className="flex flex-col justify-center mr-4">
-              <p className="text-[16px] font-bold">{item?.name}</p>
+          <div className="flex justify-between h-[80px] w-full text-coral-red">
+            <div className="flex flex-col justify-center gap-1 mr-4">
+              <p className="sm:text-[16px] text-[12px] font-bold">
+                {item?.name}
+              </p>
 
-              <p className="text-[16px] font-bold text-[#808080]">
+              <p className="sm:text-[16px] text-[12px] font-bold text-[#808080]">
                 ₵{formatCurrency(item?.price)}
               </p>
               {size ? (
-                <p className="text-[16px] font-bold text-[#808080]">
+                <p className="sm:text-[16px] text-[12px] font-bold text-[#808080]">
                   <span className="font-normal text-[14px]">Size:</span> {size}
                 </p>
               ) : null}
             </div>
 
-            <div className="flex items-center text-[18px]">
+            <div className="flex items-center sm:text-[18px] text-[16px]">
               <p className="border-l dark:border-l-slate-800 py-1 pl-2 pr-1">
                 X{quantity}
               </p>

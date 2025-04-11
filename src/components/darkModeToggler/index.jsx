@@ -12,7 +12,12 @@ function DarkModeToggler() {
       onClick={() => setDarkMode(!darkMode)}
       className="fixed bottom-8 right-8 z-50 cursor-pointer"
     >
-      <CommonIMG imgSrc={star} imgHeight={50} imgWidth={50} />
+      <CommonIMG
+        imgSrc={star}
+        imgHeight={50}
+        imgWidth={50}
+        imgClassName={"sm:w-[50px] sm:h-[50px] w-[30px] h-[30px]"}
+      />
     </button>
   );
 }

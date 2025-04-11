@@ -17,7 +17,7 @@ function LoginForm() {
     <section>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="w-96 flex items-center flex-col mx-auto"
+        className="sm:w-96 w-80 flex items-center flex-col mx-auto"
       >
         <CommonInput
           autoFocus={true}

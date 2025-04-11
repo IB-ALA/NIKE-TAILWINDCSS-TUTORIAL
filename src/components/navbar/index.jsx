@@ -18,7 +18,14 @@ function Navbar() {
   giveFixedPosition && toggleIsScrolling();
 
   useEffect(() => {
-    if (currentPage === "products" || "product-details" || "orders" || "cart") {
+    if (
+      currentPage === "products" ||
+      currentPage === "product-details" ||
+      currentPage === "orders" ||
+      currentPage === "cart"
+    ) {
+      console.log({ currentPage });
+
       setGiveFixedPosition(true);
     }
   }, [currentPage]);
@@ -31,7 +38,7 @@ function Navbar() {
 
   return (
     <header
-      className={`padding-x py-8 z-10 w-full bg-white dark:bg-[hsl(0,0%,5%)] ${
+      className={`padding-x sm:py-8 py-2 z-10 w-full bg-white dark:bg-[hsl(0,0%,5%)] ${
         isScrollingY
           ? "fixed top-0 left-0 right-0 shadow-md dark:shadow-[#24232364]"
           : "absolute"
@@ -44,6 +51,7 @@ function Navbar() {
             imgAlt={"Logo"}
             imgWidth={130}
             imgHeight={29}
+            imgClassName={"sm:w-[130px] sm:h-[29px] w-[100px] h-[19px]"}
           />
         </a>
 

@@ -7,7 +7,7 @@ function ProductControls({ productId, productSizes }) {
   return (
     <div>
       {isProductInCart(productId) ? (
-        <AddedToCart />
+        <AddedToCart forWishList={true} />
       ) : (
         <ProductItemControls
           id={productId}

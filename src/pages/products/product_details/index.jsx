@@ -11,9 +11,9 @@ function ProductDetailsPage() {
   // }, []);
 
   return (
-    <main className="pt-32 padding-x dark:bg-[hsl(0,0%,5%)] text-dark-2 min-h-screen relative">
+    <main className="sm:pt-32 pt-16 padding-x dark:bg-[hsl(0,0%,5%)] text-dark-2 min-h-screen relative">
       {productDetails && (
-        <article className="flex justify-between gap-5 p-9 rounded-2xl shadow-3xl bg-dark-1 lg:flex-row lg:items-start flex-col-reverse items-center">
+        <article className="flex justify-between gap-5 sm:p-9 p-6 rounded-2xl shadow-3xl bg-dark-1 lg:flex-row lg:items-start flex-col-reverse items-center">
           <div className="w-full max-w-lg">
             <section>
               <ProductImages

@@ -2,9 +2,9 @@ import { Footer, ProductList } from "./sections";
 
 function ProductListPage() {
   return (
-    <main className="pt-32 dark:bg-[hsl(0,0%,5%)] text-dark-2 min-h-screen relative">
+    <main className="sm:pt-32 pt-16 dark:bg-[hsl(0,0%,5%)] text-dark-2 min-h-screen relative">
       <section className="padding-x">
-        <h2 className="text-4xl font-palanquin font-bold mb-4">
+        <h2 className="sm:text-4xl text-3xl font-palanquin font-bold mb-4">
           <span className="text-coral-red">Available</span> Products
         </h2>
       </section>

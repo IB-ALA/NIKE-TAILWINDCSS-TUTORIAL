@@ -4,15 +4,15 @@ import OrderItemCard from "../orderItemCard";
 function OrderCard({ order }) {
   const { orderID, orderDate, status, total, orderItems } = order;
   return (
-    <div className="flex flex-col justify-between p-9 gap-2 rounded-2xl shadow-3xl mb-10 last:mb-0 max-w-3xl mx-auto bg-dark-1 dark:shadow-[#31313164]">
+    <div className="flex flex-col justify-between sm:p-9 p-3 sm:gap-2 gap-1 rounded-2xl shadow-3xl sm:mb-10 mb-5 last:mb-0 max-w-3xl mx-auto bg-dark-1 dark:shadow-[#31313164]">
       <div
-        className={`flex justify-between p-4 ${
+        className={`flex justify-between sm:p-4 p-3 ${
           status === "delivered"
             ? "bg-green-100 dark:bg-green-300"
             : status === "canceled"
             ? "bg-red-200 dark:bg-red-300"
             : "bg-[#ebebeb] dark:bg-[hsl(0,0%,75%)]"
-        } rounded-xl mb-4`}
+        } rounded-xl sm:mb-4 mb-3`}
       >
         <div>
           <p className="uppercase font-bold text-[0.7rem] text-[#595959] mb-2">

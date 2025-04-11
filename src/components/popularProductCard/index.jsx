@@ -16,7 +16,7 @@ function PopularProductCard({ imgURL, name, price }) {
         imgClassName={"cursor-pointer"}
       />
 
-      <div className="mt-8 flex justify-start gap-2.5">
+      <div className="sm:mt-8 mt-4 flex justify-start sm:gap-2.5 gap-1.5">
         <CommonIMG
           imgSrc={star}
           imgAlt={"rating"}
@@ -27,11 +27,11 @@ function PopularProductCard({ imgURL, name, price }) {
           {4.5}
         </p>
       </div>
-      <h3 className="mt-2 text-2xl font-semibold leading-normal font-palanquin">
+      <h3 className="sm:mt-2 mt-1 sm:text-2xl text-xl font-semibold leading-normal font-palanquin">
         {name}
       </h3>
 
-      <p className="mt-2 font-semibold font-montserrat text-2xl leading-normal text-coral-red">
+      <p className="mt-2 font-semibold font-montserrat sm:text-2xl text-xl leading-normal text-coral-red">
         {price}
       </p>
     </div>

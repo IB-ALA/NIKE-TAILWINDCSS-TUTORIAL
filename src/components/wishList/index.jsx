@@ -21,7 +21,7 @@ function WishList({ showList, setShowList }) {
       className={`border-b last:mb-0 mb-1 border-b-slate-100 dark:border-slate-800`}
     >
       <p
-        className={`cursor-pointer p-2 rounded-md hover:bg-slate-50 dark:hover:bg-slate-950 info-text ${
+        className={`cursor-pointer p-2 rounded-md hover:bg-slate-50 dark:hover:bg-slate-950 sm:info-text text-md text-slate-gray ${
           showList === "wish-list" ? "bg-slate-100 dark:bg-slate-900" : ""
         }`}
         onClick={() => {
@@ -35,7 +35,7 @@ function WishList({ showList, setShowList }) {
 
       {showList === "wish-list" ? (
         wishList?.length > 0 ? (
-          <div className="ml-3 border dark:border-slate-900 my-2 p-2 shadow-2xl rounded-md flex flex-col gap-3">
+          <div className="sm:ml-3 ml-1 border dark:border-slate-900 my-2 p-2 shadow-2xl rounded-md flex flex-col gap-3">
             {products
               .filter((item) => wishList?.includes(item.id))
               .map((product) => (
@@ -43,7 +43,7 @@ function WishList({ showList, setShowList }) {
               ))}
           </div>
         ) : (
-          <p className="ml-3 my-2 p-2 shadow-2xl rounded-md text-center text-coral-red text-[16px] dark:bg-slate-950">
+          <p className="ml-3 my-2 p-2 shadow-2xl rounded-md text-center text-coral-red sm:text-[16px] text-[14px] dark:bg-slate-950">
             No Products Added To Wish List.
           </p>
         )

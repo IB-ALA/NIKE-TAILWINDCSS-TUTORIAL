@@ -74,6 +74,7 @@ function DropDownNavbar() {
               className={
                 "font-semibold text-lg hover:transition-all hover:duration-200 underline-offset-2 underline hover:ease-in-out hover:text-coral-red text-dark-2"
               }
+              handleOnClick={() => navigate("/products")}
             />
           </div>
         ) : (
