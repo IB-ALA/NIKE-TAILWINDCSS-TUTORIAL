@@ -37,7 +37,7 @@ export function useOrders() {
           },
         ],
         total: 20.15,
-        status: "pending",
+        status: "canceled",
         orderDate: "2024-08-21T13:26:35.000Z",
       },
       {
@@ -57,7 +57,7 @@ export function useOrders() {
           },
         ],
         total: 60.45,
-        status: "delivered",
+        status: "pending",
         orderDate: "2024-08-21T13:26:35.000Z",
       },
     ]);

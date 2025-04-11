@@ -18,7 +18,7 @@ function Navbar() {
   giveFixedPosition && toggleIsScrolling();
 
   useEffect(() => {
-    if (currentPage === "products" || "orders" || "product-details") {
+    if (currentPage === "products" || "product-details" || "orders" || "cart") {
       setGiveFixedPosition(true);
     }
   }, [currentPage]);

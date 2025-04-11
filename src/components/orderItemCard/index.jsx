@@ -21,10 +21,10 @@ function OrderItemCard({ orderItem }) {
   }
 
   return (
-    <div className="flex mt-1 pt-1 border-t first:border-t-0">
+    <div className="flex mt-1 pt-1 border-t dark:border-t-slate-800  first:mt-0 first:pt-0 first:border-t-0">
       {item ? (
         <>
-          <div className="max-h-20 max-w-20 h-20 flex justify-center items-center py-1 border-r border-r-[#e6e6e6] mr-3">
+          <div className="max-h-20 max-w-20 h-20 flex justify-center items-center pr-2 border-r border-r-[#e6e6e6] dark:border-r-slate-800 mr-3">
             <CommonIMG
               imgSrc={
                 color === "default" ? item?.image : getItemVarietyImg(color)
@@ -36,17 +36,24 @@ function OrderItemCard({ orderItem }) {
             />
           </div>
 
-          <div className="flex justify-between h-fit w-full">
-            <div className="flex flex-col">
-              <p className="text-[16px] font-bold text-[#808080] mt-4 mr-4">
-                {item?.name}
-              </p>
+          <div className="flex justify-between h-fit w-full text-coral-red">
+            <div className="flex flex-col justify-center mr-4">
+              <p className="text-[16px] font-bold">{item?.name}</p>
+
               <p className="text-[16px] font-bold text-[#808080]">
                 ₵{formatCurrency(item?.price)}
               </p>
+              {size ? (
+                <p className="text-[16px] font-bold text-[#808080]">
+                  <span className="font-normal text-[14px]">Size:</span> {size}
+                </p>
+              ) : null}
             </div>
-            <div className="flex items-center text-[18px] text-[#4d4d4d]">
-              <p className="border-l py-1 pl-1">X{quantity}</p>
+
+            <div className="flex items-center text-[18px]">
+              <p className="border-l dark:border-l-slate-800 py-1 pl-2 pr-1">
+                X{quantity}
+              </p>
             </div>
           </div>
         </>
