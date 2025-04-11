@@ -13,12 +13,31 @@ export function useProduct() {
 
   useEffect(() => {
     setProductDetails({ ...getProduct(productId) });
-    console.log(productId);
+    // console.log(productId);
   }, [productId]);
 
   function getSearchProductIdFromURL() {
     const queryParams = new URLSearchParams(location?.search);
     return queryParams.get("id");
+  }
+
+  async function getProduct(productId) {
+    let matchingProduct;
+    // let products = ;
+    if (products?.length !== 0) {
+      // products = products?.map((product) => new NewProduct(product));
+      products?.forEach((product) => {
+        if (productId == product?.id) {
+          matchingProduct = product;
+        }
+      });
+
+      if (matchingProduct) {
+        return matchingProduct;
+      }
+    } else {
+      // means there was an error
+    }
   }
 
   function getProduct(id) {
@@ -34,5 +53,5 @@ export function useProduct() {
     return product;
   }
 
-  return { productDetails, setProductDetails, productId };
+  return { productDetails, setProductDetails, productId, getProduct };
 }

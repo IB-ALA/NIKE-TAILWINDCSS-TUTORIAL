@@ -7,13 +7,22 @@ import NavbarLinks from "../navbarLinks";
 import { useContext, useState } from "react";
 import { GlobalContext } from "../../context";
 import ProductPageNavs from "../productPageNavs";
+import { useEffect } from "react";
 
 function Navbar() {
   const [isScrollingY, setIsScrollingY] = useState(false);
+  const [giveFixedPosition, setGiveFixedPosition] = useState(false);
   const navigate = useNavigate();
   const { currentPage } = useContext(GlobalContext);
 
-  currentPage === "products" && toggleIsScrolling();
+  giveFixedPosition && toggleIsScrolling();
+
+  useEffect(() => {
+    if (currentPage === "products" || "orders" || "product-details") {
+      setGiveFixedPosition(true);
+    }
+  }, [currentPage]);
+
   function toggleIsScrolling() {
     window.addEventListener("scroll", () => {
       window.scrollY > 0 ? setIsScrollingY(true) : setIsScrollingY(false);
@@ -23,7 +32,7 @@ function Navbar() {
   return (
     <header
       className={`padding-x py-8 z-10 w-full bg-white dark:bg-[hsl(0,0%,5%)] ${
-        currentPage === "products" && isScrollingY
+        isScrollingY
           ? "fixed top-0 left-0 right-0 shadow-md dark:shadow-[#24232364]"
           : "absolute"
       }`}

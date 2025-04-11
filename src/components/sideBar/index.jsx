@@ -5,10 +5,12 @@ import WishList from "../wishList";
 import DeliveryDetails from "../deliveryDetails";
 import BillingDetails from "../billingDetails";
 import Orders from "../orders";
+import { useNavigate } from "react-router-dom";
 
 function SideBar({ showSideBar, setShowSideBar }) {
   const [showList, setShowList] = useState(null);
   const { registeredUser } = useUser();
+  const navigate = useNavigate();
 
   return (
     <div
@@ -28,17 +30,29 @@ function SideBar({ showSideBar, setShowSideBar }) {
 
         <div className="absolute top-10 bottom-14 p-2 overflow-y-scroll w-full">
           <WishList showList={showList} setShowList={setShowList} />
+
           <DeliveryDetails
             showList={showList}
             setShowList={setShowList}
             deliveryDetails={registeredUser?.deliveryDetails}
           />
+
           <BillingDetails
             showList={showList}
             setShowList={setShowList}
             billingDetails={registeredUser?.billingDetails}
           />
-          <Orders showList={showList} setShowList={setShowList} />
+
+          <div className="border-b last:mb-0 mb-1 border-b-slate-100 dark:border-slate-800">
+            <CommonButton
+              btnText={"Orders"}
+              btnTitle={"See order history"}
+              className={
+                "cursor-pointer p-2 rounded-md hover:bg-slate-50 dark:hover:bg-slate-950 info-text active:bg-slate-100 dark:active:bg-slate-900 w-full text-start hover:underline transition-all"
+              }
+              handleOnClick={() => navigate("/orders")}
+            />
+          </div>
         </div>
 
         <div className="absolute rounded-b-2xl border-t border-slate-100 dark:border-t-slate-900 bottom-0 left-0 right-0 flex justify-between p-2">

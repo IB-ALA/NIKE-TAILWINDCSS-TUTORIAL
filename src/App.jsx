@@ -4,6 +4,7 @@ import LoginPage from "./pages/login";
 import Layout from "./pages/layout";
 import ProductListPage from "./pages/products/product_list";
 import ProductDetailsPage from "./pages/products/product_details";
+import OrdersPage from "./pages/orders";
 
 function AppRoutes() {
   const element = useRoutes([
@@ -14,6 +15,7 @@ function AppRoutes() {
         { path: "home", element: <HomePage /> },
         { path: "products", element: <ProductListPage /> },
         { path: "/productdetails", element: <ProductDetailsPage /> },
+        { path: "/orders", element: <OrdersPage /> },
       ],
     },
     { path: "/signin", element: <LoginPage /> },
