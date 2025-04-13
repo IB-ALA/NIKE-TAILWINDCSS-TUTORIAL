@@ -70,6 +70,7 @@ function ProductItemControls({ sizes, id, useSpaceBetween }) {
               id,
               quantity: Number(itemQuantity?.current?.value),
               size: itemSize?.current?.value,
+              color: "default",
             };
 
             handleAddToCart(item);

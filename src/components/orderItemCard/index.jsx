@@ -1,24 +1,12 @@
 import { useProduct } from "../../hooks/useProduct";
 import CommonIMG from "../commonImg";
-import { formatCurrency } from "../../shared";
+import { formatCurrency, getItemVarietyImg } from "../../shared";
 
 function OrderItemCard({ orderItem }) {
   const { getProduct } = useProduct();
 
   const { id, quantity, size, color } = orderItem;
   const item = { ...getProduct(id), size, color, quantity };
-
-  function getItemVarietyImg(color) {
-    let img;
-    item?.productDetails?.colors?.forEach((variety) => {
-      if (variety?.name === color) {
-        img = variety?.image;
-      }
-    });
-    if (img) {
-      return img;
-    }
-  }
 
   return (
     <div className="flex mt-1 pt-1 border-t dark:border-t-slate-800  first:mt-0 first:pt-0 first:border-t-0">
@@ -27,7 +15,9 @@ function OrderItemCard({ orderItem }) {
           <div className="max-h-20 max-w-20 h-20 flex justify-center items-center pr-2 border-r border-r-[#e6e6e6] dark:border-r-slate-800 mr-3">
             <CommonIMG
               imgSrc={
-                color === "default" ? item?.image : getItemVarietyImg(color)
+                color === "default"
+                  ? item?.image
+                  : getItemVarietyImg(item, color)
               }
               imgAlt={`${item?.name} image`}
               imgHeight={80}

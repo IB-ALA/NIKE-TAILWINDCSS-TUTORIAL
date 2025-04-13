@@ -24,3 +24,15 @@ export function isFormValid(formData) {
 export function formatCurrency(pricePesewas) {
   return (Math.round(pricePesewas) / 100).toFixed(2);
 }
+
+export function getItemVarietyImg(item, color) {
+  let img;
+  item?.productDetails?.colors?.forEach((variety) => {
+    if (variety?.name === color) {
+      img = variety?.image;
+    }
+  });
+  if (img) {
+    return img;
+  }
+}
