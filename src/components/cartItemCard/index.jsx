@@ -4,11 +4,14 @@ import { useCart } from "../../hooks/useCart";
 import { formatCurrency, getItemVarietyImg } from "../../shared";
 import CommonIMG from "../commonImg";
 import CommonButton from "../commonButton";
+import { useNavigate } from "react-router-dom";
 
 function CartItemCard({ item }) {
   const { name, price, image, sizes, productDetails } = useProduct().getProduct(
     item?.id
   );
+
+  const navigate = useNavigate();
 
   const { handleQuantityChange, handleSizeChange, handleRemoveFromCart } =
     useCart();
@@ -18,7 +21,7 @@ function CartItemCard({ item }) {
   return (
     <div
       key={cartItem?.id}
-      className="flex flex-col md:flex-row gap-6 bg-white shadow-xl rounded-xl p-6 items-start mb-6"
+      className="flex flex-col md:flex-row gap-6 shadow-xl rounded-xl p-6 items-start mb-6 bg-dark-1 dark:shadow-[#1e1e1e64]"
     >
       <CommonIMG
         imgSrc={
@@ -27,7 +30,8 @@ function CartItemCard({ item }) {
             : getItemVarietyImg(cartItem, cartItem?.color)
         }
         imgAlt={`${cartItem?.name} image`}
-        imgClassName={"w-32 h-32 object-contain"}
+        imgClassName={"w-32 h-32 object-contain cursor-pointer"}
+        handleOnClick={() => navigate(`/productdetails?id=${item?.id}`)}
       />
 
       <div className="flex-1">
@@ -48,7 +52,7 @@ function CartItemCard({ item }) {
             <select
               value={cartItem?.size}
               onChange={(e) => handleSizeChange(cartItem?.id, e.target.value)}
-              className="border rounded-md px-3 py-2"
+              className="border dark:border-slate-800 rounded-md px-3 py-2 bg-transparent dark:outline-none outline-blue-400"
             >
               {sizes && sizes?.length > 0
                 ? sizes.map((size) => (
@@ -65,11 +69,11 @@ function CartItemCard({ item }) {
               Quantity
             </label>
 
-            <div className="flex items-center border rounded-md">
+            <div className="flex items-center border dark:border-slate-800  rounded-md">
               <CommonButton
                 btnText={"−"}
                 disabled={item?.quantity === 1}
-                className="px-3 py-1 border-r text-lg font-bold disabled:cursor-not-allowed disabled:opacity-30"
+                className="px-3 py-1 border-r dark:border-r-slate-800  text-lg font-bold disabled:cursor-not-allowed disabled:opacity-30"
                 handleOnClick={() => handleQuantityChange(item?.id, -1)}
               />
 
@@ -77,7 +81,9 @@ function CartItemCard({ item }) {
 
               <CommonButton
                 btnText={"+"}
-                className={"px-3 py-1 border-l text-lg font-bold"}
+                className={
+                  "px-3 py-1 border-l dark:border-l-slate-800  text-lg font-bold"
+                }
                 handleOnClick={() => handleQuantityChange(item?.id, 1)}
               />
             </div>

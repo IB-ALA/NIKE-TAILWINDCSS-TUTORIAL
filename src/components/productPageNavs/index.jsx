@@ -3,10 +3,12 @@ import CommonButton from "../commonButton";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context";
 import SideBar from "../sideBar";
+import { useCart } from "../../hooks/useCart";
 
 function ProductPageNavs() {
   const [showSideBar, setShowSideBar] = useState(false);
   const { registeredUser } = useContext(GlobalContext);
+  const { findCartTotalItems } = useCart();
 
   const location = useLocation();
   useEffect(() => {
@@ -34,8 +36,8 @@ function ProductPageNavs() {
           }
           className={"border-none"}
         />
-        <p className="bg-coral-red px-[5px] py-[3px] rounded-full flex justify-center items-center text-[12px] sm:font-bold text-white absolute sm:bottom-[5px] sm:left-5 -bottom-[2px] left-3 leading-none max-w-8">
-          0
+        <p className="bg-coral-red px-[5px] py-[3px] rounded-full flex justify-center items-center text-[12px] sm:font-bold text-white absolute sm:bottom-[1px] sm:left-4 -bottom-[2px] left-3 leading-none max-w-8">
+          {findCartTotalItems()}
         </p>
       </div>
 

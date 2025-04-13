@@ -4,6 +4,7 @@ import { useProduct } from "./useProduct";
 
 export function useCart() {
   const { cartItems, setCartItems } = useContext(GlobalContext);
+  const { getProduct } = useProduct();
 
   function handleAddToCart({ id, quantity, size, color }) {
     let copiedCartItems = [...cartItems];
@@ -36,14 +37,12 @@ export function useCart() {
   }
 
   function handleRemoveFromCart(id) {
-    console.log(id);
+    // const copy = [...cartItems];
+    // let newItems = copy?.filter((item) => item.id !== id);
+    // console.log({ newItems });
+    // setCartItems([...newItems]);
 
-    const copy = [...cartItems];
-    let newItems = copy?.filter((item) => item.id !== id);
-    console.log({ newItems });
-    setCartItems([...newItems]);
-
-    // setCartItems((prev) => prev.filter((item) => item.id !== id));
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
   }
 
   function findCartTotalItems() {
@@ -54,8 +53,7 @@ export function useCart() {
     let total = 0;
 
     cartItems?.forEach((item) => {
-      const { price } = useProduct().getProduct(item.id);
-
+      const { price } = getProduct(item.id);
       total += price * item.quantity;
     });
 

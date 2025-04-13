@@ -27,7 +27,7 @@ function ProductItemControls({ sizes, id, useSpaceBetween }) {
           <select
             name="size"
             id=""
-            className="max-w-12 min-w-8 w-full border rounded-sm outline-blue-500 bg-transparent dark:border-gray-800 text-gray-500"
+            className="max-w-12 min-w-8 w-full border rounded-sm dark:outline-none outline-blue-400 bg-transparent dark:border-gray-800 text-gray-500"
             ref={itemSize}
           >
             {sizes?.map((size) => (
@@ -45,7 +45,7 @@ function ProductItemControls({ sizes, id, useSpaceBetween }) {
 
           <input
             type="number"
-            className="max-w-12 min-w-8 w-full border rounded-sm outline-blue-500 bg-transparent dark:border-gray-800 pl-1 text-gray-500"
+            className="max-w-12 min-w-8 w-full border rounded-sm dark:outline-none outline-blue-400 bg-transparent dark:border-gray-800 pl-1 text-gray-500"
             step="1"
             min="1"
             max="9"

@@ -8,7 +8,7 @@ function CartSummary() {
   const navigate = useNavigate();
 
   return (
-    <section className="flex justify-between items-center mt-10 text-lg font-medium">
+    <section className="flex justify-between items-center mt-5 text-lg font-medium border-t dark:border-t-slate-800  pt-5 px-2">
       <p>
         {findCartTotalItems()} item{findCartTotalItems() > 1 && "s"}
       </p>
@@ -23,7 +23,7 @@ function CartSummary() {
             "bg-coral-red transition-colors text-white px-5 py-2 rounded-lg hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-70"
           }
           handleOnClick={() => navigate("/checkout")}
-          disabled={findCartTotalItems === 0}
+          disabled={findCartTotalItems() === 0}
         />
       </div>
       {/* </div> */}
