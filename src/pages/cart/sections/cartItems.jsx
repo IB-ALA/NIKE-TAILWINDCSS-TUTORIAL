@@ -6,15 +6,15 @@ function CartItems() {
   const { cartItems } = useCart();
 
   return (
-    <section className="py-10">
+    <section className="pt-10 pb-3">
       {cartItems && cartItems?.length > 0 ? (
         cartItems?.map((item) => <CartItemCard key={item?.id} item={item} />)
       ) : (
-        <p className="text-center text-coral-red text-[20px] padding-y">
+        <p className="text-center text-coral-red sm:text-[20px] text-[15px] padding-y">
           No Orders Placed.
           <Link
             to={"/products"}
-            className="ml-1 hover:underline hover:underline-offset-1 transition-all hover:text-red-500"
+            className="ml-1 hover:underline hover:underline-offset-1 max-sm:underline max-sm:underline-offset-1 transition-all hover:text-red-500"
           >
             Visit Our Store To Shop.
           </Link>
