@@ -1,0 +1,17 @@
+# Node.js modules
+node_modules/
+
+# TypeScript build folder
+dist/
+
+# Optional: Debugger files
+*.log
+*.tsbuildinfo
+
+# OS-specific files
+.DS_Store         
+Thumbs.db         
+
+# IDE-specific files
+.vscode/
+.idea/
