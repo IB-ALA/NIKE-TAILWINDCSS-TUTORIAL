@@ -6,6 +6,7 @@ import ProductListPage from "./pages/products/product_list";
 import ProductDetailsPage from "./pages/products/product_details";
 import OrdersPage from "./pages/orders";
 import CartPage from "./pages/cart";
+import CheckoutPage from "./pages/checkout";
 
 function AppRoutes() {
   const element = useRoutes([
@@ -18,6 +19,7 @@ function AppRoutes() {
         { path: "/productdetails", element: <ProductDetailsPage /> },
         { path: "/orders", element: <OrdersPage /> },
         { path: "/cart", element: <CartPage /> },
+        { path: "/checkout", element: <CheckoutPage /> },
       ],
     },
     { path: "/signin", element: <LoginPage /> },

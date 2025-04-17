@@ -14,7 +14,13 @@ function SignupForm() {
 
   return (
     <section className="flex justify-center">
-      <form onSubmit={(e) => e.preventDefault()} className="sm:w-96 w-80 mt-4">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSignup();
+        }}
+        className="sm:w-96 w-80 mt-4"
+      >
         <CommonInput
           autoFocus={true}
           placeholder={"Enter name"}
@@ -27,8 +33,10 @@ function SignupForm() {
             "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={signupFormData?.name}
-          formData={signupFormData}
-          setFormData={setSignupFormData}
+          handleOnChange={(e) => {
+            let { name, value } = e.target;
+            setSignupFormData((prev) => ({ ...prev, [name]: value }));
+          }}
         />
         <CommonInput
           placeholder={"Enter email"}
@@ -41,8 +49,10 @@ function SignupForm() {
             "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={signupFormData?.email}
-          formData={signupFormData}
-          setFormData={setSignupFormData}
+          handleOnChange={(e) => {
+            let { name, value } = e.target;
+            setSignupFormData((prev) => ({ ...prev, [name]: value }));
+          }}
         />
         <CommonInput
           placeholder={"Enter password"}
@@ -55,8 +65,10 @@ function SignupForm() {
             "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={signupFormData?.password}
-          formData={signupFormData}
-          setFormData={setSignupFormData}
+          handleOnChange={(e) => {
+            let { name, value } = e.target;
+            setSignupFormData((prev) => ({ ...prev, [name]: value }));
+          }}
         />
         <CommonInput
           placeholder={"Re-enter password"}
@@ -69,15 +81,16 @@ function SignupForm() {
             "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
           }
           value={signupFormData?.reEnteredPassword}
-          formData={signupFormData}
-          setFormData={setSignupFormData}
+          handleOnChange={(e) => {
+            let { name, value } = e.target;
+            setSignupFormData((prev) => ({ ...prev, [name]: value }));
+          }}
         />
 
         <CommonButton
           btnText={"Signup"}
           type={"submit"}
           extraClasses={"w-full mt-3"}
-          handleOnClick={() => handleSignup()}
           disabled={formValidity}
         />
       </form>

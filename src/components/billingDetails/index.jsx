@@ -7,6 +7,7 @@ import { isFormValid } from "../../shared";
 
 function BillingDetails({ showList, setShowList, billingDetails }) {
   const [editedDetails, setEditedDetails] = useState({ ...billingDetails });
+  const [errors, setErrors] = useState({});
   const { editUserInfo } = useUser();
 
   // useEffect(() => {
@@ -42,9 +43,13 @@ function BillingDetails({ showList, setShowList, billingDetails }) {
               className=" underline underline-offset-1 text-coral-full"
               btnText={"Save"}
               btnTitle={"Save changes"}
-              handleOnClick={() =>
-                editUserInfo({ billingDetails: { ...editedDetails } })
-              }
+              handleOnClick={() => {
+                const { newErrors, valid } = isFormValid(editedDetails);
+                setErrors({ ...newErrors });
+                if (valid) {
+                  editUserInfo({ billingDetails: { ...editedDetails } });
+                }
+              }}
             />
 
             <CommonButton
@@ -70,6 +75,7 @@ function BillingDetails({ showList, setShowList, billingDetails }) {
                     formData={editedDetails}
                     setFormData={setEditedDetails}
                     id={key}
+                    errors={errors}
                   />
                 );
               }

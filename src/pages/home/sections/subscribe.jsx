@@ -64,7 +64,10 @@ function Subscribe() {
           className="input dark:border-slate-800"
           required={true}
           value={formData.newsletterSubcriber}
-          setFormData={setFormData}
+          handleOnChange={(e) => {
+            let { name, value } = e.target;
+            setFormData((prev) => ({ ...prev, [name]: value }));
+          }}
         />
 
         <div className="flex max-sm:justify-end items-center max-sm:w-full">

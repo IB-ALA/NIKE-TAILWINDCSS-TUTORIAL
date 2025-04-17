@@ -33,24 +33,21 @@ export default function GlobalState({ children }) {
       name: "ib-ala",
       email: "ishaqibrahimyusif@gmail.com",
       deliveryDetails: {
-        firstname: "IB",
-        lastname: "Ala",
+        name: "IB Ala",
         email: "ishaqibrahimyusif@gmail.com",
-        phoneNumber: "0577100023",
-        country: "Ghana",
-        region: "greater accra region",
+        phone: "0577100023",
+        city: "accra",
         address: "lakeside room 5",
-        zip: "1234",
       },
       billingDetails: {
         // momo: {
-        provider: "MTN",
+        momoProvider: "MTN",
         momoNumber: "0592302209",
         // },
         // card: {
-        cardNumber: "6574465774657467",
-        cvv: "234",
-        expiry: "07/25",
+        cardNumber: "6574 4657 7465 7467",
+        cardCvc: "234",
+        cardExpiry: "07/25",
         // },
       },
     });

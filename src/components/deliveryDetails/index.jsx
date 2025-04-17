@@ -7,11 +7,13 @@ import { Link } from "react-router-dom";
 
 function DeliveryDetails({ showList, setShowList, deliveryDetails }) {
   const [editedDetails, setEditedDetails] = useState({ ...deliveryDetails });
+  const [errors, setErrors] = useState({});
   const { editUserInfo } = useUser();
 
   // useEffect(() => {
   //   console.log({ deliveryDetails });
-  // }, [deliveryDetails]);
+  //   console.log({ editedDetails });
+  // }, [editedDetails]);
 
   return (
     <div
@@ -40,9 +42,13 @@ function DeliveryDetails({ showList, setShowList, deliveryDetails }) {
               className=" underline underline-offset-1 text-coral-full"
               btnText={"Save"}
               btnTitle={"Save changes"}
-              handleOnClick={() =>
-                editUserInfo({ deliveryDetails: { ...editedDetails } })
-              }
+              handleOnClick={() => {
+                const { newErrors, valid } = isFormValid(editedDetails);
+                setErrors({ ...newErrors });
+                if (valid) {
+                  editUserInfo({ deliveryDetails: { ...editedDetails } });
+                }
+              }}
             />
 
             <CommonButton
@@ -68,6 +74,7 @@ function DeliveryDetails({ showList, setShowList, deliveryDetails }) {
                     formData={editedDetails}
                     setFormData={setEditedDetails}
                     id={key}
+                    errors={errors}
                   />
                 );
               }

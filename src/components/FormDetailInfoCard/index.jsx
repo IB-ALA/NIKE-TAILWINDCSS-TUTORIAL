@@ -1,6 +1,12 @@
 import CommonInput from "../commonInput";
 
-function FormDetailInfoCard({ formData, setFormData, id, parentKeys = [] }) {
+function FormDetailInfoCard({
+  formData,
+  setFormData,
+  id,
+  parentKeys = [],
+  errors,
+}) {
   // from here
   const value = formData[id];
 
@@ -18,7 +24,7 @@ function FormDetailInfoCard({ formData, setFormData, id, parentKeys = [] }) {
       return newData;
     });
   };
-  // to here, AI, dealing with a deep obj
+  // to here: AI, dealing with a deep obj
 
   return (
     <div className="flex flex-col border-b  last:border-none border-b-slate-100 dark:border-b-slate-800 pl-1 pb-1">
@@ -30,10 +36,14 @@ function FormDetailInfoCard({ formData, setFormData, id, parentKeys = [] }) {
       >
         {id === "phoneNumber"
           ? "phone number"
+          : id === "momoProvider"
+          ? "Provider"
           : id === "momoNumber"
           ? "momo number"
           : id === "cardNumber"
           ? "card number"
+          : id === "cardCvc"
+          ? "cvc"
           : id}
       </label>
       {typeof formData[id] === "object" ? (
@@ -62,36 +72,55 @@ function FormDetailInfoCard({ formData, setFormData, id, parentKeys = [] }) {
           return null;
         })
       ) : (
-        <CommonInput
-          className={`border-none bg-transparent w-full pl-2 text-slate-gray text-[15px] outline-none active:bg-slate-50 active:dark:bg-slate-900 ${
-            id !== "email" && "capitalize"
-          }`}
-          formData={formData}
-          setFormData={setFormData}
-          type={
-            id === "email"
-              ? "email"
-              : id === "phoneNumber"
-              ? "tel"
-              : id === "cardNumber"
-              ? "number"
-              : id === "zip"
-              ? "number"
-              : id === "cvv"
-              ? "number"
-              : "text"
-          }
-          placeholder={`Enter ${
-            id === "phoneNumber"
-              ? "phone number"
-              : id === "cardNumber"
-              ? "card number"
-              : id
-          }`}
-          name={id}
-          id={id}
-          value={value}
-        />
+        <div>
+          <CommonInput
+            className={`border-none bg-transparent w-full pl-2 text-slate-gray text-[15px] outline-none active:bg-slate-50 active:dark:bg-slate-900 ${
+              id !== "email" && "capitalize"
+            }`}
+            handleOnChange={(e) => {
+              let { name, value } = e.target;
+
+              if (name === "cardNumber") {
+                value = value
+                  .replace(/\D/g, "")
+                  .slice(0, 16)
+                  .replace(/(.{4})/g, "$1 ")
+                  .trim();
+              }
+              if (name === "cardExpiry") {
+                value = value
+                  .replace(/\D/g, "")
+                  .slice(0, 4)
+                  .replace(/(.{2})/, "$1/")
+                  .trim();
+              }
+              setFormData((prev) => ({ ...prev, [name]: value }));
+            }}
+            type={
+              id === "email"
+                ? "email"
+                : id === "phoneNumber"
+                ? "tel"
+                : id === "cvv"
+                ? "number"
+                : "text"
+            }
+            placeholder={`Enter ${
+              id === "phoneNumber"
+                ? "phone number"
+                : id === "cardNumber"
+                ? "card number"
+                : id
+            }`}
+            name={id}
+            id={id}
+            value={value}
+          />
+
+          {errors[id] && (
+            <p className="text-red-500 text-[11px]">{errors[id]}</p>
+          )}
+        </div>
       )}
     </div>
   );
