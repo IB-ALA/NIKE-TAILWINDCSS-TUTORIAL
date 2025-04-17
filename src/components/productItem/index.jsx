@@ -5,6 +5,7 @@ import ProductItemControls from "../productItemControls";
 import WishlistIcon from "../wishlistIcon";
 import { useContext } from "react";
 import { GlobalContext } from "../../context";
+import { formatCurrency } from "../../shared";
 
 function ProductItem({ img, name, price, id, sizes, forWishList }) {
   const { registeredUser, cartItems } = useContext(GlobalContext);
@@ -63,7 +64,7 @@ function ProductItem({ img, name, price, id, sizes, forWishList }) {
                 : "text-center text-lg mt-2"
             }`}
           >
-            ₵{price}
+            ₵{formatCurrency(price)}
           </p>
         </div>
       </div>

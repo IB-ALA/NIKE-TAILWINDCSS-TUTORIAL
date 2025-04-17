@@ -13,7 +13,7 @@ function CartPage() {
         </h2>
       </section>
 
-      <section className={findCartTotalItems() < 1 && "max-sm:mt-32"}>
+      <section className={findCartTotalItems() < 1 ? "max-sm:mt-32" : ""}>
         <CartItems />
       </section>
 

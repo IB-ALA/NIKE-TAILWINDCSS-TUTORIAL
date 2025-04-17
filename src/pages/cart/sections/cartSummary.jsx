@@ -11,7 +11,7 @@ function CartSummary() {
     <section className="flex max-sm:flex-col justify-between items-center mt-5 text-lg font-medium border-t dark:border-t-slate-800 sm:pt-5 pt-1 sm:px-2">
       <div className="flex info-text justify-between gap-6 items-center w-full sm:pr-4 max-sm:mb-2 max-sm:px-2">
         <p>
-          {findCartTotalItems()} item{findCartTotalItems() > 1 && "s"}
+          {findCartTotalItems()} item{findCartTotalItems() > 1 ? "s" : ""}
         </p>
 
         <p>Total: ₵{formatCurrency(findCartTotalAmount())}</p>

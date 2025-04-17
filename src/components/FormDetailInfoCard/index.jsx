@@ -75,7 +75,7 @@ function FormDetailInfoCard({
         <div>
           <CommonInput
             className={`border-none bg-transparent w-full pl-2 text-slate-gray text-[15px] outline-none active:bg-slate-50 active:dark:bg-slate-900 ${
-              id !== "email" && "capitalize"
+              id !== "email" ? "capitalize" : ""
             }`}
             handleOnChange={(e) => {
               let { name, value } = e.target;

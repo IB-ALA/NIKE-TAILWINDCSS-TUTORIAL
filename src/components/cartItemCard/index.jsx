@@ -42,7 +42,7 @@ function CartItemCard({ item }) {
         </h2>
 
         <p className="sm:text-lg text-sm text-coral-red font-medium sm:mt-1 max-sm:mb-1">
-          ${formatCurrency(cartItem?.price)}
+          ₵{formatCurrency(cartItem?.price)}
         </p>
 
         <div className="sm:mt-4 flex sm:gap-6 gap-2 items-center">
@@ -75,7 +75,7 @@ function CartItemCard({ item }) {
               <CommonButton
                 btnText={"−"}
                 disabled={item?.quantity === 1}
-                className="px-3 py-1 border-r dark:border-r-slate-800 text-lg font-bold disabled:cursor-not-allowed disabled:opacity-30"
+                className="px-3 py-1 border-r dark:border-r-slate-800 text-lg font-bold hover:bg-[#ababab23] transition-colors disabled:cursor-not-allowed disabled:opacity-30"
                 handleOnClick={() => handleQuantityChange(item?.id, -1)}
               />
 
@@ -84,7 +84,7 @@ function CartItemCard({ item }) {
               <CommonButton
                 btnText={"+"}
                 className={
-                  "px-3 py-1 border-l dark:border-l-slate-800  text-lg font-bold"
+                  "px-3 py-1 border-l dark:border-l-slate-800  text-lg font-bold hover:bg-[#ababab23] transition-colors"
                 }
                 handleOnClick={() => handleQuantityChange(item?.id, 1)}
               />
