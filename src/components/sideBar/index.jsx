@@ -30,7 +30,7 @@ function SideBar({ showSideBar, setShowSideBar }) {
           </p>
         </div>
 
-        <div className="absolute top-10 bottom-14 p-2 overflow-y-scroll w-full">
+        <div className="absolute top-10 bottom-14 p-2 overflow-y-scroll w-full custom-scrollbar">
           <WishList showList={showList} setShowList={setShowList} />
 
           <DeliveryDetails

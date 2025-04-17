@@ -100,4 +100,24 @@
       @apply h-full;
     }
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-0 h-0;
+  }
+
+  .custom-scrollbar:hover::-webkit-scrollbar {
+    @apply w-[5px] h-2;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply rounded-full border-2 border-transparent bg-clip-content bg-[#64646466];
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-[#ffffff33];
+  }
 }
