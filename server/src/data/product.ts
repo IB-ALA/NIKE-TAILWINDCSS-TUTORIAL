@@ -1,23 +1,23 @@
-type ColorType = {
+interface Color {
   name: string;
   image: string;
-};
+}
 
-type ProductDetailsType = {
-  colors: ColorType[];
+interface ProductDetails {
+  colors: Color[];
   description: string;
-};
+}
 
-export type ProductType = {
+export interface Product {
   id: string;
   name: string;
   image: string;
   price: number;
   sizes: number[];
-  productDetails?: ProductDetailsType;
-};
+  productDetails?: ProductDetails;
+}
 
-export const products: ProductType[] = [
+export const products: Product[] = [
   {
     id: "54375",
     name: "Airforce 1",

@@ -1,20 +1,20 @@
-type OrderItemType = {
+interface OrderItem {
   id: string;
   quantity: number;
   size: string;
   color: string;
-};
+}
 
-export type OrderType = {
+export interface Order {
   userID: string;
   orderID: string;
-  orderItems: OrderItemType[];
+  orderItems: OrderItem[];
   total: number;
   status: string;
   orderDate: string;
-};
+}
 
-export const orders: OrderType[] = [
+export const orders: Order[] = [
   {
     userID: "User234",
     orderID: "74785",
