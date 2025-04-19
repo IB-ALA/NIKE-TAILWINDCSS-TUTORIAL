@@ -7,7 +7,7 @@ export interface AuthenticatedRequest extends Request {
   user?: User;
 }
 
-export function authUserID(
+export function authUserId(
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction

@@ -6,7 +6,7 @@ interface OrderItem {
 }
 
 export interface Order {
-  userID: string;
+  userId: string;
   orderID: string;
   orderItems: OrderItem[];
   total: number;
@@ -16,7 +16,7 @@ export interface Order {
 
 export const orders: Order[] = [
   {
-    userID: "User234",
+    userId: "User234",
     orderID: "74785",
     orderItems: [
       {
@@ -37,7 +37,7 @@ export const orders: Order[] = [
     orderDate: "2024-08-21T13:26:35.000Z",
   },
   {
-    userID: "User234",
+    userId: "User234",
     orderID: "74786",
     orderItems: [
       {
@@ -52,7 +52,7 @@ export const orders: Order[] = [
     orderDate: "2024-08-21T13:26:35.000Z",
   },
   {
-    userID: "User235",
+    userId: "User235",
     orderID: "74787",
     orderItems: [
       {
