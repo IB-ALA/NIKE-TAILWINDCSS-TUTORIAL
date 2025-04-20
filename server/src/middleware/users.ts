@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../data/user";
+import { User } from "../types/user";
 import { getUser } from "../helpers/users";
 
 // we are extending Request 'cause we are attaching "user" to the requesst.

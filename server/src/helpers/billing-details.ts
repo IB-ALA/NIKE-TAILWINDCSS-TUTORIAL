@@ -1,4 +1,5 @@
-import { BillingDetails, billingDetails } from "../data/billing-details";
+import { billingDetails } from "../data/billing-details";
+import { BillingDetails } from "../types/billing-details";
 
 export function getBillingDetails(userId: string): BillingDetails | undefined {
   return billingDetails.find(

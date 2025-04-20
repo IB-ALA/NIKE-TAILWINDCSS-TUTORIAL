@@ -1,21 +1,4 @@
-interface Color {
-  name: string;
-  image: string;
-}
-
-interface ProductDetails {
-  colors: Color[];
-  description: string;
-}
-
-export interface Product {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  sizes: number[];
-  productDetails?: ProductDetails;
-}
+import { Product } from "../types/product";
 
 export const products: Product[] = [
   {

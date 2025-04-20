@@ -1,8 +1,4 @@
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { User } from "../types/user";
 
 export const users: User[] = [
   { id: "User234", name: "ib-ala", email: "ishaqibrahimyusif@gmail.com" },
