@@ -114,8 +114,6 @@ app.post("/newsletter/subscribe", (req: AuthenticatedRequest, res) => {
   const { newsletterSubscriber }: { newsletterSubscriber: { email: string } } =
     req.body;
 
-  console.log(req.body);
-
   if (!newsletterSubscriber || !newsletterSubscriber?.email) {
     res.status(400).json({ error: "Email is required." });
     return;
