@@ -7,6 +7,7 @@ export interface DDetails {
 }
 
 export interface DeliveryDetails {
-  userId: string;
+  userId?: string;
+  orderId: string;
   details: DDetails;
 }

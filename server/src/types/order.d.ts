@@ -6,10 +6,16 @@ export interface OrderItem {
 }
 
 export interface Order {
-  userId: string;
-  orderID: string;
+  userId?: string;
+  orderId: string;
   orderItems: OrderItem[];
   total: number;
   status: string;
   orderDate: string;
+}
+
+export interface PlaceOrderParam {
+  userId?: string;
+  orderItems: OrderItem[];
+  total: number;
 }

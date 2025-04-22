@@ -1,9 +1,9 @@
 import { Order } from "../types/order";
 
-export const orders: Order[] = [
+export let orders: Order[] = [
   {
     userId: "User234",
-    orderID: "74785",
+    orderId: "74785",
     orderItems: [
       {
         id: "54376",
@@ -24,7 +24,7 @@ export const orders: Order[] = [
   },
   {
     userId: "User234",
-    orderID: "74786",
+    orderId: "74786",
     orderItems: [
       {
         id: "54376",
@@ -39,7 +39,7 @@ export const orders: Order[] = [
   },
   {
     userId: "User235",
-    orderID: "74787",
+    orderId: "74787",
     orderItems: [
       {
         id: "54376",
@@ -59,3 +59,7 @@ export const orders: Order[] = [
     orderDate: "2024-08-21T13:26:35.000Z",
   },
 ];
+
+export function updateOrdersData(newOrders: Order[]): void {
+  orders = newOrders;
+}

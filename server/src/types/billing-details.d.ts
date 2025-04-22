@@ -1,4 +1,4 @@
-export interface BDetail {
+export interface BDetails {
   momoProvider?: string;
   momoNumber?: string;
   cardNumber?: string;
@@ -7,6 +7,7 @@ export interface BDetail {
 }
 
 export interface BillingDetails {
-  userId: string;
+  userId?: string;
+  orderId: string;
   details: BDetail;
 }
