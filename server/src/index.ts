@@ -3,21 +3,25 @@ import validator from "validator";
 import { products } from "./data/product";
 import { Product } from "./types/product";
 import { User } from "./types/user";
-import { getOrders } from "./helpers/orders";
+import { getOrders, placeOrder } from "./helpers/orders";
 import { Order } from "./types/order";
 import { AuthenticatedRequest, authUserId } from "./middleware/users";
 import { Wishlist } from "./types/wishlist";
 import { getWishlist, updateWishlist } from "./helpers/wishlist";
 import {
   getDeliverDetails,
+  replaceUserDeliverDetails,
+  saveNewDeliveryDetails,
   updateDeliveryDetails,
 } from "./helpers/deliver-details";
 import { DeliveryDetails, DDetails } from "./types/delivery-details";
 import {
   getBillingDetails,
+  replaceUserBillingDetails,
+  saveNewBillingDetails,
   updateBillingDetails,
 } from "./helpers/billing-details";
-import { BDetail, BillingDetails } from "./types/billing-details";
+import { BDetails, BillingDetails } from "./types/billing-details";
 import {
   addEmailToSubcribers,
   isEmailSubbscribed,
@@ -146,13 +150,11 @@ app.patch(
       getDeliverDetails(id);
 
     if (!deliveryDetails) {
-      userDeliveryDetails = {
-        userId: user.id,
-        details: { ...(deliveryDetails as DDetails) },
-      };
-    } else {
-      userDeliveryDetails!.details = { ...deliveryDetails };
+      res.status(404).json({ error: "Placed an order first." });
+      return;
     }
+
+    userDeliveryDetails!.details = { ...deliveryDetails };
 
     if (validator.isEmail(userDeliveryDetails?.details?.email!)) {
       res.status(400).json({ error: "Invalid email address." });
@@ -208,7 +210,7 @@ app.patch(
     //   }
     // }
 
-    const { billingDetails }: { billingDetails: BDetail } = req.body;
+    const { billingDetails }: { billingDetails: BDetails } = req.body;
 
     if (!user) {
       res.status(404).json({ error: "User not authenticated" });
@@ -218,14 +220,11 @@ app.patch(
     let userBillingDetails: BillingDetails | undefined = getBillingDetails(id);
 
     if (!billingDetails) {
-      userBillingDetails = {
-        userId: user.id,
-        details: { ...(billingDetails as BDetail) },
-      };
-    } else {
-      userBillingDetails!.details = { ...billingDetails };
+      res.status(404).json({ error: "Placed an order first." });
+      return;
     }
 
+    userBillingDetails!.details = { ...billingDetails };
     updateBillingDetails(userBillingDetails!);
 
     res.json({
@@ -330,6 +329,129 @@ app.delete(
     }
   }
 );
+
+// placing an order
+app.post("/orders", (req: AuthenticatedRequest, res) => {
+  const { userId }: { userId: string | undefined } = req.body;
+  const { saveDetails }: { saveDetails: boolean | undefined } = req.body;
+  const { deliveryDetails }: { deliveryDetails: DDetails } = req.body;
+  const { billingDetails }: { billingDetails: BDetails } = req.body;
+  const { order }: { order: Pick<Order, "total" | "orderItems"> } = req.body;
+
+  if (userId) {
+    req.params.id = userId!;
+  }
+
+  authUserId(req, res, () => {});
+  const user: User | undefined = req.user;
+  console.log(user);
+
+  // for a user that wants to save the details
+  if (user && saveDetails === true) {
+    // save this details for the user
+    // check if they have an existing details and modify it.
+    let userBillingDetails: BillingDetails | undefined = getBillingDetails(
+      user.id
+    );
+    let userDeliveryDetails: DeliveryDetails | undefined = getBillingDetails(
+      userId!
+    );
+
+    const orderId: string = placeOrder({
+      userId: user.id,
+      orderItems: order.orderItems,
+      total: order.total,
+    });
+
+    // save new billing details
+    if (!userBillingDetails) {
+      // means it's their first order
+      userBillingDetails = {
+        userId: user.id,
+        orderId,
+        details: billingDetails,
+      };
+
+      updateBillingDetails(userBillingDetails!);
+    } else {
+      userBillingDetails = {
+        orderId,
+        details: { ...billingDetails },
+        userId: user.id,
+      };
+      replaceUserBillingDetails(userBillingDetails);
+    }
+
+    // save new delivery details
+    if (!userBillingDetails) {
+      // means it's their first order
+      userDeliveryDetails = {
+        userId: user.id,
+        orderId,
+        details: deliveryDetails,
+      };
+
+      // check email
+      if (validator.isEmail(userDeliveryDetails?.details?.email!)) {
+        res.status(400).json({ error: "Invalid email address." });
+        return;
+      }
+
+      updateBillingDetails(userDeliveryDetails!);
+    } else {
+      userDeliveryDetails = {
+        orderId,
+        details: { ...deliveryDetails },
+        userId: user.id,
+      };
+
+      // check email
+      if (validator.isEmail(userDeliveryDetails?.details?.email!)) {
+        res.status(400).json({ error: "Invalid email address." });
+        return;
+      }
+      replaceUserDeliverDetails(userDeliveryDetails);
+    }
+
+    res.json({
+      message: "Order Placed successfully",
+      orderId,
+    });
+    return;
+  }
+
+  // if i am a registered user and I say don't save new details,
+  // it's same as placing order for ordinary users too
+
+  // if (user && saveDetails === false) {
+  const orderId: string = placeOrder({
+    orderItems: order.orderItems,
+    total: order.total,
+  });
+
+  const userDeliveryDetails = {
+    orderId,
+    details: { ...deliveryDetails },
+  };
+  // check email
+  if (validator.isEmail(userDeliveryDetails?.details?.email!)) {
+    res.status(400).json({ error: "Invalid email address." });
+    return;
+  }
+  saveNewDeliveryDetails(userDeliveryDetails);
+
+  const userBillingDetails = {
+    orderId,
+    details: { ...billingDetails },
+  };
+  saveNewBillingDetails(userBillingDetails);
+  // }
+
+  res.json({
+    message: "Order Placed successfully",
+    orderId,
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
