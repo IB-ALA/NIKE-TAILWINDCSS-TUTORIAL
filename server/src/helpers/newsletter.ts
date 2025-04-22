@@ -1,4 +1,7 @@
-import { newsletterSubscribers, updateSubscribers } from "../data/newsletter";
+import {
+  newsletterSubscribers,
+  updateNewsletterSubscribersData,
+} from "../data/newsletter";
 
 export function isEmailSubbscribed(email: string): boolean {
   return newsletterSubscribers.includes(email);
@@ -12,5 +15,5 @@ export function removeEmailFromSubcribers(email: string): void {
   const newSubscribers: string[] = newsletterSubscribers.filter(
     (subscriber) => subscriber !== email
   );
-  updateSubscribers(newSubscribers);
+  updateNewsletterSubscribersData(newSubscribers);
 }

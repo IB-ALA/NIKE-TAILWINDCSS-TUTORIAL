@@ -1,6 +1,6 @@
 import { BillingDetails } from "../types/billing-details";
 
-export const billingDetails: BillingDetails[] = [
+export let billingDetails: BillingDetails[] = [
   {
     userId: "User234",
     details: {
@@ -12,3 +12,7 @@ export const billingDetails: BillingDetails[] = [
     },
   },
 ];
+
+export function updateBillingDetailsData(newBillingDetails: BillingDetails[]) {
+  billingDetails = newBillingDetails;
+}

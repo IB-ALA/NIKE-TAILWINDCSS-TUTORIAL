@@ -8,10 +8,16 @@ import { Order } from "./types/order";
 import { AuthenticatedRequest, authUserId } from "./middleware/users";
 import { Wishlist } from "./types/wishlist";
 import { getWishlist, updateWishlist } from "./helpers/wishlist";
-import { getDeliverDetails } from "./helpers/deliver-details";
-import { DeliveryDetails } from "./types/delivery-details";
-import { getBillingDetails } from "./helpers/billing-details";
-import { BillingDetails } from "./types/billing-details";
+import {
+  getDeliverDetails,
+  updateDeliveryDetails,
+} from "./helpers/deliver-details";
+import { DeliveryDetails, DDetails } from "./types/delivery-details";
+import {
+  getBillingDetails,
+  updateBillingDetails,
+} from "./helpers/billing-details";
+import { BDetail, BillingDetails } from "./types/billing-details";
 import {
   addEmailToSubcribers,
   isEmailSubbscribed,
@@ -69,6 +75,7 @@ app.get("/wishlist/:id", authUserId, (req: AuthenticatedRequest, res) => {
   res.json({ wishlist: wishlist?.list });
 });
 
+// TEST THIS
 // Add and removal of product from wishlist
 app.patch("/wishlist/:id", authUserId, (req: AuthenticatedRequest, res) => {
   const userId: string = req.params.id;
@@ -112,6 +119,55 @@ app.get(
   }
 );
 
+// TEST THIS
+// editing delivery details
+app.patch(
+  "/delivery-details/:id",
+  authUserId,
+  (req: AuthenticatedRequest, res) => {
+    const id: string = req.params.id;
+    const user: User | undefined = req.user;
+    console.log(user?.id);
+
+    // body: {
+    //   "deliveryDetails": {
+    //     "email": "iishaqyusif@gmail.com";
+    //   }
+    // }
+
+    const { deliveryDetails }: { deliveryDetails: DDetails } = req.body;
+
+    if (!user) {
+      res.status(404).json({ error: "User not authenticated" });
+      return;
+    }
+
+    let userDeliveryDetails: DeliveryDetails | undefined =
+      getDeliverDetails(id);
+
+    if (!deliveryDetails) {
+      userDeliveryDetails = {
+        userId: user.id,
+        details: { ...(deliveryDetails as DDetails) },
+      };
+    } else {
+      userDeliveryDetails!.details = { ...deliveryDetails };
+    }
+
+    if (validator.isEmail(userDeliveryDetails?.details?.email!)) {
+      res.status(400).json({ error: "Invalid email address." });
+      return;
+    }
+
+    updateDeliveryDetails(userDeliveryDetails!);
+
+    res.json({
+      message: "Delivery details updated successfully",
+      details: userDeliveryDetails?.details,
+    });
+  }
+);
+
 app.get(
   "/billing-details/:id",
   authUserId,
@@ -133,6 +189,49 @@ app.get(
     }
 
     res.json({ billingDetails: billingDetails?.details });
+  }
+);
+
+// TEST THIS
+// editing delivery details
+app.patch(
+  "/billing-details/:id",
+  authUserId,
+  (req: AuthenticatedRequest, res) => {
+    const id: string = req.params.id;
+    const user: User | undefined = req.user;
+    console.log(user?.id);
+
+    // body: {
+    //   "billingDetails": {
+    //     "cvv": "234";
+    //   }
+    // }
+
+    const { billingDetails }: { billingDetails: BDetail } = req.body;
+
+    if (!user) {
+      res.status(404).json({ error: "User not authenticated" });
+      return;
+    }
+
+    let userBillingDetails: BillingDetails | undefined = getBillingDetails(id);
+
+    if (!billingDetails) {
+      userBillingDetails = {
+        userId: user.id,
+        details: { ...(billingDetails as BDetail) },
+      };
+    } else {
+      userBillingDetails!.details = { ...billingDetails };
+    }
+
+    updateBillingDetails(userBillingDetails!);
+
+    res.json({
+      message: "Billing details updated successfully",
+      details: userBillingDetails?.details,
+    });
   }
 );
 
@@ -185,7 +284,10 @@ app.post("/newsletter/subscribe", async (req: AuthenticatedRequest, res) => {
   // return res.status(500).json({ error: 'Internal server error' });
 });
 
-app.get(
+// TEST THIS
+// removing user from newsletter subs
+// change GET to PATCH
+app.delete(
   "/newsletter/unsubscribe/:email",
   async (req: AuthenticatedRequest, res) => {
     const email: string = req.params.email;

@@ -1,4 +1,7 @@
-import { billingDetails } from "../data/billing-details";
+import {
+  billingDetails,
+  updateBillingDetailsData,
+} from "../data/billing-details";
 import { BillingDetails } from "../types/billing-details";
 
 export function getBillingDetails(userId: string): BillingDetails | undefined {
@@ -7,3 +10,14 @@ export function getBillingDetails(userId: string): BillingDetails | undefined {
   );
 }
 // will be getting from the db
+
+export function updateBillingDetails(userNewBillingDetails: BillingDetails) {
+  const newBillingDetails = billingDetails.filter(
+    (oldDeliveryDetail: BillingDetails) =>
+      oldDeliveryDetail.userId !== userNewBillingDetails.userId
+  );
+
+  newBillingDetails.push(userNewBillingDetails);
+
+  updateBillingDetailsData(newBillingDetails);
+}

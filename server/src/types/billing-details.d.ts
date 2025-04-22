@@ -1,4 +1,4 @@
-export interface Detail {
+export interface BDetail {
   momoProvider?: string;
   momoNumber?: string;
   cardNumber?: string;
@@ -8,5 +8,5 @@ export interface Detail {
 
 export interface BillingDetails {
   userId: string;
-  details: Detail;
+  details: BDetail;
 }

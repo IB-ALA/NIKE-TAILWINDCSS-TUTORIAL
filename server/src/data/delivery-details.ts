@@ -1,6 +1,6 @@
 import { DeliveryDetails } from "../types/delivery-details";
 
-export const deliveryDetails: DeliveryDetails[] = [
+export let deliveryDetails: DeliveryDetails[] = [
   {
     userId: "User234",
     details: {
@@ -12,3 +12,9 @@ export const deliveryDetails: DeliveryDetails[] = [
     },
   },
 ];
+
+export function updateDeliveryDetailsData(
+  newDeliveryDetails: DeliveryDetails[]
+) {
+  deliveryDetails = newDeliveryDetails;
+}

@@ -1,4 +1,4 @@
-export interface Detials {
+export interface DDetails {
   name: string;
   email: string;
   phone: string;
@@ -8,5 +8,5 @@ export interface Detials {
 
 export interface DeliveryDetails {
   userId: string;
-  details: Detials;
+  details: DDetails;
 }
