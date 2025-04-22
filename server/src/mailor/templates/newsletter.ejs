@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanks for Subscribing</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      font-family: Arial, sans-serif;
+    "
+  >
+    <article
+      style="
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background-color: #f8f8f8;
+        border-radius: 8px;
+      "
+    >
+      <section style="text-align: center; padding-bottom: 20px">
+        <img src="<%= logoUrl %>" alt="Nike Logo" style="max-height: 50px" />
+
+        <h1 style="font-size: 24px; margin: 10px 0">
+          Thank you for subscribing!
+        </h1>
+
+        <p style="margin: 0; color: #e64830">
+          You're now part of the NIKE family.
+        </p>
+      </section>
+
+      <section
+        style="
+          background-color: #e0e0e0;
+          text-align: center;
+          padding: 15px;
+          margin: 20px 0;
+          border-radius: 5px;
+        "
+      >
+        <p style="margin: 0" ;>
+          <!-- <strong style="color:#e64830;">Use code <span style="background:#e64830; color:white; padding:2px 6px;">SAVE10</span> for 10% off your first order!</strong> -->
+          Use code <strong>SAVE10</strong> for 10% off your first order!
+        </p>
+      </section>
+
+      <h3 style="text-align: center; color: #e64830">Featured Products</h3>
+
+      <table role="presentation" style="margin: 0 auto">
+        <tr>
+          <% featuredProducts.forEach((product, index) => { %> <% if (index % 2
+          === 0 && index !== 0) { %>
+        </tr>
+
+        <tr>
+          <% } %>
+          <td align="center" style="padding: 10px">
+            <table
+              role="presentation"
+              style="
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                width: 170px;
+                background-color: #ffffff;
+              "
+            >
+              <tr>
+                <td style="text-align: center; padding: 10px">
+                  <img
+                    src="<%= product.image %>"
+                    alt="<%= product.name %>"
+                    style="max-width: 100%; border-radius: 5px"
+                  />
+
+                  <div style="font-size: 14px; margin: 10px 0">
+                    <%= product.name %>
+                  </div>
+
+                  <a
+                    href="http://localhost:5173/productdetails?id=<%= product.id %>"
+                    style="
+                      display: inline-block;
+                      padding: 8px 16px;
+                      background-color: #e64830;
+                      color: #fff;
+                      text-decoration: none;
+                      border-radius: 4px;
+                    "
+                  >
+                    Shop Now
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <% }); %>
+        </tr>
+      </table>
+
+      <section
+        style="
+          text-align: center;
+          font-size: 12px;
+          margin-top: 20px;
+          color: #777;
+        "
+      >
+        <p style="margin: 0">
+          You're receiving this email because you subscribed to our newsletter.
+        </p>
+        <p style="margin: 0">NIKE © <%= new Date().getFullYear() %></p>
+      </section>
+    </article>
+  </body>
+</html>

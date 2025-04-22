@@ -12,12 +12,19 @@ import { getDeliverDetails } from "./helpers/deliver-details";
 import { DeliveryDetails } from "./types/delivery-details";
 import { getBillingDetails } from "./helpers/billing-details";
 import { BillingDetails } from "./types/billing-details";
-import { addEmailToSubcribers, isEmailSubbscribed } from "./helpers/newsletter";
+import {
+  addEmailToSubcribers,
+  isEmailSubbscribed,
+  removeEmailFromSubcribers,
+} from "./helpers/newsletter";
+import path from "path";
+import { sendNewsletterEmail } from "./mailor/sendNewsletter";
 
 const app = express();
 const PORT = 5000;
 
 app.use(express.json());
+app.use("/static", express.static(path.join(__dirname, "../public")));
 
 app.get("/", (_req, res) => {
   res.send("Hello from Nike TS backend!");
@@ -110,7 +117,13 @@ app.get(
   }
 );
 
-app.post("/newsletter/subscribe", (req: AuthenticatedRequest, res) => {
+app.post("/newsletter/subscribe", async (req: AuthenticatedRequest, res) => {
+  // body: {
+  //   "newsletterSubscriber": {
+  //     "email": "iishaqyusif@gmail.com";
+  //   }
+  // }
+
   const { newsletterSubscriber }: { newsletterSubscriber: { email: string } } =
     req.body;
 
@@ -131,19 +144,75 @@ app.post("/newsletter/subscribe", (req: AuthenticatedRequest, res) => {
 
   // added user to the newletter db... and send a welcome text.. maybe
   // all here in a try/catch block
-  if (isEmailSubbscribed(email)) {
-    res.status(409).json({ message: "Email already subscribed." });
-    return;
+  try {
+    if (isEmailSubbscribed(email)) {
+      res.status(409).json({ message: "Email already subscribed." });
+      return;
+    }
+
+    addEmailToSubcribers(email);
+
+    const result = await sendNewsletterEmail(email);
+
+    res
+      .status(201)
+      .json({ message: "Subscribed successfully!", data: result?.response });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Failed to send email" });
   }
-
-  addEmailToSubcribers(email);
-
-  res.status(201).json({ message: "Subscribed successfully!" });
 
   // console.error(err);
   // return res.status(500).json({ error: 'Internal server error' });
 });
 
+app.get(
+  "/newsletter/unsubscribe/:email",
+  async (req: AuthenticatedRequest, res) => {
+    const email: string = req.params.email;
+    console.log({ email });
+
+    if (!email) {
+      res.status(400).json({ error: "Email is required." });
+      return;
+    }
+
+    if (!validator.isEmail(email)) {
+      res.status(400).json({ error: "Invalid email format." });
+      return;
+    }
+
+    // remove user from the newletter db...
+    // all here in a try/catch block
+    try {
+      if (!isEmailSubbscribed(email)) {
+        res.status(409).json({ error: "Email not subscribed." });
+        return;
+      }
+
+      removeEmailFromSubcribers(email);
+
+      if (!isEmailSubbscribed(email)) {
+        res.status(201).json({ message: "Unsubscribed successfully!" });
+        return;
+      } else {
+        res
+          .status(409)
+          .json({ error: "Unsubscription failed. Try again later." });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ error: "Unsubscription failed. Try again later." });
+    }
+  }
+);
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
+// npm uninstall -g ngrok
+// npx ngrok config add-authtoken 2w2efi3IFK7vscRQo9fOnG1pGae_3iu4oSGqNmFhCcohB3VFv

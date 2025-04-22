@@ -16,3 +16,6 @@ export interface Product {
   sizes: number[];
   productDetails?: ProductDetails;
 }
+
+export interface NewsletterProduct
+  extends Pick<Product, "id" | "name" | "image"> {}

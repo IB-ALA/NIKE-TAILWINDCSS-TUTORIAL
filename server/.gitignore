@@ -1,6 +1,9 @@
 # Node.js modules
 node_modules/
 
+# env variables
+.env
+
 # TypeScript build folder
 dist/
 

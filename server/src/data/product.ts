@@ -1,4 +1,4 @@
-import { Product } from "../types/product";
+import { NewsletterProduct, Product } from "../types/product";
 
 export const products: Product[] = [
   {
@@ -30,5 +30,19 @@ export const products: Product[] = [
     image: "big-shoe3.png",
     price: 3599,
     sizes: [39, 40, 41, 42, 44],
+  },
+];
+
+// import newProducts from db: name, id, image,
+export const newProducts: NewsletterProduct[] = [
+  {
+    id: "54375",
+    name: "Airforce 1",
+    image: "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241555/big-shoe1_rqnhb4.png",
+  },
+  {
+    id: "54376",
+    name: "Nike Air Jordan-01",
+    image: "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241556/big-shoe2_ldjodi.png",
   },
 ];
