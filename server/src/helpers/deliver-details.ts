@@ -31,16 +31,16 @@ export function updateDeliveryDetails(userNewDeliveryDetails: DeliveryDetails) {
 // will be getting from the db
 
 export function replaceUserDeliverDetails(
-  userNewDeliveryDetail: DeliveryDetails
+  userNewDeliveryDetails: DeliveryDetails
 ) {
   let oldDeliveryDetails = deliveryDetails.find(
     (oldDeliveryDetail: DeliveryDetails) =>
-      oldDeliveryDetail.userId === userNewDeliveryDetail.userId
+      oldDeliveryDetail.userId === userNewDeliveryDetails.userId
   );
 
   const newBillingDetails = deliveryDetails.filter(
     (oldDeliveryDetail: DeliveryDetails) =>
-      oldDeliveryDetail.userId !== userNewDeliveryDetail.userId
+      oldDeliveryDetail.userId !== userNewDeliveryDetails.userId
   );
 
   // edit the old one and remove the userId
@@ -50,7 +50,7 @@ export function replaceUserDeliverDetails(
   };
 
   newBillingDetails.push(oldDeliveryDetails);
-  newBillingDetails.push(userNewDeliveryDetail);
+  newBillingDetails.push(userNewDeliveryDetails);
   updateDeliveryDetailsData(newBillingDetails);
 }
 

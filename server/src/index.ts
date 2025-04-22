@@ -29,6 +29,7 @@ import {
 } from "./helpers/newsletter";
 import path from "path";
 import { sendNewsletterEmail } from "./mailor/sendNewsletter";
+import { orders } from "./data/orders";
 
 const app = express();
 const PORT = 5000;
@@ -144,13 +145,13 @@ app.patch(
     console.log(user?.id);
 
     //   {
-    //     "deliveryDetails": {
-    //         "name": "IB Ala",
-    //         "email": "ishaqibrahimyusif@gmail.com",
-    //         "phone": "0577100023",
-    //         "city": "accra",
-    //         "address": "lakeside room 1"
-    //     }
+    // "deliveryDetails": {
+    //     "name": "IB Ala",
+    //     "email": "ishaqibrahimyusif@gmail.com",
+    //     "phone": "0577100023",
+    //     "city": "accra",
+    //     "address": "lakeside room 1"
+    // }
     // }
 
     if (!req.body) {
@@ -221,7 +222,6 @@ app.get(
   }
 );
 
-// TEST THIS
 // editing delivery details
 app.patch(
   "/billing-details/:id",
@@ -232,13 +232,13 @@ app.patch(
     console.log(user?.id);
 
     //   {
-    //     "billingDetails": {
-    //         "momoProvider": "MTN",
-    //         "momoNumber": "0592302200",
-    //         "cardNumber": "6574 4657 7465 7467",
-    //         "cardCvc": "234",
-    //         "cardExpiry": "07/25"
-    //     }
+    // "billingDetails": {
+    //     "momoProvider": "MTN",
+    //     "momoNumber": "0592302200",
+    //     "cardNumber": "6574 4657 7465 7467",
+    //     "cardCvc": "234",
+    //     "cardExpiry": "07/25"
+    // }
     // }
 
     if (!req.body) {
@@ -377,7 +377,7 @@ app.delete(
 // placing an order
 app.post("/orders", (req: AuthenticatedRequest, res) => {
   const { userId }: { userId: string | undefined } = req.body;
-  const { saveDetails }: { saveDetails: boolean | undefined } = req.body;
+  const { saveDetails }: { saveDetails: string | undefined } = req.body;
   const { deliveryDetails }: { deliveryDetails: DDetails } = req.body;
   const { billingDetails }: { billingDetails: BDetails } = req.body;
   const { order }: { order: Pick<Order, "total" | "orderItems"> } = req.body;
@@ -386,12 +386,14 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
     req.params.id = userId!;
   }
 
+  // there is a problem with unregistered users.
   authUserId(req, res, () => {});
   const user: User | undefined = req.user;
-  console.log(user);
 
   // for a user that wants to save the details
-  if (user && saveDetails === true) {
+  if (user && saveDetails === "true") {
+    console.log({ saveDetails });
+
     // save this details for the user
     // check if they have an existing details and modify it.
     let userBillingDetails: BillingDetails | undefined = getBillingDetails(
@@ -416,7 +418,7 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
         details: billingDetails,
       };
 
-      updateBillingDetails(userBillingDetails!);
+      saveNewBillingDetails(userBillingDetails!);
     } else {
       userBillingDetails = {
         orderId,
@@ -427,7 +429,7 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
     }
 
     // save new delivery details
-    if (!userBillingDetails) {
+    if (!userDeliveryDetails) {
       // means it's their first order
       userDeliveryDetails = {
         userId: user.id,
@@ -436,12 +438,12 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
       };
 
       // check email
-      if (validator.isEmail(userDeliveryDetails?.details?.email!)) {
+      if (!validator.isEmail(userDeliveryDetails?.details?.email!)) {
         res.status(400).json({ error: "Invalid email address." });
         return;
       }
 
-      updateBillingDetails(userDeliveryDetails!);
+      saveNewDeliveryDetails(userDeliveryDetails!);
     } else {
       userDeliveryDetails = {
         orderId,
@@ -450,7 +452,7 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
       };
 
       // check email
-      if (validator.isEmail(userDeliveryDetails?.details?.email!)) {
+      if (!validator.isEmail(userDeliveryDetails?.details?.email!)) {
         res.status(400).json({ error: "Invalid email address." });
         return;
       }
@@ -461,13 +463,14 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
       message: "Order Placed successfully",
       orderId,
     });
+
+    console.log(orders);
     return;
   }
 
   // if i am a registered user and I say don't save new details,
   // it's same as placing order for ordinary users too
 
-  // if (user && saveDetails === false) {
   const orderId: string = placeOrder({
     orderItems: order.orderItems,
     total: order.total,
@@ -478,7 +481,7 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
     details: { ...deliveryDetails },
   };
   // check email
-  if (validator.isEmail(userDeliveryDetails?.details?.email!)) {
+  if (!validator.isEmail(userDeliveryDetails?.details?.email!)) {
     res.status(400).json({ error: "Invalid email address." });
     return;
   }
@@ -489,7 +492,6 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
     details: { ...billingDetails },
   };
   saveNewBillingDetails(userBillingDetails);
-  // }
 
   res.json({
     message: "Order Placed successfully",
