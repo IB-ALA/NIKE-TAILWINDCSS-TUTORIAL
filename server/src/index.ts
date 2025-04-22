@@ -7,7 +7,7 @@ import { getOrders } from "./helpers/orders";
 import { Order } from "./types/order";
 import { AuthenticatedRequest, authUserId } from "./middleware/users";
 import { Wishlist } from "./types/wishlist";
-import { getWishlist } from "./helpers/wishlist";
+import { getWishlist, updateWishlist } from "./helpers/wishlist";
 import { getDeliverDetails } from "./helpers/deliver-details";
 import { DeliveryDetails } from "./types/delivery-details";
 import { getBillingDetails } from "./helpers/billing-details";
@@ -67,6 +67,25 @@ app.get("/wishlist/:id", authUserId, (req: AuthenticatedRequest, res) => {
   }
 
   res.json({ wishlist: wishlist?.list });
+});
+
+// Add and removal of product from wishlist
+app.patch("/wishlist/:id", authUserId, (req: AuthenticatedRequest, res) => {
+  const userId: string = req.params.id;
+  const user: User | undefined = req.user;
+  console.log(user?.id);
+  const { wishlistProduct }: { wishlistProduct: { productId: string } } =
+    req.body;
+  const { productId }: { productId: string } = wishlistProduct;
+
+  if (!user) {
+    res.status(404).json({ error: "User not authenticated" });
+    return;
+  }
+
+  updateWishlist(userId, productId);
+
+  res.json({ message: "Wishlist updated successfully" });
 });
 
 app.get(
