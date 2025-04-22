@@ -14,8 +14,8 @@ export function updateDeliveryDetails(userNewDeliveryDetails: DeliveryDetails) {
   let oldDeliveryDetails = getDeliverDetails(userNewDeliveryDetails.userId!);
 
   const newDeliveryDetailsData = deliveryDetails.filter(
-    (oldDeliveryDetail: DeliveryDetails) =>
-      oldDeliveryDetail.userId !== userNewDeliveryDetails.userId
+    (deliveryDetails: DeliveryDetails) =>
+      deliveryDetails.userId !== userNewDeliveryDetails.userId
   );
 
   // edit the old one and remove the userId

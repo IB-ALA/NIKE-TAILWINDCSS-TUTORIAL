@@ -12,14 +12,23 @@ export function getBillingDetails(userId: string): BillingDetails | undefined {
 // will be getting from the db
 
 export function updateBillingDetails(userNewBillingDetails: BillingDetails) {
-  const newBillingDetails = billingDetails.filter(
-    (oldDeliveryDetail: BillingDetails) =>
-      oldDeliveryDetail.userId !== userNewBillingDetails.userId
+  let oldBillingDetails = getBillingDetails(userNewBillingDetails.userId!);
+
+  const newBillingDetailsData = billingDetails.filter(
+    (billingDetails: BillingDetails) =>
+      billingDetails.userId !== userNewBillingDetails.userId
   );
 
-  newBillingDetails.push(userNewBillingDetails);
+  // edit the old one and remove the userId
+  oldBillingDetails = {
+    orderId: oldBillingDetails?.orderId!,
+    details: oldBillingDetails?.details!,
+  };
+  newBillingDetailsData.push(oldBillingDetails);
+  newBillingDetailsData.push(userNewBillingDetails);
 
-  updateBillingDetailsData(newBillingDetails);
+  updateBillingDetailsData(newBillingDetailsData);
+  console.log(billingDetails);
 }
 
 export function replaceUserBillingDetails(

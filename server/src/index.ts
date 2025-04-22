@@ -231,13 +231,27 @@ app.patch(
     const user: User | undefined = req.user;
     console.log(user?.id);
 
-    // body: {
-    //   "billingDetails": {
-    //     "cvv": "234";
-    //   }
+    //   {
+    //     "billingDetails": {
+    //         "momoProvider": "MTN",
+    //         "momoNumber": "0592302200",
+    //         "cardNumber": "6574 4657 7465 7467",
+    //         "cardCvc": "234",
+    //         "cardExpiry": "07/25"
+    //     }
     // }
 
+    if (!req.body) {
+      res.status(404).json({ error: "Provide request body!" });
+      return;
+    }
+
     const { billingDetails }: { billingDetails: BDetails } = req.body;
+
+    if (!billingDetails) {
+      res.status(404).json({ error: "Provide billingDetails in body!" });
+      return;
+    }
 
     if (!user) {
       res.status(404).json({ error: "User not authenticated" });
@@ -246,23 +260,27 @@ app.patch(
 
     let userBillingDetails: BillingDetails | undefined = getBillingDetails(id);
 
-    if (!billingDetails) {
+    if (!userBillingDetails) {
       res.status(404).json({ error: "Placed an order first." });
       return;
     }
 
-    userBillingDetails!.details = { ...billingDetails };
-    updateBillingDetails(userBillingDetails!);
+    const newDetails: BillingDetails = {
+      userId: user.id,
+      details: { ...billingDetails },
+    };
+
+    updateBillingDetails(newDetails);
 
     res.json({
       message: "Billing details updated successfully",
-      details: userBillingDetails?.details,
+      details: newDetails?.details,
     });
   }
 );
 
 app.post("/newsletter/subscribe", async (req: AuthenticatedRequest, res) => {
-  // body: {
+  // {
   //   "newsletterSubscriber": {
   //     "email": "iishaqyusif@gmail.com";
   //   }

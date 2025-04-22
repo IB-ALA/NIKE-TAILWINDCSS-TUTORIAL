@@ -8,6 +8,6 @@ export interface BDetails {
 
 export interface BillingDetails {
   userId?: string;
-  orderId: string;
+  orderId?: string;
   details: BDetail;
 }

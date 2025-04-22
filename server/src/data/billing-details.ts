@@ -2,7 +2,8 @@ import { BillingDetails } from "../types/billing-details";
 
 export let billingDetails: BillingDetails[] = [
   {
-    userId: "User234",
+    userId: "User233",
+    orderId: "74787",
     details: {
       momoProvider: "MTN",
       momoNumber: "0592302209",
