@@ -79,15 +79,26 @@ app.get("/wishlist/:id", authUserId, (req: AuthenticatedRequest, res) => {
   res.json({ wishlist: wishlist?.list });
 });
 
-// TEST THIS
 // Add and removal of product from wishlist
 app.patch("/wishlist/:id", authUserId, (req: AuthenticatedRequest, res) => {
   const userId: string = req.params.id;
   const user: User | undefined = req.user;
   console.log(user?.id);
+
+  if (!req.body) {
+    res.status(404).json({ error: "Provide request body" });
+    return;
+  }
+
   const { wishlistProduct }: { wishlistProduct: { productId: string } } =
     req.body;
+
   const { productId }: { productId: string } = wishlistProduct;
+
+  if (!productId) {
+    res.status(404).json({ error: "Provide productId" });
+    return;
+  }
 
   if (!user) {
     res.status(404).json({ error: "User not authenticated" });
@@ -283,9 +294,7 @@ app.post("/newsletter/subscribe", async (req: AuthenticatedRequest, res) => {
   // return res.status(500).json({ error: 'Internal server error' });
 });
 
-// TEST THIS
 // removing user from newsletter subs
-// change GET to PATCH
 app.delete(
   "/newsletter/unsubscribe/:email",
   async (req: AuthenticatedRequest, res) => {
@@ -330,6 +339,7 @@ app.delete(
   }
 );
 
+// TEST THIS
 // placing an order
 app.post("/orders", (req: AuthenticatedRequest, res) => {
   const { userId }: { userId: string | undefined } = req.body;

@@ -28,8 +28,6 @@ export function updateWishlist(userId: string, productId: string) {
   );
 
   newWishlists.push(userWishlist);
-  console.log({ newWishlists });
-
   updateWishlists(newWishlists);
 }
 
