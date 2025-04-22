@@ -10,15 +10,23 @@ export function getDeliverDetails(userId: string): DeliveryDetails | undefined {
   );
 }
 
-export function updateDeliveryDetails(userNewDeliveryDetail: DeliveryDetails) {
-  const newDeliveryDetails = deliveryDetails.filter(
+export function updateDeliveryDetails(userNewDeliveryDetails: DeliveryDetails) {
+  let oldDeliveryDetails = getDeliverDetails(userNewDeliveryDetails.userId!);
+
+  const newDeliveryDetailsData = deliveryDetails.filter(
     (oldDeliveryDetail: DeliveryDetails) =>
-      oldDeliveryDetail.userId !== userNewDeliveryDetail.userId
+      oldDeliveryDetail.userId !== userNewDeliveryDetails.userId
   );
 
-  newDeliveryDetails.push(userNewDeliveryDetail);
+  // edit the old one and remove the userId
+  oldDeliveryDetails = {
+    orderId: oldDeliveryDetails?.orderId!,
+    details: oldDeliveryDetails?.details!,
+  };
+  newDeliveryDetailsData.push(oldDeliveryDetails);
+  newDeliveryDetailsData.push(userNewDeliveryDetails);
 
-  updateDeliveryDetailsData(newDeliveryDetails);
+  updateDeliveryDetailsData(newDeliveryDetailsData);
 }
 // will be getting from the db
 

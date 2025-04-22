@@ -3,6 +3,7 @@ import { DeliveryDetails } from "../types/delivery-details";
 export let deliveryDetails: DeliveryDetails[] = [
   {
     userId: "User234",
+    orderId: "74787",
     details: {
       name: "IB Ala",
       email: "ishaqibrahimyusif@gmail.com",

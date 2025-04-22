@@ -8,6 +8,6 @@ export interface DDetails {
 
 export interface DeliveryDetails {
   userId?: string;
-  orderId: string;
+  orderId?: string;
   details: DDetails;
 }

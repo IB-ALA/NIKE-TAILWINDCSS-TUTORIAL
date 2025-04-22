@@ -134,7 +134,6 @@ app.get(
   }
 );
 
-// TEST THIS
 // editing delivery details
 app.patch(
   "/delivery-details/:id",
@@ -144,13 +143,27 @@ app.patch(
     const user: User | undefined = req.user;
     console.log(user?.id);
 
-    // body: {
-    //   "deliveryDetails": {
-    //     "email": "iishaqyusif@gmail.com";
-    //   }
+    //   {
+    //     "deliveryDetails": {
+    //         "name": "IB Ala",
+    //         "email": "ishaqibrahimyusif@gmail.com",
+    //         "phone": "0577100023",
+    //         "city": "accra",
+    //         "address": "lakeside room 1"
+    //     }
     // }
 
+    if (!req.body) {
+      res.status(404).json({ error: "Provide request body!" });
+      return;
+    }
+
     const { deliveryDetails }: { deliveryDetails: DDetails } = req.body;
+
+    if (!deliveryDetails) {
+      res.status(404).json({ error: "Provide deliveryDetails in body!" });
+      return;
+    }
 
     if (!user) {
       res.status(404).json({ error: "User not authenticated" });
@@ -160,23 +173,26 @@ app.patch(
     let userDeliveryDetails: DeliveryDetails | undefined =
       getDeliverDetails(id);
 
-    if (!deliveryDetails) {
+    if (!userDeliveryDetails) {
       res.status(404).json({ error: "Placed an order first." });
       return;
     }
 
-    userDeliveryDetails!.details = { ...deliveryDetails };
+    const newDetails: DeliveryDetails = {
+      userId: user.id,
+      details: { ...deliveryDetails },
+    };
 
-    if (validator.isEmail(userDeliveryDetails?.details?.email!)) {
+    if (!validator.isEmail(newDetails?.details?.email!)) {
       res.status(400).json({ error: "Invalid email address." });
       return;
     }
 
-    updateDeliveryDetails(userDeliveryDetails!);
+    updateDeliveryDetails(newDetails);
 
     res.json({
       message: "Delivery details updated successfully",
-      details: userDeliveryDetails?.details,
+      details: newDetails?.details,
     });
   }
 );
