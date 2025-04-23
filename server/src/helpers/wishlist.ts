@@ -29,6 +29,7 @@ export function updateWishlist(userId: string, productId: string) {
 
   newWishlists.push(userWishlist);
   updateWishlists(newWishlists);
+  return userWishlist;
 }
 
 export function createNewWishlist(userId: string, productId: string): void {

@@ -34,6 +34,24 @@ import { orders } from "./data/orders";
 const app = express();
 const PORT = 5000;
 
+// use app.use(cors()) rather. Install it first
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+    );
+    res.status(200).send();
+  } else {
+    next();
+  }
+});
+
 app.use(express.json());
 app.use("/static", express.static(path.join(__dirname, "../public")));
 
@@ -106,9 +124,12 @@ app.patch("/wishlist/:id", authUserId, (req: AuthenticatedRequest, res) => {
     return;
   }
 
-  updateWishlist(userId, productId);
+  const newWishlist: Wishlist = updateWishlist(userId, productId)!;
 
-  res.json({ message: "Wishlist updated successfully" });
+  res.json({
+    message: "Wishlist updated successfully",
+    wishlist: newWishlist.list,
+  });
 });
 
 app.get(
@@ -281,10 +302,14 @@ app.patch(
 
 app.post("/newsletter/subscribe", async (req: AuthenticatedRequest, res) => {
   // {
-  //   "newsletterSubscriber": {
-  //     "email": "iishaqyusif@gmail.com";
-  //   }
+  // "newsletterSubscriber": {
+  //   "email": "iishaqyusif@gmail.com";
   // }
+  // }
+
+  if (!req.body) {
+    res.status(409).json({ error: "Provide request body." });
+  }
 
   const { newsletterSubscriber }: { newsletterSubscriber: { email: string } } =
     req.body;
