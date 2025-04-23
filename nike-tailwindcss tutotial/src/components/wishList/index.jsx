@@ -1,18 +1,10 @@
-import { useEffect } from "react";
 import { useWishList } from "../../hooks/useWishList";
 import { products } from "../../data/products";
 import WishListItemCard from "../wishListItemCard";
+import Spinner from "../spinner";
 
 function WishList({ showList, setShowList }) {
-  const { wishList } = useWishList();
-
-  // get the product - asycn and stoed in session storage
-  // render only the ones in the wishList
-
-  // useEffect(() => {
-  //   console.log(wishList?.length);
-  //   console.log(showList);
-  // }, []);
+  const { wishList, isLoading } = useWishList();
 
   return (
     <div
@@ -34,7 +26,11 @@ function WishList({ showList, setShowList }) {
       </p>
 
       {showList === "wish-list" ? (
-        wishList?.length > 0 ? (
+        isLoading === true ? (
+          <div className="sm:ml-3 ml-1 border dark:border-slate-900 my-2 p-4 shadow-2xl rounded-md flex justify-center">
+            <Spinner />
+          </div>
+        ) : wishList && wishList?.length > 0 ? (
           <div className="sm:ml-3 ml-1 border dark:border-slate-900 my-2 p-2 shadow-2xl rounded-md flex flex-col gap-3">
             {products
               .filter((item) => wishList?.includes(item.id))

@@ -1,6 +1,9 @@
+import { useProduct } from "../../../hooks/useProduct";
 import { Footer, ProductList } from "./sections";
+import Spinner from "../../../components/spinner";
 
 function ProductListPage() {
+  const { products, isLoading, fetchProducts } = useProduct();
   return (
     <main className="sm:pt-32 pt-16 dark:bg-[hsl(0,0%,5%)] text-dark-2 min-h-screen relative">
       <section className="padding-x">
@@ -10,8 +13,21 @@ function ProductListPage() {
       </section>
 
       <section className="padding-x pt-7 pb-40">
-        {/* we will need the loading feature here */}
-        <ProductList />
+        {isLoading && (
+          <div className="w-full flex justify-center">
+            <Spinner />
+          </div>
+        )}
+
+        {products.length > 0 && <ProductList products={products} />}
+
+        {products.length < 1 && !isLoading && (
+          <div className="w-full flex items-center justify-center">
+            <p className="text-coral-red text-xl font-montserrat">
+              No products available. Try again later.
+            </p>
+          </div>
+        )}
       </section>
 
       <section>

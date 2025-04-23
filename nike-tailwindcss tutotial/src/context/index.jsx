@@ -18,7 +18,8 @@ export default function GlobalState({ children }) {
   const [signupFormData, setSignupFormData] = useState(initialSignupFormData);
   const [registeredUser, setRegisteredUser] = useState(null);
 
-  const [wishList, setWishList] = useState(["54376"]);
+  const [products, setProducts] = useState([]);
+  const [wishList, setWishList] = useState([]);
   const [cartItems, setCartItems] = useState([
     { id: "54376", quantity: 2, size: "23", color: "default" },
   ]);
@@ -89,6 +90,8 @@ export default function GlobalState({ children }) {
         initialSignupFormData,
         signupFormData,
         setSignupFormData,
+        products,
+        setProducts,
         wishList,
         setWishList,
         cartItems,
