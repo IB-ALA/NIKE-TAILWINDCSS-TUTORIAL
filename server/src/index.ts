@@ -373,7 +373,10 @@ app.delete(
   }
 );
 
-// TEST THIS
+// left with payment integration, after putting in db, if user confirms order,
+// maybe we call a diff endpoint to verify the payment and change "pending" status
+// of order, using the sent orderId, to "placed"
+
 // placing an order
 app.post("/orders", (req: AuthenticatedRequest, res) => {
   const { userId }: { userId: string | undefined } = req.body;
@@ -382,13 +385,18 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
   const { billingDetails }: { billingDetails: BDetails } = req.body;
   const { order }: { order: Pick<Order, "total" | "orderItems"> } = req.body;
 
+  // if there is a userId, add it to the req to be authenticated
   if (userId) {
     req.params.id = userId!;
+    authUserId(req, res, () => {});
   }
 
-  // there is a problem with unregistered users.
-  authUserId(req, res, () => {});
   const user: User | undefined = req.user;
+
+  // if userId is provided but the user is not authenticated, return.
+  if (userId && !user) {
+    return;
+  }
 
   // for a user that wants to save the details
   if (user && saveDetails === "true") {
@@ -399,7 +407,7 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
     let userBillingDetails: BillingDetails | undefined = getBillingDetails(
       user.id
     );
-    let userDeliveryDetails: DeliveryDetails | undefined = getBillingDetails(
+    let userDeliveryDetails: DeliveryDetails | undefined = getDeliverDetails(
       userId!
     );
 
@@ -422,8 +430,8 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
     } else {
       userBillingDetails = {
         orderId,
-        details: { ...billingDetails },
         userId: user.id,
+        details: { ...billingDetails },
       };
       replaceUserBillingDetails(userBillingDetails);
     }
@@ -447,8 +455,8 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
     } else {
       userDeliveryDetails = {
         orderId,
-        details: { ...deliveryDetails },
         userId: user.id,
+        details: { ...deliveryDetails },
       };
 
       // check email
@@ -467,6 +475,7 @@ app.post("/orders", (req: AuthenticatedRequest, res) => {
     console.log(orders);
     return;
   }
+  // reg "user and save" ends here..
 
   // if i am a registered user and I say don't save new details,
   // it's same as placing order for ordinary users too
