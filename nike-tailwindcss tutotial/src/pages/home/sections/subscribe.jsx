@@ -1,20 +1,28 @@
 import { useEffect, useState } from "react";
 import CommonButton from "../../../components/commonButton";
 import CommonInput from "../../../components/commonInput";
+import useFetch from "../../../hooks/useFetch";
+import { toast } from "react-toastify";
+import Spinner from "../../../components/spinner";
 
 function Subscribe() {
   const [isValid, setIsValid] = useState(false);
-  const [formData, setFormData] = useState({ newsletterSubcriber: "" });
+  const [formData, setFormData] = useState({ newsletterSubscriber: "" });
   const [buttonTitle, setButtonTitle] = useState("Subscribe");
+  const { run: submitNewsletterEmail, isLoading, data, error } = useFetch();
 
   useEffect(() => {
     checkEmail(
-      formData.newsletterSubcriber,
+      formData.newsletterSubscriber,
       setIsValid,
       "Subscribe",
       setButtonTitle
     );
   }, [formData]);
+
+  useEffect(() => {
+    console.log({ data }, { error });
+  }, [data, error]);
 
   function checkEmail(emailToBeChecked, setValidity, initialMsg, setErrorMsg) {
     let errorMessage;
@@ -34,12 +42,32 @@ function Subscribe() {
     }
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    // form form logic or api call here
-    console.log(formData);
-    setFormData({ newsletterSubcriber: "" });
+    // console.log(formData);
+
+    try {
+      const payload = {
+        newsletterSubscriber: {
+          email: formData.newsletterSubscriber,
+        },
+      };
+
+      const result = await submitNewsletterEmail(
+        "http://localhost:5000/newsletter/subscribe",
+        {
+          method: "POST",
+          body: JSON.stringify(payload),
+        }
+      );
+
+      // console.log({ result });
+      toast.success(result?.message, { hideProgressBar: true });
+      setFormData({ newsletterSubscriber: "" });
+    } catch (error) {
+      toast.error(error?.message, { hideProgressBar: true });
+    }
   }
 
   return (
@@ -58,12 +86,12 @@ function Subscribe() {
       >
         <CommonInput
           type="email"
-          name="newsletterSubcriber"
-          id="newsletterSubcriber"
+          name="newsletterSubscriber"
+          id="newsletterSubscriber"
           placeholder="subscribe@nike.com"
           className="input dark:border-slate-800"
           required={true}
-          value={formData.newsletterSubcriber}
+          value={formData.newsletterSubscriber}
           handleOnChange={(e) => {
             let { name, value } = e.target;
             setFormData((prev) => ({ ...prev, [name]: value }));
@@ -71,13 +99,17 @@ function Subscribe() {
         />
 
         <div className="flex max-sm:justify-end items-center max-sm:w-full">
-          <CommonButton
-            type={"submit"}
-            btnText={"Sign Up"}
-            extraClasses={"w-full"}
-            disabled={!isValid}
-            btnTitle={buttonTitle}
-          />
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <CommonButton
+              type={"submit"}
+              btnText={"Sign Up"}
+              extraClasses={"w-full"}
+              disabled={!isValid}
+              btnTitle={buttonTitle}
+            />
+          )}
         </div>
       </form>
     </section>
