@@ -4,8 +4,14 @@ import useFetch from "./useFetch";
 import { toast } from "react-toastify";
 
 export function useProduct() {
-  const { productDetails, setProductDetails, location, products, setProducts } =
-    useContext(GlobalContext);
+  const {
+    productDetails,
+    setProductDetails,
+    location,
+    products,
+    setProducts,
+    currentPage,
+  } = useContext(GlobalContext);
   const [productId, setProductId] = useState(getSearchProductIdFromURL());
   const { run: getAllProducts, data, isLoading, error } = useFetch();
 
@@ -14,28 +20,28 @@ export function useProduct() {
   }, [location]);
 
   useEffect(() => {
-    setProductDetails({ ...getProduct(productId) });
+    if (productId && currentPage === "productdetails") {
+      setProductDetails({ ...getProduct(productId) });
+    }
     // console.log(productId);
   }, [productId]);
 
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, []);
-
   async function fetchProducts() {
     try {
-      let savedProducts = JSON.parse(sessionStorage.getItem("savedProducts"));
+      const savedProducts = JSON.parse(sessionStorage.getItem("savedProducts"));
 
       if (!savedProducts) {
-        savedProducts = await getAllProducts("http://localhost:5000/products");
+        const dbProducts = await getAllProducts(
+          "http://localhost:5000/products"
+        );
 
         sessionStorage.setItem(
           "savedProducts",
-          JSON.stringify([...savedProducts?.products])
+          JSON.stringify([...dbProducts?.products])
         );
         // sessionStorage.removeItem("savedProducts");
-        setProducts([...savedProducts?.products]);
-      }
+        setProducts([...dbProducts?.products]);
+      } else setProducts([...savedProducts]);
     } catch (err) {
       console.error(err);
     } finally {

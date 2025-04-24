@@ -4,17 +4,36 @@ import FormDetailInfoCard from "../FormDetailInfoCard";
 import useUser from "../../hooks/useUser";
 import { useEffect, useState } from "react";
 import { isFormValid } from "../../shared";
+import Spinner from "../spinner";
+import { toast } from "react-toastify";
 
-function BillingDetails({ showList, setShowList, billingDetails }) {
-  const [editedDetails, setEditedDetails] = useState({ ...billingDetails });
+function BillingDetails({ showList, setShowList }) {
   const [errors, setErrors] = useState({});
-  const { editUserInfo } = useUser();
+  const { editUserInfo, userBillingDetails, getBillingDetails, isLoading } =
+    useUser();
+  const [editedDetails, setEditedDetails] = useState({ ...userBillingDetails });
 
-  // useEffect(() => {
-  //   console.log({ billingDetails });
-  //   console.log({ editedDetails });
-  //   console.log(editedDetails);
-  // }, [billingDetails]);
+  useEffect(() => {
+    if (showList === "payment-details") {
+      getBillingDetails();
+    }
+  }, [showList]);
+
+  useEffect(() => {
+    setEditedDetails({ ...userBillingDetails });
+  }, [userBillingDetails]);
+
+  useEffect(() => {
+    if (
+      Object.keys(editedDetails).length > 0 &&
+      !isFormValid(editedDetails)?.valid
+    ) {
+      console.log(Object.keys(editedDetails).length);
+
+      toast.error("An error occured. Try again later.");
+      setShowList(null);
+    }
+  }, [editedDetails]);
 
   return (
     <div
@@ -37,7 +56,8 @@ function BillingDetails({ showList, setShowList, billingDetails }) {
         >
           Billing Details
         </p>
-        {JSON.stringify(billingDetails) !== JSON.stringify(editedDetails) && (
+        {JSON.stringify(userBillingDetails) !==
+          JSON.stringify(editedDetails) && (
           <div className="absolute right-2 top-2 flex  gap-2">
             <CommonButton
               className=" underline underline-offset-1 text-coral-full"
@@ -57,7 +77,7 @@ function BillingDetails({ showList, setShowList, billingDetails }) {
               btnText={"Undo"}
               btnTitle={"Undo changes"}
               handleOnClick={() => {
-                setEditedDetails({ ...billingDetails });
+                setEditedDetails({ ...userBillingDetails });
               }}
             />
           </div>
@@ -65,7 +85,21 @@ function BillingDetails({ showList, setShowList, billingDetails }) {
       </div>
 
       {showList === "payment-details" ? (
-        isFormValid(billingDetails)?.valid ? (
+        isLoading === true ? (
+          <div className="sm:ml-3 ml-1 border dark:border-slate-900 my-2 p-4 shadow-2xl rounded-md flex justify-center">
+            <Spinner />
+          </div>
+        ) : Object.keys(userBillingDetails)?.length < 1 ? (
+          <p className="ml-3 my-2 p-2 shadow-3xl rounded-md text-center text-coral-red text-[16px] dark:bg-slate-950">
+            No Billing Details Available.
+            <Link
+              to={"/products"}
+              className="underline underline-offset-2 ml-1 text-coral-full"
+            >
+              Place an Order.
+            </Link>
+          </p>
+        ) : isFormValid(editedDetails)?.valid ? (
           <div className="ml-3 dark:border dark:border-slate-900 my-2 p-2 shadow-3xl rounded-md flex flex-col gap-3 bg-dark-1 dark:shadow-[#58565664]">
             {Object.keys(editedDetails).map((key) => {
               if (Object.prototype.hasOwnProperty.call(editedDetails, key)) {
@@ -82,17 +116,7 @@ function BillingDetails({ showList, setShowList, billingDetails }) {
               return null;
             })}
           </div>
-        ) : (
-          <p className="ml-3 my-2 p-2 shadow-3xl rounded-md text-center text-coral-red text-[16px] dark:bg-slate-950">
-            No Billing Details Available.
-            <Link
-              to={"/products"}
-              className="underline underline-offset-2 ml-1 text-coral-full"
-            >
-              Place an Order.
-            </Link>
-          </p>
-        )
+        ) : null
       ) : null}
     </div>
   );

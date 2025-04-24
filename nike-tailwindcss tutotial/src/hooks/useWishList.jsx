@@ -49,21 +49,21 @@ export function useWishList() {
 
   async function fetchWishlist() {
     try {
-      let savedWishlist = JSON.parse(sessionStorage.getItem("savedWishlist"));
+      const savedWishlist = JSON.parse(sessionStorage.getItem("savedWishlist"));
 
       if (!savedWishlist) {
-        savedWishlist = await getWishlist(
+        const dbWishlist = await getWishlist(
           `http://localhost:5000/wishlist/${registeredUser?.id}`
         );
 
         sessionStorage.setItem(
           "savedWishlist",
-          JSON.stringify([...savedWishlist?.wishlist])
+          JSON.stringify([...dbWishlist?.wishlist])
         );
         // localStorage.removeItem("savedWishlist");
 
-        setWishList([...savedWishlist?.wishlist]);
-      }
+        setWishList([...dbWishlist?.wishlist]);
+      } else setWishList([...savedWishlist]);
     } catch (err) {
       // toast.error(err?.message, { hideProgressBar: true });
       console.error(err);

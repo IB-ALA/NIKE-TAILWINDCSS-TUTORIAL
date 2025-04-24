@@ -17,6 +17,8 @@ export default function GlobalState({ children }) {
   };
   const [signupFormData, setSignupFormData] = useState(initialSignupFormData);
   const [registeredUser, setRegisteredUser] = useState(null);
+  const [userBillingDetails, setUserBillingDetails] = useState({});
+  const [userDeliveryDetails, setUserDeliveryDetails] = useState({});
 
   const [products, setProducts] = useState([]);
   const [wishList, setWishList] = useState([]);
@@ -84,6 +86,10 @@ export default function GlobalState({ children }) {
         currentPage,
         registeredUser,
         setRegisteredUser,
+        userBillingDetails,
+        setUserBillingDetails,
+        userDeliveryDetails,
+        setUserDeliveryDetails,
         initialLoginFormData,
         loginFormData,
         setLoginFormData,

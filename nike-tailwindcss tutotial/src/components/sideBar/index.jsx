@@ -33,17 +33,9 @@ function SideBar({ showSideBar, setShowSideBar }) {
         <div className="absolute top-10 bottom-14 p-2 overflow-y-scroll w-full custom-scrollbar">
           <WishList showList={showList} setShowList={setShowList} />
 
-          <DeliveryDetails
-            showList={showList}
-            setShowList={setShowList}
-            deliveryDetails={registeredUser?.deliveryDetails}
-          />
+          <DeliveryDetails showList={showList} setShowList={setShowList} />
 
-          <BillingDetails
-            showList={showList}
-            setShowList={setShowList}
-            billingDetails={registeredUser?.billingDetails}
-          />
+          <BillingDetails showList={showList} setShowList={setShowList} />
 
           <div className="border-b last:mb-0 mb-1 border-b-slate-100 dark:border-slate-800">
             <CommonButton
