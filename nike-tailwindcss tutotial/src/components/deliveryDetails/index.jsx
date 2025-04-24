@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { isFormValid } from "../../shared";
 import FormDetailInfoCard from "../FormDetailInfoCard";
-import CommonButton from "../commonButton";
 import useUser from "../../hooks/useUser";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import Spinner from "../spinner";
+import EditDetailsControlOptions from "../editDetailsControlOptions";
 
 function DeliveryDetails({ showList, setShowList }) {
   const [errors, setErrors] = useState({});
@@ -25,17 +24,19 @@ function DeliveryDetails({ showList, setShowList }) {
     setEditedDetails({ ...userDeliveryDetails });
   }, [userDeliveryDetails]);
 
-  useEffect(() => {
-    if (
-      Object.keys(editedDetails).length > 0 &&
-      !isFormValid(editedDetails)?.valid
-    ) {
-      console.log(Object.keys(editedDetails).length);
+  // look for a better code for this feature
 
-      toast.error("An error occured. Try again later.");
-      setShowList(null);
-    }
-  }, [editedDetails]);
+  // useEffect(() => {
+  //   if (
+  //     Object.keys(editedDetails).length > 0 &&
+  //     !isFormValid(editedDetails)?.valid
+  //   ) {
+  //     console.log(Object.keys(editedDetails).length);
+
+  //     toast.error("An error occured. Try again later.");
+  //     setShowList(null);
+  //   }
+  // }, [editedDetails]);
 
   return (
     <div
@@ -60,29 +61,13 @@ function DeliveryDetails({ showList, setShowList }) {
         </p>
         {JSON.stringify(userDeliveryDetails) !==
           JSON.stringify(editedDetails) && (
-          <div className="absolute right-2 top-2 flex  gap-2">
-            <CommonButton
-              className=" underline underline-offset-1 text-coral-full"
-              btnText={"Save"}
-              btnTitle={"Save changes"}
-              handleOnClick={() => {
-                const { newErrors, valid } = isFormValid(editedDetails);
-                setErrors({ ...newErrors });
-                if (valid) {
-                  editUserInfo({ deliveryDetails: { ...editedDetails } });
-                }
-              }}
-            />
-
-            <CommonButton
-              className="underline underline-offset-1 text-coral-full"
-              btnText={"Undo"}
-              btnTitle={"Undo changes"}
-              handleOnClick={() => {
-                setEditedDetails({ ...userDeliveryDetails });
-              }}
-            />
-          </div>
+          <EditDetailsControlOptions
+            setErrors={setErrors}
+            editedDetails={editedDetails}
+            setEditedDetails={setEditedDetails}
+            userDetails={userDeliveryDetails}
+            dataTpye={"deliveryDetails"}
+          />
         )}
       </div>
 
@@ -101,7 +86,7 @@ function DeliveryDetails({ showList, setShowList }) {
               Place an Order.
             </Link>
           </p>
-        ) : isFormValid(editedDetails)?.valid ? (
+        ) : isFormValid(userDeliveryDetails)?.valid ? (
           <div className="ml-3 dark:border dark:border-slate-900 my-2 p-2 shadow-3xl rounded-md flex flex-col gap-3 bg-dark-1 dark:shadow-[#58565664]">
             {Object.keys(editedDetails).map((key) => {
               if (Object.prototype.hasOwnProperty.call(editedDetails, key)) {
