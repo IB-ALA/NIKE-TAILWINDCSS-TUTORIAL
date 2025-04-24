@@ -35,7 +35,7 @@ function useUser() {
           `http://localhost:5000/delivery-details/${registeredUser?.id}`
         );
 
-        console.log({ dbDeliveryDetails });
+        // console.log({ dbDeliveryDetails });
 
         sessionStorage.setItem(
           "savedDeliveryDetails",

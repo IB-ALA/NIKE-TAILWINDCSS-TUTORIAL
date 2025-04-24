@@ -20,10 +20,6 @@ function Subscribe() {
     );
   }, [formData]);
 
-  useEffect(() => {
-    console.log({ data }, { error });
-  }, [data, error]);
-
   function checkEmail(emailToBeChecked, setValidity, initialMsg, setErrorMsg) {
     let errorMessage;
     const emailRegex = /^([a-z\d\.-]+)@([a-z\d-]+\.)([a-z]{2,3})?$/;
