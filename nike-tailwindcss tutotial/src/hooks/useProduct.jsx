@@ -14,14 +14,13 @@ export function useProduct() {
   }, [location]);
 
   useEffect(() => {
-    getProduct(productId).then((result) => setProductDetails({ ...result }));
-    // setProductDetails({ ...getProduct(productId) });
+    setProductDetails({ ...getProduct(productId) });
     // console.log(productId);
   }, [productId]);
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
 
   async function fetchProducts() {
     try {
@@ -37,9 +36,12 @@ export function useProduct() {
         // sessionStorage.removeItem("savedProducts");
         setProducts([...savedProducts?.products]);
       }
-    } catch (error) {
-      // console.log(error?.message);
-      toast.error(error?.message, { hideProgressBar: true });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      if (error && error?.message !== "Failed to fetch") {
+        toast.error(error?.message, { hideProgressBar: true });
+      }
     }
   }
 
@@ -48,7 +50,7 @@ export function useProduct() {
     return queryParams.get("id");
   }
 
-  async function getProduct(productId) {
+  function getProduct(productId) {
     let matchingProduct;
     if (products?.length !== 0) {
       products?.forEach((product) => {
@@ -60,6 +62,10 @@ export function useProduct() {
       if (matchingProduct) {
         // console.log(matchingProduct);
         return matchingProduct;
+      } else {
+        toast.error("Coundn't get product details. Try again later.", {
+          hideProgressBar: true,
+        });
       }
     } else {
       // means there was an error

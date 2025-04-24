@@ -1,9 +1,15 @@
 import { useProduct } from "../../../hooks/useProduct";
 import { Footer, ProductList } from "./sections";
 import Spinner from "../../../components/spinner";
+import { useEffect } from "react";
 
 function ProductListPage() {
   const { products, isLoading, fetchProducts } = useProduct();
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <main className="sm:pt-32 pt-16 dark:bg-[hsl(0,0%,5%)] text-dark-2 min-h-screen relative">
       <section className="padding-x">

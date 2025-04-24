@@ -4,11 +4,12 @@ import useFetch from "./useFetch";
 import { toast } from "react-toastify";
 
 export function useWishList() {
-  const { wishList, setWishList, registeredUser } = useContext(GlobalContext);
+  const { wishList, setWishList, registeredUser, products } =
+    useContext(GlobalContext);
   const { run: getWishlist, data, isLoading, error } = useFetch();
 
   useEffect(() => {
-    if (registeredUser?.id) {
+    if (registeredUser?.id && products?.length > 0) {
       fetchWishlist();
     }
   }, []);
@@ -37,8 +38,12 @@ export function useWishList() {
         );
         toast.success(result?.message, { hideProgressBar: true });
       }
-    } catch (error) {
-      toast.error(result?.message, { hideProgressBar: true });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      if (error && error?.message !== "Failed to fetch") {
+        toast.error(error?.message, { hideProgressBar: true });
+      }
     }
   }
 
@@ -59,8 +64,13 @@ export function useWishList() {
 
         setWishList([...savedWishlist?.wishlist]);
       }
-    } catch (error) {
-      toast.error(error?.message, { hideProgressBar: true });
+    } catch (err) {
+      // toast.error(err?.message, { hideProgressBar: true });
+      console.error(err);
+    } finally {
+      if (error && error?.message !== "Failed to fetch") {
+        toast.error(error?.message, { hideProgressBar: true });
+      }
     }
   }
 
