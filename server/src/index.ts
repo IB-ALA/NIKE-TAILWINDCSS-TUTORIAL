@@ -199,7 +199,7 @@ app.patch(
       getDeliverDetails(id);
 
     if (!userDeliveryDetails) {
-      res.status(404).json({ error: "Placed an order first." });
+      res.json({ error: "Placed an order first.", details: {} });
       return;
     }
 
@@ -285,7 +285,7 @@ app.patch(
     let userBillingDetails: BillingDetails | undefined = getBillingDetails(id);
 
     if (!userBillingDetails) {
-      res.status(404).json({ error: "Placed an order first." });
+      res.json({ error: "Placed an order first.", details: {} });
       return;
     }
 
