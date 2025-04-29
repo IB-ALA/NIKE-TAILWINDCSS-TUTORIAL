@@ -26,8 +26,6 @@ function useUser() {
       ...data,
     };
 
-    console.log(payload);
-
     try {
       const result = await apiCall(
         `http://localhost:5000/${pathToUse}/${registeredUser?.id}`,

@@ -21,7 +21,7 @@ function LoginForm() {
           e.preventDefault();
           handleLogin();
         }}
-        className="sm:w-96 w-80 flex items-center flex-col mx-auto"
+        className="sm:w-96 w-80 flex items-center flex-col mx-auto font-montserrat"
       >
         <CommonInput
           autoFocus={true}
@@ -32,7 +32,7 @@ function LoginForm() {
           id={"email"}
           required={true}
           className={
-            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent placeholder-gray-500"
           }
           value={loginFormData?.email}
           handleOnChange={(e) => {
@@ -52,7 +52,7 @@ function LoginForm() {
           id={"password"}
           required={true}
           className={
-            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent placeholder-gray-500"
           }
           value={loginFormData?.password}
           handleOnChange={(e) => {

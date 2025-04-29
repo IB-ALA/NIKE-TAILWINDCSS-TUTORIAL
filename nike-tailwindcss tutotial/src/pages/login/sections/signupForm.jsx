@@ -19,7 +19,7 @@ function SignupForm() {
           e.preventDefault();
           handleSignup();
         }}
-        className="sm:w-96 w-80 mt-4"
+        className="sm:w-96 w-80 mt-4 font-montserrat"
       >
         <CommonInput
           autoFocus={true}
@@ -30,7 +30,7 @@ function SignupForm() {
           id={"name"}
           required={true}
           className={
-            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent placeholder-gray-500"
           }
           value={signupFormData?.name}
           handleOnChange={(e) => {
@@ -46,7 +46,7 @@ function SignupForm() {
           id={"email"}
           required={true}
           className={
-            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent placeholder-gray-500"
           }
           value={signupFormData?.email}
           handleOnChange={(e) => {
@@ -62,7 +62,7 @@ function SignupForm() {
           id={"password"}
           required={true}
           className={
-            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent placeholder-gray-500"
           }
           value={signupFormData?.password}
           handleOnChange={(e) => {
@@ -78,7 +78,7 @@ function SignupForm() {
           id={"reEnteredPassword"}
           required={true}
           className={
-            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent"
+            "border border-slate-400 dark:border-slate-800 px-3 py-2 w-full outline-blue-400 mb-4 rounded-md bg-transparent placeholder-gray-500"
           }
           value={signupFormData?.reEnteredPassword}
           handleOnChange={(e) => {

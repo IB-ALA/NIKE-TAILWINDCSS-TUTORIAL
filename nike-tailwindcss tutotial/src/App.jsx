@@ -7,6 +7,7 @@ import ProductDetailsPage from "./pages/products/product_details";
 import OrdersPage from "./pages/orders";
 import CartPage from "./pages/cart";
 import CheckoutPage from "./pages/checkout";
+import ResetPasswordPage from "./pages/reset password";
 
 function AppRoutes() {
   const element = useRoutes([
@@ -23,6 +24,7 @@ function AppRoutes() {
       ],
     },
     { path: "/signin", element: <LoginPage /> },
+    { path: "/reset-password", element: <ResetPasswordPage /> },
   ]);
 
   return element;
