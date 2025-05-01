@@ -3,6 +3,8 @@ import User from "../models/User";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import validator from "validator";
+import crypto from "crypto";
+import { sendResetPasswordEmail } from "../mailor/sendResetPasswordLink";
 
 const router = express.Router();
 
@@ -95,6 +97,59 @@ router.post("/login", async (req, res) => {
     res.json({ message: "Login successful", token });
   } catch (err) {
     res.status(500).json({ message: "Login failed" });
+  }
+});
+
+router.post("/forgot-password", async (req, res) => {
+  if (!req.body) {
+    res.status(404).json({ error: "Provide request body!" });
+    return;
+  }
+
+  const { email }: { email: string } = req.body;
+
+  if (!email) {
+    res.status(404).json({ error: "Provide all necessary info in body." });
+    return;
+  }
+
+  if (!validator.isEmail(email)) {
+    res.status(404).json({ error: "Provide valid a email." });
+    return;
+  }
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    const now = new Date();
+
+    // Check if a reset token was recently requested
+    if (user.resetTokenExpiry && user.resetTokenExpiry > now) {
+      res.status(429).json({ message: "Please wait before requesting again." });
+      return;
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+
+    // token valid for 10 mins
+    const expiry = new Date(Date.now() + 10 * 60 * 1000);
+
+    // Save token & expiry
+    user.resetToken = token;
+    user.resetTokenExpiry = expiry;
+    await user.save();
+
+    const result = await sendResetPasswordEmail(user.email, token);
+    // console.log({ result });
+
+    res.json({ message: "Reset link sent to your email." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to send reset email." });
   }
 });
 
