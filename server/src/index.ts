@@ -31,6 +31,8 @@ import path from "path";
 import { sendNewsletterEmail } from "./mailor/sendNewsletter";
 import { orders } from "./data/orders";
 import cors from "cors";
+import authRoutes from "./routes/auth";
+import mongoose from "mongoose";
 
 const app = express();
 const PORT = 5000;
@@ -61,6 +63,15 @@ app.use("/static", express.static(path.join(__dirname, "../public")));
 app.get("/", (_req, res) => {
   res.send("Hello from Nike TS backend!");
 });
+
+app.use("/auth", authRoutes);
+
+mongoose
+  .connect(process.env.MONGO_URL!)
+  .then(() => {
+    console.log("✅ MongoDB connected");
+  })
+  .catch((err) => console.log("❌ MongoDB connection error:", err));
 
 app.get("/products", (_req, res) => {
   const dbProducts: Product[] = products;
