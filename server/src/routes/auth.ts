@@ -1,10 +1,13 @@
 import express from "express";
 import User from "../models/User";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 import crypto from "crypto";
 import { sendResetPasswordEmail } from "../mailor/sendResetPasswordLink";
+import { sendEmailVerificationEmail } from "../mailor/sendEmailVerification";
+import { createUserToken } from "../utils/jwt";
+import { createUser } from "../utils/createUser";
+import { sendPasswordResetConfirmationEmail } from "../mailor/sendPasswordResetConfirmation";
 
 const router = express.Router();
 
@@ -31,8 +34,12 @@ router.post("/register", async (req, res) => {
     return;
   }
 
+  if (password?.length < 6) {
+    res.status(404).json({ error: "Password must be atleast 6 characters." });
+    return;
+  }
+
   try {
-    // Check if email is already in use
     const existing = await User.findOne({ email });
     console.log({ existing });
 
@@ -41,17 +48,74 @@ router.post("/register", async (req, res) => {
       return;
     }
 
-    // Create and save new user
     const user = new User({ name, email, password });
+
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+    user.verificationToken = verificationToken;
+
     await user.save();
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
-      expiresIn: "1h",
+    const result = await sendEmailVerificationEmail(
+      email,
+      name,
+      verificationToken
+    );
+
+    console.log({ result });
+
+    res.status(201).json({
+      message:
+        "User registered successfully. Please check your email to verify account.",
+      verificationToken,
     });
 
-    res.status(201).json({ message: "User registered successfully", token });
+    // after testing, remove the verificationToken from the response!!!
   } catch (err) {
-    res.status(500).json({ message: "Error registering user" });
+    // console.log(err);
+
+    res.status(500).json({ message: "Error registering user." });
+  }
+});
+
+router.post("/verify-email", async (req, res) => {
+  if (!req.body) {
+    res.status(404).json({ error: "Provide request body!" });
+    return;
+  }
+
+  const {
+    verificationToken,
+    email,
+  }: { verificationToken: string; email: string } = req.body;
+
+  if (!verificationToken || !email) {
+    res.status(404).json({ error: "Provide all necessary info in body." });
+    return;
+  }
+
+  if (!validator.isEmail(email)) {
+    res.status(404).json({ error: "Provide valid a email." });
+    return;
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user || user.verificationToken !== verificationToken) {
+      res.status(404).json({ error: "Verification failed." });
+      return;
+    }
+
+    (user.isVerified = true), (user.verificationToken = undefined);
+
+    await user.save();
+
+    // may want to send a successful verification email.. maybe later
+
+    res.status(201).json({ message: "Email verified successfully." });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error verifying user." });
   }
 });
 
@@ -74,8 +138,12 @@ router.post("/login", async (req, res) => {
     return;
   }
 
+  if (password?.length < 6) {
+    res.status(404).json({ error: "Password must be atleast 6 characters." });
+    return;
+  }
+
   try {
-    // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
       res.status(400).json({ message: "Invalid credentials" });
@@ -89,13 +157,20 @@ router.post("/login", async (req, res) => {
       return;
     }
 
-    // Generate JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
-      expiresIn: "1h",
-    });
+    if (!user.isVerified) {
+      res.status(400).json({ message: "Please verify your email." });
+      return;
+    }
+
+    const token = createUserToken({ payload: { user: createUser(user) } });
+
+    // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
+    //   expiresIn: "1h",
+    // });
 
     res.json({ message: "Login successful", token });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: "Login failed" });
   }
 });
@@ -125,31 +200,90 @@ router.post("/forgot-password", async (req, res) => {
       return;
     }
 
+    if (!user.isVerified) {
+      res.status(404).json({ message: "User not yet verified" });
+      return;
+    }
+
     const now = new Date();
 
     // Check if a reset token was recently requested
-    if (user.resetTokenExpiry && user.resetTokenExpiry > now) {
+    if (user.resetPasswordTokenExpiry && user.resetPasswordTokenExpiry > now) {
       res.status(429).json({ message: "Please wait before requesting again." });
       return;
     }
 
-    const token = crypto.randomBytes(32).toString("hex");
+    const token: string = crypto.randomBytes(32).toString("hex");
 
     // token valid for 10 mins
     const expiry = new Date(Date.now() + 10 * 60 * 1000);
 
     // Save token & expiry
-    user.resetToken = token;
-    user.resetTokenExpiry = expiry;
+    user.resetPasswordToken = token;
+    user.resetPasswordTokenExpiry = expiry;
     await user.save();
 
     const result = await sendResetPasswordEmail(user.email, token);
     // console.log({ result });
 
-    res.json({ message: "Reset link sent to your email." });
+    // after testing, remove the token from the response!!!
+    res.json({ message: "Reset link sent to your email.", token });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to send reset email." });
+  }
+});
+
+router.post("/reset-password", async (req, res) => {
+  if (!req.body) {
+    res.status(404).json({ error: "Provide request body!" });
+    return;
+  }
+
+  const {
+    email,
+    password,
+    token,
+  }: { email: string; password: string; token: string } = req.body;
+
+  if (!email || !password || !token) {
+    res.status(404).json({ error: "Provide all necessary info in body." });
+    return;
+  }
+
+  if (password?.length < 6) {
+    res.status(404).json({ error: "Password must be atleast 6 characters." });
+    return;
+  }
+
+  try {
+    const user = await User.findOne({
+      email: email,
+      resetPasswordToken: token,
+      resetPasswordTokenExpiry: { $gt: new Date() },
+    });
+
+    if (!user) {
+      res.status(400).json({
+        message:
+          "Invalid or expired request. Please request a new password reset",
+      });
+      return;
+    }
+
+    (user.password = password),
+      (user.resetPasswordToken = null),
+      (user.resetPasswordTokenExpiry = null);
+
+    await user.save();
+
+    const result = await sendPasswordResetConfirmationEmail(email, user.name);
+    // console.log({ result });
+
+    res.json({ message: "Password reset successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Reset failed." });
   }
 });
 

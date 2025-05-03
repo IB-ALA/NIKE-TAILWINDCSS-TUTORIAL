@@ -4,22 +4,28 @@ import bcrypt from "bcryptjs";
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, "Please provide name"],
     unique: false,
     lowercase: true,
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Please provide email"],
     unique: true,
     lowercase: true,
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Please provide password"],
+    minlength: 6,
   },
-  resetToken: String,
-  resetTokenExpiry: Date,
+  verificationToken: String,
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  resetPasswordToken: String,
+  resetPasswordTokenExpiry: Date,
 });
 
 // hash passwword before save
