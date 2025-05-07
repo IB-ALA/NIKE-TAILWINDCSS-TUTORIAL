@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/subscribe", async (req: AuthenticatedRequest, res) => {
   // {
   // "newsletterSubscriber": {
-  //   "email": "iishaqyusif@gmail.com";
+  //   "email": "iishaqyusif@gmail.com"
   // }
   // }
 

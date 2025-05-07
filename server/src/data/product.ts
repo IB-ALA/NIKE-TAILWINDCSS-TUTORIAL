@@ -4,20 +4,30 @@ export const products: Product[] = [
   {
     id: "54375",
     name: "Airforce 1",
-    image: "big-shoe1.png",
+    image:
+      "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241555/big-shoe1_rqnhb4.png",
     price: 2050,
     sizes: [35, 37, 39, 40, 42, 44],
   },
   {
     id: "54376",
     name: "Nike Air Jordan-01",
-    image: "big-shoe2.png",
+    image:
+      "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241556/big-shoe2_ldjodi.png",
     price: 1550,
     sizes: [35, 37, 39, 40, 42, 44],
     productDetails: {
       colors: [
-        { name: "red", image: "big-shoe1.png" },
-        { name: "white", image: "big-shoe2.png" },
+        {
+          name: "red",
+          image:
+            "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241556/big-shoe2_ldjodi.png",
+        },
+        {
+          name: "white",
+          image:
+            "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241555/big-shoe1_rqnhb4.png",
+        },
         { name: "black", image: "big-shoe3.png" },
       ],
       description:
@@ -38,11 +48,13 @@ export const newProducts: NewsletterProduct[] = [
   {
     id: "54375",
     name: "Airforce 1",
-    image: "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241555/big-shoe1_rqnhb4.png",
+    image:
+      "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241555/big-shoe1_rqnhb4.png",
   },
   {
     id: "54376",
     name: "Nike Air Jordan-01",
-    image: "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241556/big-shoe2_ldjodi.png",
+    image:
+      "https://res.cloudinary.com/df2w3hfqp/image/upload/v1745241556/big-shoe2_ldjodi.png",
   },
 ];

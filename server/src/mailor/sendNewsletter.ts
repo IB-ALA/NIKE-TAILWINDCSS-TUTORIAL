@@ -3,6 +3,7 @@ import path from "path";
 import dotenv from "dotenv";
 import { sendEmail } from "./sendEmail";
 import Product from "../models/Product";
+import { createProduct } from "../utils/createProduct";
 
 dotenv.config();
 
@@ -10,12 +11,7 @@ export const sendNewsletterEmail = async (to: string): Promise<any> => {
   const templatePath = path.join(__dirname, "templates", "newsletter.ejs");
 
   let products = await Product.find().limit(3);
-  const newsletterProducts = products.map((product) => {
-    return {
-      id: product._id,
-      ...product,
-    };
-  });
+  const newsletterProducts = createProduct(products);
 
   const featuredProducts = newsletterProducts || [];
 
