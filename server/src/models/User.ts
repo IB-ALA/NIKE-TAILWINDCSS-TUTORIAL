@@ -1,7 +1,17 @@
-import mongoose from "mongoose";
+import { Document, model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 
-const userSchema = new mongoose.Schema({
+export interface User extends Document {
+  name: string;
+  email: string;
+  password: string;
+  verificationToken?: string;
+  isVerified: boolean;
+  resetPasswordToken?: string;
+  resetPasswordTokenExpiry?: Date;
+}
+
+const userSchema = new Schema<User>({
   name: {
     type: String,
     required: [true, "Please provide name"],
@@ -36,4 +46,4 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-export default mongoose.model("User", userSchema);
+export default model<User>("User", userSchema);

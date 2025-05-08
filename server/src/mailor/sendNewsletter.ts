@@ -2,16 +2,19 @@ import ejs from "ejs";
 import path from "path";
 import dotenv from "dotenv";
 import { sendEmail } from "./sendEmail";
-import Product from "../models/Product";
+import Product, { Product as ProductDocument } from "../models/Product";
 import { createProduct } from "../utils/createProduct";
+import { Product as ProductType } from "../types/product";
 
 dotenv.config();
 
 export const sendNewsletterEmail = async (to: string): Promise<any> => {
   const templatePath = path.join(__dirname, "templates", "newsletter.ejs");
 
-  let products = await Product.find().limit(3);
-  const newsletterProducts = createProduct(products);
+  const products: ProductType[] = await Product.find()
+    .limit(3)
+    .lean<ProductType[]>();
+  const newsletterProducts = createProduct(products as ProductDocument[]);
 
   const featuredProducts = newsletterProducts || [];
 

@@ -1,5 +1,5 @@
 import express from "express";
-import User from "../models/User";
+import User, { User as UserDocument } from "../models/User";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 import crypto from "crypto";
@@ -61,7 +61,7 @@ router.post("/register", async (req, res) => {
       verificationToken
     );
 
-    console.log({ result });
+    // console.log({ result });
 
     res.status(201).json({
       message:
@@ -99,7 +99,7 @@ router.post("/verify-email", async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ email });
+    const user: UserDocument | null = await User.findOne({ email });
 
     if (!user || user.verificationToken !== verificationToken) {
       res.status(404).json({ error: "Verification failed." });
@@ -144,7 +144,7 @@ router.post("/login", async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ email });
+    const user: UserDocument | null = await User.findOne({ email });
     if (!user) {
       res.status(400).json({ message: "Invalid credentials" });
       return;
@@ -194,7 +194,7 @@ router.post("/forgot-password", async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ email });
+    const user: UserDocument | null = await User.findOne({ email });
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
@@ -257,7 +257,7 @@ router.post("/reset-password", async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({
+    const user: UserDocument | null = await User.findOne({
       email: email,
       resetPasswordToken: token,
       resetPasswordTokenExpiry: { $gt: new Date() },
@@ -272,8 +272,8 @@ router.post("/reset-password", async (req, res) => {
     }
 
     (user.password = password),
-      (user.resetPasswordToken = null),
-      (user.resetPasswordTokenExpiry = null);
+      (user.resetPasswordToken = undefined),
+      (user.resetPasswordTokenExpiry = undefined);
 
     await user.save();
 
