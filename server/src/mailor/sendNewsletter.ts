@@ -2,9 +2,9 @@ import ejs from "ejs";
 import path from "path";
 import dotenv from "dotenv";
 import { sendEmail } from "./sendEmail";
-import Product, { Product as ProductDocument } from "../models/Product";
+import Product, { ProductDocument } from "../models/Product";
 import { createProduct } from "../utils/createProduct";
-import { Product as ProductType } from "../types/product";
+import { ProductType } from "../types/product";
 
 dotenv.config();
 

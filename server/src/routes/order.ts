@@ -216,23 +216,23 @@ router.get(
   "/:id",
   authenticateUserToken,
   async (req: AuthenticatedRequest, res) => {
-  const user: UserType | undefined = req.user;
-  // console.log(user?.userId);
+    const user: UserType | undefined = req.user;
+    // console.log(user?.userId);
 
-  if (!user) {
-    res.status(404).json({ error: "User not authenticated" });
-    return;
-  }
+    if (!user) {
+      res.status(404).json({ error: "User not authenticated" });
+      return;
+    }
 
-  try {
-    const orders: OrderDocument[] = await Order.find({
-      userId: user.userId,
-    });
-    res.json({ orders: createOrder(orders) });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: "Failed to get orders." });
-  }
+    try {
+      const orders: OrderDocument[] = await Order.find({
+        userId: user.userId,
+      });
+      res.json({ orders: createOrder(orders) });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "Failed to get orders." });
+    }
   }
 );
 

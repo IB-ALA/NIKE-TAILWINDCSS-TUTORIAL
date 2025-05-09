@@ -1,7 +1,7 @@
 import { Document, model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 
-export interface User extends Document {
+export interface UserDocument extends Document {
   name: string;
   email: string;
   password: string;
@@ -11,7 +11,7 @@ export interface User extends Document {
   resetPasswordTokenExpiry?: Date;
 }
 
-const userSchema = new Schema<User>({
+const userSchema = new Schema<UserDocument>({
   name: {
     type: String,
     required: [true, "Please provide name"],
@@ -46,4 +46,4 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-export default model<User>("User", userSchema);
+export default model<UserDocument>("User", userSchema);

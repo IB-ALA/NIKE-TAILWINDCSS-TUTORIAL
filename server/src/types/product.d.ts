@@ -8,7 +8,7 @@ export interface ProductDetails {
   description: string;
 }
 
-export interface Product {
+export interface ProductType {
   id: string;
   name: string;
   image: string;

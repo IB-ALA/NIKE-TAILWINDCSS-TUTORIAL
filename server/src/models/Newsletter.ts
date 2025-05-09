@@ -1,6 +1,10 @@
-import mongoose from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
-const newsletterSchema = new mongoose.Schema({
+export interface NewsletterDocument extends Document {
+  email: string;
+}
+
+const newsletterSchema = new Schema<NewsletterDocument>({
   email: {
     type: String,
     required: [true, "Please provide email"],
@@ -9,4 +13,4 @@ const newsletterSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Newsletter", newsletterSchema);
+export default model<NewsletterDocument>("Newsletter", newsletterSchema);

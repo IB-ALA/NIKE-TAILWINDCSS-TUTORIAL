@@ -1,5 +1,5 @@
 import express from "express";
-import User, { User as UserDocument } from "../models/User";
+import User, { UserDocument } from "../models/User";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 import crypto from "crypto";

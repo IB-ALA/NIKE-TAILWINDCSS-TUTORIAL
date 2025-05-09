@@ -1,7 +1,7 @@
 import { Schema, Document, model } from "mongoose";
 import { Color, ProductDetails } from "../types/product";
 
-export interface Product extends Document {
+export interface ProductDocument extends Document {
   name: string;
   image: string;
   price: number;
@@ -49,8 +49,7 @@ const productDetailsSchema = new Schema<ProductDetails>(
   { _id: false }
 );
 
-// 4. Product Schema
-const productSchema = new Schema<Product>(
+const productSchema = new Schema<ProductDocument>(
   {
     name: {
       type: String,
@@ -76,4 +75,4 @@ const productSchema = new Schema<Product>(
   // { timestamps: true }
 );
 
-export default model<Product>("Product", productSchema);
+export default model<ProductDocument>("Product", productSchema);
