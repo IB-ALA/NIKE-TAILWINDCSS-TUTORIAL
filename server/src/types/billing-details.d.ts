@@ -6,7 +6,7 @@ export interface BDetails {
   cardExpiry?: string;
 }
 
-export interface BillingDetails {
+export interface BillingDetailsType {
   userId?: string;
   orderId?: string;
   details: BDetail;

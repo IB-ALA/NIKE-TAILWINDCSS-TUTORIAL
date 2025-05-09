@@ -10,7 +10,7 @@ import { UserType } from "../types/user";
 import validator from "validator";
 import Order, { OrderDocument } from "../models/Order";
 import BillingDetails, {
-  BillingDetails as BillingDetailsDocument,
+  BillingDetailsDocument,
 } from "../models/Billing-details";
 import DeliveryDetails, {
   DeliveryDetailsDocument,
