@@ -6,7 +6,7 @@ export interface DDetails {
   address: string;
 }
 
-export interface DeliveryDetails {
+export interface DeliveryDetailsType {
   userId?: string;
   orderId?: string;
   details: DDetails;

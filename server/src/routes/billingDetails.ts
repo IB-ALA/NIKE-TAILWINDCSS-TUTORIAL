@@ -94,7 +94,8 @@ router.patch(
           userId: user.userId,
           details: billingDetails,
         });
-        const newUserBillingDetails = await newDetails.save();
+        const newUserBillingDetails: BillingDetailsDocument =
+          await newDetails.save();
 
         res.json({
           message: "Billing details updated successfully",
