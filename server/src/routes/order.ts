@@ -88,6 +88,8 @@ router.post("/", async (req: AuthenticatedRequest, res) => {
 
       if (!userBillingDetails) {
         // means it's their first order
+
+        // save order details for the user since he doesn't have one.
         const newUserBillingDetails: BillingDetailsDocument =
           new BillingDetails({
             userId: user.userId,
@@ -99,30 +101,45 @@ router.post("/", async (req: AuthenticatedRequest, res) => {
         regUserDetails.billingDetails =
           savedUserBillingDetails.details as object;
       } else {
+        // replace old with new details.
         if (userBillingDetails.orderId) {
+          // remove the userId from the existing details that was for an order..
           userBillingDetails.userId = undefined;
           await userBillingDetails.save();
 
-          const newDetails: BillingDetailsDocument = new BillingDetails({
+          // save the user's new details...
+          const newUserDetails: BillingDetailsDocument = new BillingDetails({
             userId: user.userId,
-            orderId,
             details: { ...userBillingDetails.details, ...billingDetails },
           });
-          const newUserBillingDetails = await newDetails.save();
+          const newUserBillingDetails: BillingDetailsDocument =
+            await newUserDetails.save();
 
+          // add the user's new details to the regUserDetails obj to be sent to CS...
           regUserDetails.billingDetails =
             newUserBillingDetails.details as object;
         } else {
+          // FOR EXISTING DETAIALS WITH NO orderId ATTATCHED
+
+          // save the user's new details...
           userBillingDetails.details = {
             ...userBillingDetails.details,
             ...billingDetails,
           };
-          userBillingDetails.orderId = orderId;
+
           const updatedUserBillingDetails = await userBillingDetails.save();
 
           regUserDetails.billingDetails =
             updatedUserBillingDetails.details as object;
         }
+
+        // after saving user's new details for when the exiting one had an orderId and not,
+        // save the new order's details
+        const newDetailsForOrder: BillingDetailsDocument = new BillingDetails({
+          orderId,
+          details: billingDetails,
+        });
+        await newDetailsForOrder.save();
       }
 
       // delivery details section
@@ -133,6 +150,8 @@ router.post("/", async (req: AuthenticatedRequest, res) => {
 
       if (!userDeliveryDetails) {
         // means it's their first order
+
+        // save order details for the user since he doesn't have one.
         const newUserDeliveryDetails: DeliveryDetailsDocument =
           new DeliveryDetails({
             userId: user.userId,
@@ -146,12 +165,13 @@ router.post("/", async (req: AuthenticatedRequest, res) => {
       } else {
         // replace old with new details.
         if (userDeliveryDetails.orderId) {
+          // remove the userId from the existing details that was for an order..
           userDeliveryDetails.userId = undefined;
           await userDeliveryDetails.save();
 
+          // save the user's new details...
           const newDetails: DeliveryDetailsDocument = new DeliveryDetails({
             userId: user.userId,
-            orderId,
             details: { ...userDeliveryDetails.details, ...deliveryDetails },
           });
           const newUserDeliveryDetails = await newDetails.save();
@@ -159,6 +179,9 @@ router.post("/", async (req: AuthenticatedRequest, res) => {
           regUserDetails.deliveryDetails =
             newUserDeliveryDetails.details as object;
         } else {
+          // FOR EXISTING DETAIALS WITH NO orderId ATTATCHED
+
+          // save the user's new details...
           userDeliveryDetails.details = {
             ...userDeliveryDetails.details,
             ...deliveryDetails,
@@ -169,6 +192,16 @@ router.post("/", async (req: AuthenticatedRequest, res) => {
           regUserDetails.deliveryDetails =
             updatedUserDeliveryDetails.details as object;
         }
+
+        // after saving user's new details for when the exiting one had an orderId and not,
+        // save the new order's details
+        const newDetailsForOrder: DeliveryDetailsDocument = new DeliveryDetails(
+          {
+            orderId,
+            details: deliveryDetails,
+          }
+        );
+        await newDetailsForOrder.save();
       }
 
       res.json({
@@ -180,9 +213,36 @@ router.post("/", async (req: AuthenticatedRequest, res) => {
     }
     // reg "user and save" ends here..
 
-    // if i am a registered user and I say don't save new details,
-    // it's same as placing order for ordinary users too
+    // customer is a user, but doesn't want details saved
+    if (user) {
+      const newOrder: OrderDocument = new Order({
+        userId: user.userId,
+        orderItems: order.orderItems,
+        total: order.total,
+      });
+      const placedOrder = await newOrder.save();
+      const orderId = placedOrder._id;
 
+      const userDeliveryDetails: DeliveryDetailsDocument = new DeliveryDetails({
+        orderId,
+        details: deliveryDetails,
+      });
+      await userDeliveryDetails.save();
+
+      const userBillingDetails: BillingDetailsDocument = new BillingDetails({
+        orderId,
+        details: billingDetails,
+      });
+      await userBillingDetails.save();
+
+      res.json({
+        message: "Order Placed successfully",
+        orderId,
+      });
+      return;
+    }
+
+    // for unregistered customer..
     const newOrder: OrderDocument = new Order({
       orderItems: order.orderItems,
       total: order.total,
