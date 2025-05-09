@@ -1,14 +1,20 @@
 import express from "express";
-import { AuthenticatedRequest, authUserId } from "../middleware/users";
-import { User } from "../types/user";
-import Wishlist, { Wishlist as WishlistDocument } from "../models/Wishlist";
-import { Wishlist as WishlistType } from "../types/wishlist";
+import {
+  AuthenticatedRequest,
+  authenticateUserToken,
+} from "../middleware/auth";
+import { UserType } from "../types/user";
+import Wishlist, { WishlistDocument } from "../models/Wishlist";
+import { WishlistType } from "../types/wishlist";
 
 const router = express.Router();
 
 // TEST
-router.get("/:id", authUserId, async (req: AuthenticatedRequest, res) => {
-  const user: User | undefined = req.user;
+router.get(
+  "/:id",
+  authenticateUserToken,
+  async (req: AuthenticatedRequest, res) => {
+    const user: UserType | undefined = req.user;
   // console.log({user});
 
   if (!user) {
@@ -31,11 +37,15 @@ router.get("/:id", authUserId, async (req: AuthenticatedRequest, res) => {
     console.log(err);
     res.status(500).json({ error: "Failed to get wishlist." });
   }
-});
+  }
+);
 
 // TEST
-router.patch("/:id", authUserId, async (req: AuthenticatedRequest, res) => {
-  const user: User | undefined = req.user;
+router.patch(
+  "/:id",
+  authenticateUserToken,
+  async (req: AuthenticatedRequest, res) => {
+    const user: UserType | undefined = req.user;
   // console.log(user?.userId);
 
   if (!user) {
@@ -82,19 +92,23 @@ router.patch("/:id", authUserId, async (req: AuthenticatedRequest, res) => {
       return;
     }
 
-    const isProductInWishlist = wishlist?.productIds.includes(productId as any);
+      const isProductInWishlist = wishlist?.productIds.includes(
+        productId as any
+      );
 
     let newList = wishlist?.productIds.slice();
 
     if (isProductInWishlist) {
-      newList = newList.filter((id) => id.toString() !== productId.toString());
+        newList = newList.filter(
+          (id) => id.toString() !== productId.toString()
+        );
     } else {
       newList.push(productId as any);
     }
 
     wishlist.productIds = newList;
 
-    const updatedWishlist = await wishlist.save();
+      const updatedWishlist: WishlistDocument = await wishlist.save();
 
     res.json({
       message: "Wishlist updated successfully",
@@ -104,6 +118,7 @@ router.patch("/:id", authUserId, async (req: AuthenticatedRequest, res) => {
     console.log(err);
     res.status(500).json({ error: "Failed to update wishlist." });
   }
-});
+  }
+);
 
 export default router;

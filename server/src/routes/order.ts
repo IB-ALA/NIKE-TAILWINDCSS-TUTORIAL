@@ -1,5 +1,8 @@
 import express from "express";
-import { AuthenticatedRequest, authUserId } from "../middleware/users";
+import {
+  AuthenticatedRequest,
+  authenticateUserToken,
+} from "../middleware/auth";
 import { DDetails } from "../types/delivery-details";
 import { BDetails } from "../types/billing-details";
 import { OrderType } from "../types/order";
@@ -209,7 +212,10 @@ router.post("/", async (req: AuthenticatedRequest, res) => {
   }
 });
 
-router.get("/:id", authUserId, async (req: AuthenticatedRequest, res) => {
+router.get(
+  "/:id",
+  authenticateUserToken,
+  async (req: AuthenticatedRequest, res) => {
   const user: UserType | undefined = req.user;
   // console.log(user?.userId);
 
@@ -227,6 +233,7 @@ router.get("/:id", authUserId, async (req: AuthenticatedRequest, res) => {
     console.log(err);
     res.status(500).json({ error: "Failed to get orders." });
   }
-});
+  }
+);
 
 export default router;

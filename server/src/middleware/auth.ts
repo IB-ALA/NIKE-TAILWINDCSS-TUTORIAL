@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../types/user";
+import { UserType } from "../types/user";
 import jwt from "jsonwebtoken";
 
 // we are extending Request 'cause we are attaching "user" to the requesst.
 export interface AuthenticatedRequest extends Request {
-  user?: User;
+  user?: UserType;
 }
 
-export function authUserId(
+export function authenticateUserToken(
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
@@ -22,7 +22,7 @@ export function authUserId(
       return;
     } else {
       // attach the user to the request object
-      const reqUser = (decoded as { user: User })?.user;
+      const reqUser = (decoded as { user: UserType })?.user;
       req.user = reqUser;
       next();
     }

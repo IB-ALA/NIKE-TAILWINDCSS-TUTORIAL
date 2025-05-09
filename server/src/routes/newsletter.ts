@@ -1,6 +1,6 @@
 import express from "express";
 import validator from "validator";
-import { AuthenticatedRequest } from "../middleware/users";
+import { AuthenticatedRequest } from "../middleware/auth";
 import { sendNewsletterEmail } from "../mailor/sendNewsletter";
 import Newsletter, { NewsletterDocument } from "../models/Newsletter";
 import { NewsletterType } from "../types/newsletter";
