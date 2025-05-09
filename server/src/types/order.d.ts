@@ -1,16 +1,24 @@
 export interface OrderItem {
-  id: string;
+  productId: string;
   quantity: number;
   size: string;
   color: string;
 }
 
-export interface Order {
+export type OrderStatus =
+  | "created"
+  | "processing"
+  | "delivering"
+  | "delivered"
+  | "failed"
+  | "cancelled";
+
+export interface OrderType {
   userId?: string;
   orderId: string;
   orderItems: OrderItem[];
   total: number;
-  status: string;
+  status: OrderStatus;
   orderDate: string;
 }
 

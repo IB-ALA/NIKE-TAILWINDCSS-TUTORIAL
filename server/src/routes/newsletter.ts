@@ -2,7 +2,8 @@ import express from "express";
 import validator from "validator";
 import { AuthenticatedRequest } from "../middleware/users";
 import { sendNewsletterEmail } from "../mailor/sendNewsletter";
-import Newsletter from "../models/Newsletter";
+import Newsletter, { NewsletterDocument } from "../models/Newsletter";
+import { NewsletterType } from "../types/newsletter";
 
 const router = express.Router();
 
@@ -33,13 +34,15 @@ router.post("/subscribe", async (req: AuthenticatedRequest, res) => {
   }
 
   try {
-    const existing = await Newsletter.findOne({ email });
+    const existing: NewsletterType | null = await Newsletter.findOne({
+      email,
+    }).lean<NewsletterType>();
 
     if (existing) {
       res.status(409).json({ message: "Email already subscribed." });
       return;
     }
-    const subscriber = new Newsletter({ email });
+    const subscriber: NewsletterDocument = new Newsletter({ email });
     await subscriber.save();
 
     const result = await sendNewsletterEmail(email);
@@ -67,7 +70,9 @@ router.delete("/unsubscribe/:email", async (req: AuthenticatedRequest, res) => {
   }
 
   try {
-    const existing = await Newsletter.findOne({ email });
+    const existing: NewsletterType | null = await Newsletter.findOne({
+      email,
+    }).lean<NewsletterType>();
 
     if (!existing) {
       res.status(409).json({ error: "Email not subscribed." });

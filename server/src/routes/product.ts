@@ -1,7 +1,7 @@
 import express from "express";
-import Product, { Product as ProductDocument } from "../models/Product";
+import Product, { ProductDocument } from "../models/Product";
 import { createProduct } from "../utils/createProduct";
-import { Product as ProductType } from "../types/product";
+import { ProductType } from "../types/product";
 
 const router = express.Router();
 
