@@ -20,15 +20,24 @@ import User, { UserDocument } from "../models/User";
 import { createUser } from "../utils/createUser";
 import { createOrder } from "../utils/createOrder";
 
+interface OrderRequestBody {
+  userId?: string;
+  saveDetails?: string;
+  deliveryDetails: DDetails;
+  billingDetails: BDetails;
+  order: Pick<OrderType, "total" | "orderItems">;
+}
+
 const router = express.Router();
 
 router.post("/", async (req: AuthenticatedRequest, res) => {
-  const { userId }: { userId: string | undefined } = req.body;
-  const { saveDetails }: { saveDetails: string | undefined } = req.body;
-  const { deliveryDetails }: { deliveryDetails: DDetails } = req.body;
-  const { billingDetails }: { billingDetails: BDetails } = req.body;
-  const { order }: { order: Pick<OrderType, "total" | "orderItems"> } =
-    req.body;
+  const {
+    userId,
+    saveDetails,
+    deliveryDetails,
+    billingDetails,
+    order,
+  }: OrderRequestBody = req.body;
 
   // if there is a userId, add it to the req to be authenticated
   let user: UserType | undefined;
@@ -54,7 +63,7 @@ router.post("/", async (req: AuthenticatedRequest, res) => {
   }
 
   // validate all the inputs
-  if (!validator.isEmail(deliveryDetails?.email!)) {
+  if (!deliveryDetails?.email || !validator.isEmail(deliveryDetails.email)) {
     res.status(400).json({ error: "Invalid email address." });
     return;
   }
